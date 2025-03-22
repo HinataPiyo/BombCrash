@@ -7,6 +7,7 @@ public class GameSystem : MonoBehaviour
     public static GameSystem Instance { get; private set; }
     [Header("シネマシン"), SerializeField] CinemachineCamera cinemachine;
     [Header("メインキャンバス"), SerializeField] Transform mainCanvas;
+    CameraShake cameraShake;
     float playTime = 1f;
     float zoomSpeed = 2f;
     bool isGameOver = false;
@@ -14,6 +15,7 @@ public class GameSystem : MonoBehaviour
 
     public bool IsGameOver { get { return isGameOver; } }
     public Transform MainCanvas { get { return mainCanvas; } }
+    public CameraShake CameraShake { get { return cameraShake; } }
 
     void Awake()
     {
@@ -29,6 +31,7 @@ public class GameSystem : MonoBehaviour
 
     void Start()
     {
+        cameraShake = cinemachine.GetComponent<CameraShake>();
     }
 
     /// <summary>

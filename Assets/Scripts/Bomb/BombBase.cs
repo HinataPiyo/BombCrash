@@ -67,8 +67,10 @@ public class BombBase : MonoBehaviour
     void BOOM()
     {
         Debug.Log("爆発");
-        SoundManager.Instance.PlaySE(SE.Explosion);
+        SoundManager.Instance.PlaySE(SE.Explosion);             // サウンド再生
+        GameSystem.Instance.CameraShake.Shake(0.1f, 0.2f);      // カメラ振動
         
+        // 爆発アニメーションをここで（一旦赤い円を表示している）
         Transform explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity).transform;
         explosion.localScale = new Vector3(bombSO.ExplosionRadius * 2, bombSO.ExplosionRadius * 2, 1);
 

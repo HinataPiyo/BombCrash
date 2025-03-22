@@ -17,12 +17,12 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     public void TakeDamage(float damage)
     {
-        if(GameSystem.Instance.IsGameOver == true) return;
-        currentHp -= damage;
+        if(GameSystem.Instance.IsGameOver == true) return;      // ゲームオーバーになっていた場合ダメージ処理を行わない
+        currentHp -= damage;        // ダメージ処理
         if (currentHp <= 0)
         {
-            GetComponent<DropScrap>().SpawnScrap();
-            Destroy(gameObject);
+            GetComponent<DropScrap>().SpawnScrap();     // 死んだらスクラップをドロップ
+            Destroy(gameObject);        // 自信を破棄
         }
     }
     
