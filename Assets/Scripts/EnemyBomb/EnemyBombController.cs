@@ -1,0 +1,66 @@
+using System.Collections;
+using TMPro;
+using UnityEngine;
+
+public class EnemyBombController : MonoBehaviour 
+{
+    [SerializeField] EnemySO enemySO;
+    [SerializeField] TextMeshPro countDownText;
+    float countdownTime;
+
+    private void Start()
+    {
+        countdownTime = enemySO.CountDown;
+        countDownText.text = countdownTime.ToString("F0");
+        StartCoroutine(CountDown());    
+    }
+
+    /// <summary>
+    /// カウントダウン処理
+    /// </summary>
+    IEnumerator CountDown()
+    {
+        while (countdownTime > 0)
+        {
+            if(GameSystem.Instance.IsGameOver) yield break;
+
+            countDownText.text = countdownTime.ToString("F0");
+            CheckCountColor();
+            
+            yield return new WaitForSeconds(1f);
+            countdownTime--;
+        }
+        
+        BOOM();
+    }
+
+    /// <summary>
+    /// 爆発処理
+    /// </summary>
+    void BOOM()
+    {
+        countDownText.text = "0";
+        GameSystem.Instance.GameOver(gameObject);
+        Debug.Log("敵ボムが爆発 【GameOver】");
+    }
+
+    void CheckCountColor()
+    {
+        float safeLine = enemySO.CountDown;
+        float dangerLine = enemySO.CountDown / 2;
+        float criticalLine = enemySO.CountDown / 3;
+
+        if (countdownTime <= criticalLine)
+        {
+            countDownText.color = Color.red;
+        }
+        else if (countdownTime <= dangerLine)
+        {
+            countDownText.color = Color.yellow;
+        }
+        else if (countdownTime <= safeLine)
+        {
+            countDownText.color = Color.green;
+        }
+    }
+}
