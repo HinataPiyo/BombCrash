@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8144586203023043091}
   - component: {fileID: 8583054383412616640}
   m_Layer: 0
-  m_Name: "\u30ED\u30FC\u30C9"
+  m_Name: Load
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8978901729119350514}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.104313344, y: -0.14497697, z: 0.044399943}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
