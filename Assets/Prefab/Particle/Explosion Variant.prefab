@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5854780209693784278, guid: f2d52ac4ccd0d264983c970c55767637, type: 3}
       propertyPath: m_Name
-      value: Effect
+      value: Explosion Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
