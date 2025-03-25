@@ -21,12 +21,15 @@ public class MainCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI scrapHaveAmountText;
     [SerializeField] Animator anim;
 
-
-    void Start()
+    void Awake()
     {
         bombHaveImage = bombHaveParent.GetComponentsInChildren<Image>();
         skillImage = slillParent.GetComponentsInChildren<Image>();
+    }
 
+
+    void Start()
+    {
         scrapHaveAmountText.text = $"{statusSO.ScrapHaveAmount}";       // スクラップの所持数
     }
 

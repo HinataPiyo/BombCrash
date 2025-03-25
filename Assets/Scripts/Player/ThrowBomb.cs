@@ -10,15 +10,14 @@ public class ThrowBomb : MonoBehaviour
     float reloadProgressTime;
     Range rangeY = new Range { min = -1.5f, max = 4f };
     int currentHaveBomb;
-    public int CurrentHaveBomb { get { return currentHaveBomb; } }
 
     void Start()
     {
-        mainCanvas = FindFirstObjectByType<MainCanvas>();
+        mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<MainCanvas>();
         bombExplosionPoint.position = Vector2.zero;     // 着地地点を0に設定
 
         // 現在の爆弾の数の更新
-        currentHaveBomb = statusSO.MaxHaveBomb;
+        currentHaveBomb = statusSO.MaxHaveBomb + 1;
         mainCanvas.BombHaveUpdate(currentHaveBomb);
 
         // 制作時間の初期化
@@ -30,6 +29,8 @@ public class ThrowBomb : MonoBehaviour
         Throw();
         Reload();
         ExplosionPointPosition();       // 爆弾の着地地点
+
+        DebugManager.Instance.BombCount = currentHaveBomb;
     }
 
     /// <summary>
