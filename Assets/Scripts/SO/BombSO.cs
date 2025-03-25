@@ -3,9 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BombSO", menuName = "SO/BombSO")]
 public class BombSO : ScriptableObject
 {
+    [SerializeField] PlayerStatusSO player;
     [SerializeField] private float damage;
     [SerializeField] private float explosionRadius;
 
-    public float Damage => damage;
-    public float ExplosionRadius => explosionRadius;
+    public float Damage { get { return damage + damage * player.RapidFire_RC.AttackDamageUp; } }
+    public float ExplosionRadius { get { return explosionRadius + explosionRadius * player.RapidFire_RC.ExplosionRadiusUp; } }
 }
