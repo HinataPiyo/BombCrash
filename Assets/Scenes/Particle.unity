@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28410fc2a466b4f468b52d5aa3030a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 0}
+  effect: {fileID: 8973335400749629512, guid: 4fc8892ffc929994783fa03afc3cc841, type: 3}
   effectPoint: {fileID: 475942286}
 --- !u!4 &867496682
 Transform:
