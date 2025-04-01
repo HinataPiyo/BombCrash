@@ -19574,7 +19574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027745713872860185}
   m_Layer: 0
-  m_Name: "Wave\u6539\u826F\u6E08\u307F"
+  m_Name: WaveB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
