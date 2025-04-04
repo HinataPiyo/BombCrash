@@ -3,20 +3,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySO", menuName = "SO/EnemySO")]
 public class EnemySO : ScriptableObject
 {
+    [SerializeField] PlayerStatusSO player;
     [SerializeField] GameObject enemy_Prefab;
-    [SerializeField] string enemyName;
     [SerializeField] float maxHp;
     [SerializeField] float countDown;
     [SerializeField] int dropScrapAmount;
-    [Header("出現確率")]
-    [SerializeField] float initialSpawnProbability;
-    [SerializeField] float currentSpawnProbability;
 
-    public GameObject Prefab { get { return enemy_Prefab; } }
-    public string EnemyName => enemyName;
+    public GameObject Prefab => enemy_Prefab;
     public float MaxHp => maxHp;
     public float CountDown => countDown;
-    public int DropScrapAmount => dropScrapAmount;
-    public float InitialProbability => initialSpawnProbability;
-    public float CurrentSpawnProbability { get { return currentSpawnProbability; } set { currentSpawnProbability = value; } }
+    public int DropScrapAmount { get { return (int)(dropScrapAmount + dropScrapAmount * player.Support_RC.DropScrapAmountUp); } }
+}
+
+public enum EnemyType
+{
+    Normal_Ver1_0,
+    Normal_Ver1_5,
+    Normal_Ver2_0,
+    // 今後追加予定
 }

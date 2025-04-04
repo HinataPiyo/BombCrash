@@ -1,8 +1,10 @@
+using TreeEditor;
 using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
     [SerializeField] private EnemySO enemySO;
+    [SerializeField] GameObject explosion_Prefab;
     [SerializeField] private float currentHp;
 
     public EnemySO EnemySO { get { return enemySO; } }
@@ -22,7 +24,8 @@ public class EnemyStatus : MonoBehaviour
         if (currentHp <= 0)
         {
             GetComponent<DropScrap>().SpawnScrap();     // 死んだらスクラップをドロップ
-            Destroy(gameObject);        // 自信を破棄
+            Instantiate(explosion_Prefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);        // 自身を破棄
         }
     }
     

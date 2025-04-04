@@ -10,31 +10,27 @@ public class ResearchData : ScriptableObject
     public const float attackDamageUp = 0.05f;        // 5%
     public const int throwAmount = 1;
 
+    public const float dropScrapAmountUp = 0.1f;
+    public const float wavepointAmountUp = 0.1f;
+
+    [Header("ジャンル")] public ResearchesGenre genre;
+    [Header("識別Enum")] public ResearchName researchName;
     [Header("表示名")] public string displayName;
+    [Header("説明")] public string explanation;
     [Header("画像"), SerializeField] public Sprite icon;
-    [Header("必要ウェーブ数")] public int requiredWave;
-    [Header("必要スクラップ数")] public int scrapCost;
-    [Header("必要WAVEポイント")] public int wavePointCost;
+    [Header("必要ウェーブ数 / 必要スクラップ数 / 必要WAVEポイント")]
+    [SerializeField] int requiredWave;
+    [SerializeField] int scrapCost;
+    [SerializeField] int wavePointCost;
     [Header("前提研究")] public List<ResearchData> requiredResearchIds; // 前提研究
 
     [Header("階層 (ツリーの深さ)")] public int tier;        // ツリーの階層
     [Header("研究の状態")] public ResearchState state;      // 研究の状態
 
-    public int GetDynamicWaveCost()
-    {
-        return requiredWave + (tier * 5);   // 階層ごとに5増加
-    }
-
-    public int GetDynamicScrapCost()
-    {
-        return scrapCost + (tier * 10);     // 階層ごとに10増加
-    }
-
-    public int GetDynamicWavePointCost()
-    {
-        return wavePointCost + (tier * 3);  // 階層ごとに3増加
-    }
-
+    public int RequiredWave { get { return requiredWave + (tier * 5); } }
+    public int ScrapCost { get { return scrapCost + (tier * 100); } }
+    public int WavePointCost { get { return wavePointCost + (tier * 5); } }
+    
     /// <summary>
     /// 前提研究が全て完了しているか確認する
     /// </summary>
@@ -57,4 +53,16 @@ public enum ResearchState
     Locked,    // ロックされている
     Unlocked,  // 解放されている
     Completed  // 研究が終了している
+}
+
+public enum ResearchName
+{
+    ExplosionRadiusUp,
+    BombCreateSpeedUp,
+    BombStockAmountUp,
+    AttackDamageUp,
+    ThrowAmountUp,
+
+    DropScrapUp,
+    TakeWavePointUp,
 }

@@ -1,15 +1,25 @@
+using TMPro;
 using UnityEngine;
 
-public enum ResearchesGenre { Common, RapidEngineer }
+public enum ResearchesGenre { Support, Bomb }
 public class ResearchTreeController : MonoBehaviour
 {
-    [SerializeField] bool ResearchReset;
     public static ResearchTreeController Instance;
+    [SerializeField] bool CompletedResearchReset;
+    [SerializeField] bool ResearchReset;
+    [SerializeField] NodePanel nodePanel;
     [SerializeField] PlayerStatusSO player;
 
-    [SerializeField] Transform common_Parent;
-    ResearchNode[] common;            // 共通研究ツリー
-    ResearchNode[] rapidEngineer;     // 連射型研究ツリー
+    [SerializeField] Transform support_Parent;
+    [SerializeField] Transform bomb_Parent;
+    ResearchNode[] support;            // 共通研究ツリー
+    ResearchNode[] bomb;     // 連射型研究ツリー
+
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI wavePointAmount;
+    [SerializeField] TextMeshProUGUI scrapAmount;
+
+    public NodePanel NodePanel { get { return nodePanel; } }
 
     void Awake()
     {
@@ -19,16 +29,30 @@ public class ResearchTreeController : MonoBehaviour
 
     void Start()
     {
-        common = common_Parent.GetComponentsInChildren<ResearchNode>();
+        bomb = bomb_Parent.GetComponentsInChildren<ResearchNode>();
+        support = support_Parent.GetComponentsInChildren<ResearchNode>();
+        ResearchNode[][] nodes = { support, bomb };
+
+
         if(ResearchReset == true)
         {
-            foreach(var node in common)
+            foreach(var n in nodes)
             {
-                node.ResearchData.state = ResearchState.Locked;
+                foreach(var node in n)
+                {
+                    if(!CompletedResearchReset && node.ResearchData.state == ResearchState.Completed) continue;
+                    node.ResearchData.state = ResearchState.Locked;
+                }
             }
         }
 
-        UnlockResearches(ResearchesGenre.Common);
+        UnlockResearches(ResearchesGenre.Support);
+        UnlockResearches(ResearchesGenre.Bomb);
+    }
+
+    void Update()
+    {
+        UpdateHasAmount();      // 所持数を更新
     }
 
     /// <summary>
@@ -43,12 +67,8 @@ public class ResearchTreeController : MonoBehaviour
             && node.ClearParam())             // 前提研究を終了しているか確認する
             {
                 node.ResearchData.state = ResearchState.Unlocked; // 前提条件を満たしている場合、解放
-                node.CanClickButton(true);      // ボタンを押せるようにする
             }
-            else
-            {
-                node.CanClickButton(false);     // ボタンを押せないようにする
-            }
+            node.CanClickButton();
         }
     }
 
@@ -64,18 +84,26 @@ public class ResearchTreeController : MonoBehaviour
         {
             Debug.Log("研究が完了しました");
             node.ResearchData.state = ResearchState.Completed; // 研究を完了
+            node.AddPlayerStatus();      // プレイヤーのステータスに反映
             UnlockResearches(genre);     // 新たに解放可能な研究をチェック
         }
     }
+
+    public void UpdateHasAmount()
+    {
+        wavePointAmount.text = player.WavePointHaveAmount.ToString("F0");
+        scrapAmount.text = player.ScrapHaveAmount.ToString("F0");
+    }
+
 
     ResearchNode[] NodeList(ResearchesGenre genre)
     {
         switch(genre)
         {
-            case ResearchesGenre.Common:
-                return common;
-            case ResearchesGenre.RapidEngineer:
-                return rapidEngineer;
+            case ResearchesGenre.Support:
+                return support;
+            case ResearchesGenre.Bomb:
+                return bomb;
         }
         return null;
     }

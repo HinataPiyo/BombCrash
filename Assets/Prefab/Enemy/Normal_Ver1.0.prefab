@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6532284009121797638}
   - component: {fileID: 8922617109184870708}
   m_Layer: 0
-  m_Name: Normal
+  m_Name: Normal_Ver1.0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: a03704b129257b84e82c66b56bb7ff5b, type: 2}
+  explosion_Prefab: {fileID: 2511539475350396145, guid: e63a56367a5a2e1438745224bacfbbf8, type: 3}
   currentHp: 0
 --- !u!114 &6532284009121797638
 MonoBehaviour:

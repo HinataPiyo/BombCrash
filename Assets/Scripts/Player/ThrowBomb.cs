@@ -31,6 +31,7 @@ public class ThrowBomb : MonoBehaviour
         ExplosionPointPosition();       // 爆弾の着地地点
 
         DebugManager.Instance.BombCount = currentHaveBomb;
+        DebugManager.Instance.CreateBombTime = statusSO.CreateBombTime;
     }
 
     /// <summary>

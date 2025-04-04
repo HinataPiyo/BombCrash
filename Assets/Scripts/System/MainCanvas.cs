@@ -21,6 +21,10 @@ public class MainCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI scrapHaveAmountText;
     [SerializeField] Animator anim;
 
+    [Header("フェード")]
+    [SerializeField] CanvasGroup fadePanel;
+    [SerializeField] float fadespeed;
+
     void Awake()
     {
         bombHaveImage = bombHaveParent.GetComponentsInChildren<Image>();
@@ -30,6 +34,7 @@ public class MainCanvas : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(FadeOut());
         scrapHaveAmountText.text = $"{statusSO.ScrapHaveAmount}";       // スクラップの所持数
     }
 
@@ -70,6 +75,16 @@ public class MainCanvas : MonoBehaviour
         anim.SetTrigger("CountUp");
     }
 
+    IEnumerator FadeOut()
+    {
+        while(fadePanel.alpha > 0)
+        {
+            fadePanel.alpha -= fadespeed * Time.deltaTime;
+            yield return null;
+        }
+        fadePanel.blocksRaycasts = false;
 
+        yield break;
+    }
 
 }
