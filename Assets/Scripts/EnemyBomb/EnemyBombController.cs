@@ -40,7 +40,9 @@ public class EnemyBombController : MonoBehaviour
     void BOOM()
     {
         countDownText.text = "0";
-        GameSystem.Instance.GameOver(gameObject);
+        Instantiate(enemySO.Countzero_Prefab, transform.position, Quaternion.identity);
+        GameSystem.Instance.CameraShake.Shake(0.5f, 1f);
+        GameSystem.Instance.GameOver();
         Debug.Log("敵ボムが爆発 【GameOver】");
     }
 

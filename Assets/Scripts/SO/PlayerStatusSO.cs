@@ -8,7 +8,7 @@ public class PlayerStatusSO : ScriptableObject
     [Header("爆弾の所持数"), SerializeField] int maxHaveBomb;
     [Header("爆弾の制作時間"), SerializeField] float createBombTime;
     [Header("スクラップの所持数"), SerializeField] int scrapHaveAmount;
-    [Header("WAVEポイントの所持数"), SerializeField] int wavePointHaveAmount;
+    [Header("WAVEポイントの所持数"), SerializeField] int insightPointHaveAmount;
     [Header("最大到達WAVE数"), SerializeField] int arrivalWave;
 
     [Header("研究ツリーの解放数(RC)")]
@@ -21,7 +21,7 @@ public class PlayerStatusSO : ScriptableObject
     public int MaxHaveBomb { get{ return (maxHaveBomb - 1) + bomb_RC.BombStockAmountUp; } }
     public float CreateBombTime { get { return createBombTime - createBombTime * bomb_RC.BombCreateSpeedUp; } }
     public int ScrapHaveAmount { get { return scrapHaveAmount; } set { scrapHaveAmount += value; } }
-    public int WavePointHaveAmount { get { return wavePointHaveAmount; } set { wavePointHaveAmount += value; } }
+    public int InsightPointHaveAmount { get { return insightPointHaveAmount; } set { insightPointHaveAmount += value; } }
     public int ArrivalWave { get { return arrivalWave; } set { arrivalWave = value; } }
 
     [System.Serializable]
@@ -47,7 +47,7 @@ public class PlayerStatusSO : ScriptableObject
         [Header("ウェーブポイントの貰える量"), SerializeField] int wavePointAmountUp;
 
         public float DropScrapAmountUp { get { return dropScrapAmountUp * ResearchData.dropScrapAmountUp; } set { dropScrapAmountUp += (int)value; } }
-        public float WavePointAmountUp { get { return wavePointAmountUp * ResearchData.wavepointAmountUp; } set { wavePointAmountUp += (int)value; } }
+        public float WavePointAmountUp { get { return wavePointAmountUp * ResearchData.insightPointAmountUp; } set { wavePointAmountUp += (int)value; } }
     }
 
     public string NextSceneName()
@@ -56,8 +56,8 @@ public class PlayerStatusSO : ScriptableObject
         {
             case SceneName.GameScene:
                 return "GameScene";
-            case SceneName.UpgradeScene:
-                return "UpgradeScene";
+            case SceneName.HomeScene:
+                return "HomeScene";
         }
 
         return null;
@@ -67,5 +67,5 @@ public class PlayerStatusSO : ScriptableObject
 public enum SceneName
 {
     GameScene,
-    UpgradeScene,
+    HomeScene,
 }

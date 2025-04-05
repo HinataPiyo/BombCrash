@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
-    [SerializeField] private EnemySO enemySO;
+    [SerializeField] EnemySO enemySO;
     [SerializeField] GameObject explosion_Prefab;
-    [SerializeField] private float currentHp;
+    [SerializeField] float currentHp;
 
     public EnemySO EnemySO { get { return enemySO; } }
 

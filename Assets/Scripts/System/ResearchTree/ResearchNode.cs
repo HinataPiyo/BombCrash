@@ -30,7 +30,7 @@ public class ResearchNode : MonoBehaviour
     {
         // Playerの所持数を減少させる
         player.ScrapHaveAmount = - data.ScrapCost;
-        player.WavePointHaveAmount = - data.WavePointCost;
+        player.InsightPointHaveAmount = - data.InsightPointCost;
 
         switch(data.genre)
         {
@@ -49,7 +49,7 @@ public class ResearchNode : MonoBehaviour
     public bool PlayerHasExceededTheLimit()
     {
         return player.ScrapHaveAmount >= data.ScrapCost && 
-        player.WavePointHaveAmount >= data.WavePointCost;
+        player.InsightPointHaveAmount >= data.InsightPointCost;
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public class ResearchNode : MonoBehaviour
     {
         return player.ArrivalWave >= data.RequiredWave
         && player.ScrapHaveAmount >= data.ScrapCost
-        && player.WavePointHaveAmount >= data.WavePointCost
+        && player.InsightPointHaveAmount >= data.InsightPointCost
         && data.ClearPrerequisites();
     }
 

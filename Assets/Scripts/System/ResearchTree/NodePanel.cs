@@ -85,7 +85,7 @@ public class NodePanel : MonoBehaviour
     void UpdateUI(ResearchData d)
     {
         explanation.text = d.explanation;
-        wavePointAmount.text = d.WavePointCost.ToString();
+        wavePointAmount.text = d.InsightPointCost.ToString();
         scrapAmount.text = d.ScrapCost.ToString();
         requiredWaveAmount.text = d.RequiredWave.ToString();
     }

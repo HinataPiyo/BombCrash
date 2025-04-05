@@ -7,11 +7,11 @@ public class ResearchData : ScriptableObject
     public const float explosionRadius = 0.1f;       // 10%
     public const float bombCreateSpeed = 0.08f;
     public const int bombStockAmountUp = 1;
-    public const float attackDamageUp = 0.05f;        // 5%
+    public const float attackDamageUp = 0.1f;        // 5%
     public const int throwAmount = 1;
 
     public const float dropScrapAmountUp = 0.1f;
-    public const float wavepointAmountUp = 0.1f;
+    public const float insightPointAmountUp = 0.1f;
 
     [Header("ジャンル")] public ResearchesGenre genre;
     [Header("識別Enum")] public ResearchName researchName;
@@ -21,7 +21,7 @@ public class ResearchData : ScriptableObject
     [Header("必要ウェーブ数 / 必要スクラップ数 / 必要WAVEポイント")]
     [SerializeField] int requiredWave;
     [SerializeField] int scrapCost;
-    [SerializeField] int wavePointCost;
+    [SerializeField] int insightPointCost;
     [Header("前提研究")] public List<ResearchData> requiredResearchIds; // 前提研究
 
     [Header("階層 (ツリーの深さ)")] public int tier;        // ツリーの階層
@@ -29,7 +29,7 @@ public class ResearchData : ScriptableObject
 
     public int RequiredWave { get { return requiredWave + (tier * 5); } }
     public int ScrapCost { get { return scrapCost + (tier * 100); } }
-    public int WavePointCost { get { return wavePointCost + (tier * 5); } }
+    public int InsightPointCost { get { return insightPointCost + (tier * 5); } }
     
     /// <summary>
     /// 前提研究が全て完了しているか確認する

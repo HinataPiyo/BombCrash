@@ -91,7 +91,7 @@ public class ResearchTreeController : MonoBehaviour
 
     public void UpdateHasAmount()
     {
-        wavePointAmount.text = player.WavePointHaveAmount.ToString("F0");
+        wavePointAmount.text = player.InsightPointHaveAmount.ToString("F0");
         scrapAmount.text = player.ScrapHaveAmount.ToString("F0");
     }
 

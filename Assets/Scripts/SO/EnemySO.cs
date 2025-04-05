@@ -5,11 +5,13 @@ public class EnemySO : ScriptableObject
 {
     [SerializeField] PlayerStatusSO player;
     [SerializeField] GameObject enemy_Prefab;
+    [SerializeField] GameObject countzero_Prefab;
     [SerializeField] float maxHp;
     [SerializeField] float countDown;
     [SerializeField] int dropScrapAmount;
 
     public GameObject Prefab => enemy_Prefab;
+    public GameObject Countzero_Prefab => countzero_Prefab;
     public float MaxHp => maxHp;
     public float CountDown => countDown;
     public int DropScrapAmount { get { return (int)(dropScrapAmount + dropScrapAmount * player.Support_RC.DropScrapAmountUp); } }

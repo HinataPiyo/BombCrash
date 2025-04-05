@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] int currentWaveIndex = 0; // 現在のWave番号（0始まり）
+    [SerializeField] int currentWaveIndex;
 
     [Header("生成範囲")]
     [SerializeField] Range rangeX = new Range { min = -5f, max = 5f };       // 敵の出現位置（X軸範囲）
@@ -32,6 +32,8 @@ public class WaveManager : MonoBehaviour
     public EndlessWaveRule waveRule; // Wave生成ルール（ScriptableObjectで定義）
 
     private IntervalWaveData currentWaveData; // 現在進行中のWaveデータ（毎回生成される）
+    List<GameObject> enemyList = new List<GameObject>();
+    public List<GameObject> EnemyList { get { return enemyList; } }
 
     void Start()
     {
@@ -40,6 +42,11 @@ public class WaveManager : MonoBehaviour
 
         // Wave進行開始
         StartCoroutine(WaveTimer());
+    }
+
+    void Update()
+    {
+        enemyList.RemoveAll(enemyList => enemyList == null);
     }
 
     /// <summary>
@@ -51,7 +58,7 @@ public class WaveManager : MonoBehaviour
         {
             // Wave開始
             isWaveEnd = false;
-            waveCountText.text = (currentWaveIndex + 1).ToString("F0");
+            waveCountText.text = currentWaveIndex.ToString("F0");
 
             // Waveデータをルールに基づいて生成
             currentWaveData = WaveGenerator.GenerateWave(currentWaveIndex + 1, waveRule);
@@ -70,6 +77,7 @@ public class WaveManager : MonoBehaviour
             // Waveタイマーの進行
             while (time > 0 && !isWaveEnd)
             {
+                if(GameSystem.Instance.IsGameOver == true) yield break;
                 DebugManager.Instance.WaveTime = time;
                 waveTimerSlider.value = time;
                 time -= Time.deltaTime;
@@ -115,12 +123,14 @@ public class WaveManager : MonoBehaviour
     /// </summary>
     private void SpawnEnemy(IntervalWaveData wave)
     {
+        if(GameSystem.Instance.IsGameOver == true) return;
         GameObject prefab = ChooseEnemy(wave.spawnOptions); // 重みによるランダム選択
         Vector2 pos = new Vector2(
             Random.Range(rangeX.min, rangeX.max),
             Random.Range(rangeY.min, rangeY.max)
         );
-        Instantiate(prefab, pos, Quaternion.identity); // 敵生成
+        GameObject enemy = Instantiate(prefab, pos, Quaternion.identity); // 敵生成
+        enemyList.Add(enemy);
     }
 
     /// <summary>
@@ -137,8 +147,7 @@ public class WaveManager : MonoBehaviour
         foreach (var opt in options)
         {
             acc += opt.weight;
-            if (r <= acc)
-                return opt.enemySO.Prefab;
+            if (r <= acc) return opt.enemySO.Prefab;
         }
 
         return options[0].enemySO.Prefab; // 念のためのフォールバック（確率がおかしくても何か出す）
