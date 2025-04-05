@@ -26,11 +26,18 @@ public class ThrowBomb : MonoBehaviour
 
     void Update()
     {
+        if(GameSystem.Instance.IsGameOver == true)
+        {
+            if(bombExplosionPoint != null) Destroy(bombExplosionPoint.gameObject);
+            return;
+        }
+
         Throw();
         Reload();
         ExplosionPointPosition();       // 爆弾の着地地点
 
         DebugManager.Instance.BombCount = currentHaveBomb;
+        DebugManager.Instance.CreateBombTime = statusSO.CreateBombTime;
     }
 
     /// <summary>

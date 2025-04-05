@@ -4,54 +4,61 @@ using UnityEngine.UI;
 public class ResearchNode : MonoBehaviour
 {
     [Header("Param")]
-    [SerializeField] ResearchesGenre genre;
-    [SerializeField] ResearchData default_Data;
+    [SerializeField] ResearchData data;
     [SerializeField] PlayerStatusSO player;
 
-    [Header("Status")]
-    [SerializeField] Data m_data;
-    [System.Serializable]
-    public class Data
-    {
-        public int scrapCost;
-        public int wavePointCost;
-        public int requiredWave;
-    }
 
     [Header("UI")]
     [SerializeField] Image icon;
     [SerializeField] Button button;
-    public ResearchData ResearchData { get { return default_Data; } }
-    public Data M_Data { get { return m_data; } }
+    public ResearchData ResearchData { get { return data; } }
 
     void Start()
     {
-        if (default_Data == null) return;
-
+        if (data == null) return;
         ResearchTreeController r = ResearchTreeController.Instance;
-        // リスナー登録
-        button.onClick.AddListener(() => r.CompleteResearch(this, genre));
+        // クリックしたらパネルに自身のノード情報を渡す
+        button.onClick.AddListener(() => r.NodePanel.SetResearchNode(this));
 
-        icon.sprite = default_Data.icon;    // アイコンの設定
-        SetParam();
+        icon.sprite = data.icon;    // アイコンの設定
     }
 
     /// <summary>
-    /// 階層ごとにパラメータを変動させる
+    /// プレイヤーのステータスに反映する
     /// </summary>
-    void SetParam()
+    public void AddPlayerStatus()
     {
-        m_data.requiredWave = default_Data.GetDynamicWaveCost();
-        m_data.scrapCost = default_Data.GetDynamicScrapCost();
-        m_data.wavePointCost = default_Data.GetDynamicWavePointCost();
+        // Playerの所持数を減少させる
+        player.ScrapHaveAmount = - data.ScrapCost;
+        player.InsightPointHaveAmount = - data.InsightPointCost;
+
+        switch(data.genre)
+        {
+            case ResearchesGenre.Support:
+                SupportCountUp();
+                break;
+            case ResearchesGenre.Bomb:
+                BombCountUp();
+                break;
+        }
     }
 
-    // 研究条件がそろっていたらボタンが押せるようになる。
-    public void CanClickButton(bool interactable)
+    /// <summary>
+    /// プレイヤーの所持数が超えているか調べる
+    /// </summary>
+    public bool PlayerHasExceededTheLimit()
     {
-        button.interactable = interactable;
+        return player.ScrapHaveAmount >= data.ScrapCost && 
+        player.InsightPointHaveAmount >= data.InsightPointCost;
+    }
 
-        switch(default_Data.state)
+    /// <summary>
+    /// ボタンのステートによって色が変わる
+    /// </summary>
+    /// <param name="interactable"></param>
+    public void CanClickButton()
+    {
+        switch(data.state)
         {
             case ResearchState.Locked:
                 icon.color = new Color32(130, 130, 130, 255);
@@ -69,9 +76,46 @@ public class ResearchNode : MonoBehaviour
     /// <returns></returns>
     public bool ClearParam()
     {
-        return player.ArrivalWave >= m_data.requiredWave
-        && player.ScrapHaveAmount >= m_data.scrapCost
-        && player.WavePointHaveAmount >= m_data.wavePointCost
-        && default_Data.ClearPrerequisites();
+        return player.ArrivalWave >= data.RequiredWave
+        && player.ScrapHaveAmount >= data.ScrapCost
+        && player.InsightPointHaveAmount >= data.InsightPointCost
+        && data.ClearPrerequisites();
+    }
+
+    void BombCountUp()
+    {
+        // 自身に設定されている研究内容に当てはめる
+        switch(data.researchName)
+        {
+            case ResearchName.ExplosionRadiusUp:
+                player.Bomb_RC.ExplosionRadiusUp = 1;
+                break;
+            case ResearchName.BombCreateSpeedUp:
+                player.Bomb_RC.BombCreateSpeedUp = 1;
+                break;
+            case ResearchName.BombStockAmountUp:
+                player.Bomb_RC.BombStockAmountUp = 1;
+                break;
+            case ResearchName.AttackDamageUp:
+                player.Bomb_RC.AttackDamageUp = 1;
+                break;
+            case ResearchName.ThrowAmountUp:
+                player.Bomb_RC.ThrowAmountUp = 1;
+                break;
+        }
+    }
+
+    void SupportCountUp()
+    {
+        // 自身に設定されている研究内容に当てはめる
+        switch(data.researchName)
+        {
+            case ResearchName.DropScrapUp:
+                player.Support_RC.DropScrapAmountUp = 1;
+                break;
+            case ResearchName.TakeWavePointUp:
+                player.Support_RC.WavePointAmountUp = 1;
+                break;
+        }
     }
 }

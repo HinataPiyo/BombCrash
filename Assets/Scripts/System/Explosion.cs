@@ -9,11 +9,6 @@ public class Explosion : MonoBehaviour
         StartCoroutine(Destroy());
     }
 
-    void Update()
-    {
-        
-    }
-
     IEnumerator Destroy()
     {
         yield return new WaitForSeconds(waitTime);

@@ -1,11 +1,12 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainCanvas : MonoBehaviour
 {
-    [SerializeField] PlayerStatusSO statusSO;
+    [SerializeField] PlayerStatusSO player;
     [Header("メインキャンバス")]
     [SerializeField] CanvasGroup canvasGroup;
     float alphaSpeed = 0.3f;
@@ -21,6 +22,10 @@ public class MainCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI scrapHaveAmountText;
     [SerializeField] Animator anim;
 
+    [Header("フェード")]
+    [SerializeField] CanvasGroup fadePanel;
+    [SerializeField] float fadespeed;
+
     void Awake()
     {
         bombHaveImage = bombHaveParent.GetComponentsInChildren<Image>();
@@ -30,7 +35,8 @@ public class MainCanvas : MonoBehaviour
 
     void Start()
     {
-        scrapHaveAmountText.text = $"{statusSO.ScrapHaveAmount}";       // スクラップの所持数
+        StartCoroutine(FadeOut());
+        scrapHaveAmountText.text = $"{player.ScrapHaveAmount}";       // スクラップの所持数
     }
 
 
@@ -65,11 +71,36 @@ public class MainCanvas : MonoBehaviour
     /// </summary>
     public void ScrapCountUpAnimation()
     {
-        statusSO.ScrapHaveAmount = 1;
-        scrapHaveAmountText.text = $"{statusSO.ScrapHaveAmount}";       // スクラップの所持数
+        player.ScrapHaveAmount = 1;
+        scrapHaveAmountText.text = $"{player.ScrapHaveAmount}";       // スクラップの所持数
         anim.SetTrigger("CountUp");
     }
 
+    IEnumerator FadeOut()
+    {
+        while(fadePanel.alpha > 0)
+        {
+            fadePanel.alpha -= fadespeed * Time.deltaTime;
+            yield return null;
+        }
+        fadePanel.blocksRaycasts = false;
 
+        yield break;
+    }
 
+    IEnumerator FadeInGoHomeScene()
+    {
+        fadePanel.blocksRaycasts = true;
+        player.SceneName = SceneName.HomeScene;
+        
+        while(fadePanel.alpha < 1)
+        {
+            fadePanel.alpha += fadespeed * Time.deltaTime;
+            yield return null;
+        }
+
+        SceneManager.LoadScene("LoadScene");
+    }
+
+    public void GoHomeScene() { StartCoroutine(FadeInGoHomeScene()); }
 }

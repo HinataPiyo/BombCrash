@@ -72,7 +72,12 @@ public class BombBase : MonoBehaviour
         
         // 爆発アニメーションをここで（一旦赤い円を表示している）
         Transform explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity).transform;
-        explosion.localScale = new Vector3(bombSO.ExplosionRadius * 2, bombSO.ExplosionRadius * 2, 1);
+        Transform[] exps = explosion.GetComponentsInChildren<Transform>();
+        foreach(var exp in exps)
+        {
+            Vector3 radius = Vector3.one * bombSO.ExplosionRadius;
+            exp.localScale = radius * 0.8f;
+        }
 
         // 爆発範囲内の敵にダメージを与える
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, bombSO.ExplosionRadius);
