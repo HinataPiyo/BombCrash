@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameSystem : MonoBehaviour
 {
     public static GameSystem Instance { get; private set; }
+    [SerializeField] Camera mainCamera;
     [SerializeField] WaveManager waveManager;
     [Header("シネマシン"), SerializeField] CinemachineCamera cinemachine;
     [Header("メインキャンバス"), SerializeField] Transform mainCanvas;
@@ -18,6 +19,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField] GameObject player_Prefab;
     GameObject currentPlayer;
     [SerializeField] GameObject diePlayer;
+
+    [Header("マウスクリックエフェクト")]
+    [SerializeField] GameObject mouseClick_Prefab;
     CameraShake cameraShake;
     float playTime = 1f;
     bool isGameOver = false;
@@ -53,6 +57,12 @@ public class GameSystem : MonoBehaviour
             {
                 mainCanvas.GetComponent<MainCanvas>().GoHomeScene();
             }
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Instantiate(mouseClick_Prefab, mousePos, Quaternion.identity);
         }
     }
 

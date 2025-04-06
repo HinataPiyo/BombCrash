@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerStatusSO : ScriptableObject
 {
     [SerializeField] SceneName nextScene;
-    [Header("移動速度")] public const float MoveSpeed = 5f;
+    [Header("移動速度")] public const float MoveSpeed = 6f;
     [Header("爆弾の所持数"), SerializeField] int maxHaveBomb;
     [Header("爆弾の制作時間"), SerializeField] float createBombTime;
     [Header("スクラップの所持数"), SerializeField] int scrapHaveAmount;
