@@ -16,7 +16,7 @@ public class ResearchTreeController : MonoBehaviour
     ResearchNode[] bomb;     // 連射型研究ツリー
 
     [Header("UI")]
-    [SerializeField] TextMeshProUGUI wavePointAmount;
+    [SerializeField] TextMeshProUGUI insightAmount;
     [SerializeField] TextMeshProUGUI scrapAmount;
 
     public NodePanel NodePanel { get { return nodePanel; } }
@@ -29,8 +29,8 @@ public class ResearchTreeController : MonoBehaviour
 
     void Start()
     {
-        bomb = bomb_Parent.GetComponentsInChildren<ResearchNode>();
         support = support_Parent.GetComponentsInChildren<ResearchNode>();
+        bomb = bomb_Parent.GetComponentsInChildren<ResearchNode>();
         ResearchNode[][] nodes = { support, bomb };
 
 
@@ -60,17 +60,19 @@ public class ResearchTreeController : MonoBehaviour
     /// </summary>
     /// <param name="genre"></param>
     public void UnlockResearches(ResearchesGenre genre)
+{
+    var nodes = NodeList(genre);
+
+    foreach (var node in nodes)
     {
-        foreach (var node in NodeList(genre))
+        if (node.ResearchData.state == ResearchState.Locked     // ロックされている状態だった場合
+        && node.ClearParam())             // 前提研究を終了しているか確認する
         {
-            if (node.ResearchData.state == ResearchState.Locked     // ロックされている状態だった場合
-            && node.ClearParam())             // 前提研究を終了しているか確認する
-            {
-                node.ResearchData.state = ResearchState.Unlocked; // 前提条件を満たしている場合、解放
-            }
-            node.CanClickButton();
+            node.ResearchData.state = ResearchState.Unlocked; // 前提条件を満たしている場合、解放
         }
+        node.CanClickButton();
     }
+}
 
     /// <summary>
     /// 研究するタイミングで処理
@@ -91,7 +93,7 @@ public class ResearchTreeController : MonoBehaviour
 
     public void UpdateHasAmount()
     {
-        wavePointAmount.text = player.InsightPointHaveAmount.ToString("F0");
+        insightAmount.text = player.InsightPointHaveAmount.ToString("F0");
         scrapAmount.text = player.ScrapHaveAmount.ToString("F0");
     }
 

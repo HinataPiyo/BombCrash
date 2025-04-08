@@ -1,3 +1,4 @@
+using Michsky.UI.Shift;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +13,9 @@ public class NodePanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI wavePointAmount;
     [SerializeField] TextMeshProUGUI scrapAmount;
     [SerializeField] TextMeshProUGUI requiredWaveAmount;
-    [Header("研究ボタン"), SerializeField] Button researchButton;
+    [Header("研究ボタン"), SerializeField] GameObject researchObj;
+    Button researchButton;
     TextMeshProUGUI researchText;
-    Image buttonImage;
-    Color32 gray = new Color32(130, 130, 130, 255);
 
     [Header("支援 / 爆弾")]
     [SerializeField] ChangePanel[] changePanel;
@@ -29,8 +29,8 @@ public class NodePanel : MonoBehaviour
     void Start()
     {
         dragNode = GetComponent<DragNode>();
-        researchText = researchButton.GetComponentInChildren<TextMeshProUGUI>();
-        buttonImage = researchButton.GetComponent<Image>();
+        researchText = researchObj.GetComponentInChildren<TextMeshProUGUI>();
+        researchButton = researchObj.GetComponentInChildren<Button>();
         researchButton.onClick.AddListener(() => ResearchButtonClick());        // リスナー登録
 
         // パネル切り替えボタンのリスナー登録
@@ -58,24 +58,22 @@ public class NodePanel : MonoBehaviour
         if(node.ResearchData.state == ResearchState.Locked)
         {
             UpdateUI(d);
-            buttonImage.gameObject.SetActive(false);
+            researchObj.SetActive(false);
         }
         else if(node.ResearchData.state == ResearchState.Unlocked)
         {
             UpdateUI(d);
             // 研究するボタンを押せるか否か
             researchButton.interactable = node.PlayerHasExceededTheLimit();
-            buttonImage.color = researchButton.interactable ? Color.white : gray;
-            researchText.text = "研究";
-            buttonImage.gameObject.SetActive(true);
+            researchText.SetText("研究");
+            researchObj.SetActive(true);
         }
         else if(node.ResearchData.state == ResearchState.Completed)
         {
             UpdateUI(d);
-            researchText.text = "完了";
-            buttonImage.color = Color.white;
+            researchText.SetText("完了");
             researchButton.interactable = false;
-            buttonImage.gameObject.SetActive(true);
+            researchObj.SetActive(true);
         }
 
         
@@ -95,7 +93,7 @@ public class NodePanel : MonoBehaviour
     /// </summary>
     void ResearchButtonClick()
     {
-        researchText.text = "完了";
+        researchText.SetText("完了");
         researchButton.interactable = false;
         ResearchTreeController r = ResearchTreeController.Instance;
         r.CompleteResearch(currentNode, currentNode.ResearchData.genre);

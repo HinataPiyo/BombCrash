@@ -104,7 +104,7 @@ public class GameSystem : MonoBehaviour
         foreach(var obj in waveManager.EnemyList) Destroy(obj);
 
         yield return new WaitWhile(() => currentPlayer != null);
-        gameOverDirector.Play();
+        gameOverDirector.Play();                // ライトの演出
         yield return new WaitForSeconds(1f);
         Instantiate(diePlayer);                 // ゲームオーバー時のプレイヤーの画像を生成
         cameraShake.Shake(0.3f, 0.5f);          // カメラ振動
