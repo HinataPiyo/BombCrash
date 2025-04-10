@@ -79,10 +79,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 458992487
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  m_Color: {r: 0.13836467, g: 0.13836467, b: 0.13836467, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: a03704b129257b84e82c66b56bb7ff5b, type: 2}
-  explosion_Prefab: {fileID: 2511539475350396145, guid: e63a56367a5a2e1438745224bacfbbf8, type: 3}
   currentHp: 0
 --- !u!114 &6532284009121797638
 MonoBehaviour:
@@ -165,7 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce68cc20e3f81b1459801c79be09909f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: a03704b129257b84e82c66b56bb7ff5b, type: 2}
   countDownText: {fileID: 89306098387048752}
 --- !u!114 &8922617109184870708
 MonoBehaviour:
@@ -179,8 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e85b007f98f63438ad6327a59eee8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: a03704b129257b84e82c66b56bb7ff5b, type: 2}
-  scrap_Prefab: {fileID: 3227229351484729681, guid: da3bfea0c80aeeb4fac9a0253660552b, type: 3}
   strength: 10
 --- !u!1 &6369350414880535342
 GameObject:
@@ -261,7 +257,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 871539235
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &89306098387048752

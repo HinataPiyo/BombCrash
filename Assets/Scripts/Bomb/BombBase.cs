@@ -66,7 +66,6 @@ public class BombBase : MonoBehaviour
     /// </summary>
     void BOOM()
     {
-        Debug.Log("爆発");
         SoundManager.Instance.PlaySE(SE.Explosion);             // サウンド再生
         GameSystem.Instance.CameraShake.Shake(0.1f, 0.2f);      // カメラ振動
         
@@ -85,7 +84,6 @@ public class BombBase : MonoBehaviour
         {
             // 敵にダメージを与える
             hit.GetComponent<EnemyStatus>()?.TakeDamage(bombSO.Damage);
-            Debug.Log("Hit: " + hit.name);
         }
     }
 

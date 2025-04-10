@@ -32,6 +32,22 @@ public class EndlessWaveRule : ScriptableObject
     public float intervalDecreasePerWave = 0.03f;
 
     /// <summary>
+    /// 敵が大量に出るイベントの間隔
+    /// 例: 10waveごとに大量発生する
+    /// </summary>
+    public int stampedeWaveInterval = 10;
+
+    /// <summary>
+    /// スタンピード時の敵のスポーン間隔
+    /// </summary>
+    public float stampedeSpawnInterval = 0.5f;
+
+    /// <summary>
+    /// 1waveごとに敵のステータスを上昇する係数
+    /// </summary>
+    public float enemyHpUp = 0.075f;
+
+    /// <summary>
     /// 出現する敵の種類ごとのスケーリング設定リスト
     /// 各敵が「何Wave目から登場するか」「どのWaveでピークに達するか」「最大出現比率」などを記述
     /// </summary>

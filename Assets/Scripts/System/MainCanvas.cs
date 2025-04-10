@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class MainCanvas : MonoBehaviour
 {
+    [SerializeField] Camera mainCamera;
     [SerializeField] PlayerStatusSO player;
     [Header("メインキャンバス")]
     [SerializeField] CanvasGroup canvasGroup;
     float alphaSpeed = 0.3f;
     [Header("爆弾所持数")]
+    [SerializeField] GameObject usedBomb_Prefab;
     [SerializeField] Transform bombHaveParent;
     [SerializeField] Image[] bombHaveImage;
+    private int previousAmo = 0; // 前回の爆弾の数を記録
 
     [Header("スキルの表示")]
     [SerializeField] Transform slillParent;
@@ -46,12 +49,21 @@ public class MainCanvas : MonoBehaviour
     /// <param name="currentAmo">現在の爆弾の数</param>
     public void BombHaveUpdate(int currentAmo)
     {
-        for(int ii = 0; ii < bombHaveImage.Length; ii++)
+        for (int ii = 0; ii < bombHaveImage.Length; ii++)
         {
-            bombHaveImage[ii].enabled = ii < currentAmo ? true : false;
-        }
-    }
+            bombHaveImage[ii].enabled = ii < currentAmo;
 
+            // 爆弾の数が減少した場合のみInstantiateを実行
+            if (ii >= currentAmo && ii < previousAmo)
+            {
+                Instantiate(usedBomb_Prefab, bombHaveImage[ii].transform.position, Quaternion.identity);
+            }
+        }
+
+        // 現在の爆弾の数を記録
+        previousAmo = currentAmo;
+    }
+    
     /// <summary>
     /// キャンバスの透明度を調整する
     /// </summary>

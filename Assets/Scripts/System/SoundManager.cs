@@ -44,8 +44,8 @@ public class SoundManager : MonoBehaviour
 
 public enum SE
 {
-    // ThrowBomb,
     Explosion,
+    EnemyBigBoom,
     GameOver,
     GameClear,
     CountDown

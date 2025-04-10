@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyBombController : MonoBehaviour 
 {
-    [SerializeField] EnemySO enemySO;
+    EnemySO enemySO;
     [SerializeField] TextMeshPro countDownText;
     float countdownTime;
 
     private void Start()
     {
+        enemySO = GetComponent<EnemyStatus>().EnemySO;
         countdownTime = enemySO.CountDown;
         countDownText.text = countdownTime.ToString("F0");
         StartCoroutine(CountDown());    
@@ -41,6 +42,7 @@ public class EnemyBombController : MonoBehaviour
     {
         countDownText.text = "0";
         Instantiate(enemySO.Countzero_Prefab, transform.position, Quaternion.identity);
+        SoundManager.Instance.PlaySE(SE.EnemyBigBoom);
         GameSystem.Instance.CameraShake.Shake(0.5f, 1f);
         GameSystem.Instance.GameOver();
         Debug.Log("敵ボムが爆発 【GameOver】");

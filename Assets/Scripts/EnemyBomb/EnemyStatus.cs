@@ -4,14 +4,16 @@ using UnityEngine;
 public class EnemyStatus : MonoBehaviour
 {
     [SerializeField] EnemySO enemySO;
-    [SerializeField] GameObject explosion_Prefab;
     [SerializeField] float currentHp;
 
-    public EnemySO EnemySO { get { return enemySO; } }
+    public EnemySO EnemySO => enemySO;
 
-    void Start()
+    public void SetHpUP(float inc)
     {
-        currentHp = enemySO.MaxHp;
+        currentHp = enemySO.UpMaxHp + inc;
+
+        Debug.LogFormat($"<color=green>係数 : {inc}</color>");
+        Debug.LogFormat($"<color=blue>敵のHP : {currentHp}</color>");
     }
 
     /// <summary>
@@ -20,11 +22,12 @@ public class EnemyStatus : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if(GameSystem.Instance.IsGameOver == true) return;      // ゲームオーバーになっていた場合ダメージ処理を行わない
+        Debug.LogFormat($"<color=red>プレイヤーATK : {damage}</color>");
         currentHp -= damage;        // ダメージ処理
         if (currentHp <= 0)
         {
             GetComponent<DropScrap>().SpawnScrap();     // 死んだらスクラップをドロップ
-            Instantiate(explosion_Prefab, transform.position, Quaternion.identity);
+            Instantiate(enemySO.Explosion_Prefab, transform.position, Quaternion.identity);
             Destroy(gameObject);        // 自身を破棄
         }
     }
