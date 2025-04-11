@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: ed935159a86a1be4cbc1c44848b24daf
+guid: 6ddfaea0106ff0d459b3f356f47e9660
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 11400000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 157943
-  packageName: Shift - Complete Sci-Fi UI
-  packageVersion: 2.0.11
-  assetPath: Assets/Shift - Complete Sci-Fi UI/Resources/Shift UI Manager.asset
-  uploadId: 647672
