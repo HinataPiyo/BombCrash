@@ -2,7 +2,6 @@ using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
 
 public class GameSystem : MonoBehaviour
 {
@@ -23,7 +22,7 @@ public class GameSystem : MonoBehaviour
     [Header("マウスクリックエフェクト")]
     [SerializeField] GameObject mouseClick_Prefab;
     CameraShake cameraShake;
-    float playTime = 1f;
+    // float playTime = 1f;
     bool isGameOver = false;
     bool isAllDirection;        // 全てのゲームオーバー演出が終了したかどうか
     public bool IsGameOver { get { return isGameOver; } }
@@ -55,7 +54,7 @@ public class GameSystem : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                mainCanvas.GetComponent<MainCanvas>().GoHomeScene();
+                mainCanvas.GetComponent<GameSceneMainCanvas>().GoHomeScene();
             }
         }
 
@@ -72,6 +71,7 @@ public class GameSystem : MonoBehaviour
     /// <param name="endObj"></param>
     public void GameOver()
     {
+        ResultCanvasController.Instance.SetResultTextValue();
         SoundManager.Instance.StopBgm();        // BGMを停止させる
         isGameOver = true;                      // GameOverになったことを知らせる
         StartCoroutine(GameOverFlow());         // コルーチンの再生
@@ -98,7 +98,7 @@ public class GameSystem : MonoBehaviour
         // playTime = 1f;          // ゲームオーバー処理の時間をリセット
 
         // UIを非表示にする
-        StartCoroutine(mainCanvas.GetComponent<MainCanvas>().CanvasGroupAlpha());
+        StartCoroutine(mainCanvas.GetComponent<GameSceneMainCanvas>().CanvasGroupAlpha());
 
         // フィールドにいる敵をすべて破棄
         foreach(var obj in waveManager.EnemyList) Destroy(obj);

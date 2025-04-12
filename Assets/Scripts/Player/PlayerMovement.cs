@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField] float power;
     [SerializeField] float rotatespeed;
+    [SerializeField] SpriteRenderer sprite;
 
     void Start()
     {
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float horizontal = Input.GetAxisRaw("Horizontal");
+        if(horizontal > 0) sprite.flipX = true;
+        else if(horizontal < 0) sprite.flipX = false;
         Transform pos = transform;
 
         pos.position += new Vector3(horizontal, 0) * PlayerStatusSO.MoveSpeed * Time.deltaTime;

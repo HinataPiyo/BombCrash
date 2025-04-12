@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerOrOtomoCanvas : MonoBehaviour
+public class BasicUpgradePanelChange : MonoBehaviour
 {
     [SerializeField] HomeSceneController homeSceneCont;
     [SerializeField] ChangePanel[] changePanel;
-
     [System.Serializable]
     struct ChangePanel
     {
         public Button button;
         public GameObject panel;
-        public bool isPlayHomeDirector;
     }
-
     void Start()
     {
         for (int ii = 0; ii < changePanel.Length; ii++)
@@ -31,7 +28,8 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
     /// <param name="num">ボタンの番号</param>
     void StartChangePanel(int num)
     {
-        StartCoroutine(ChangePanelProc(num));
+        SoundManager.Instance.PlaySE(1);
+        StartCoroutine(ChangePanelProc(num));   // 画面切り替え（パネル）
     }
 
     /// <summary>
@@ -42,6 +40,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
     /// <param name="playDirector">ホームディレクターを再生するかどうか</param>
     IEnumerator ChangePanelProc(int num)
     {
+        if(changePanel[num].panel.activeSelf == true) yield break;
         // フェードイン処理
         homeSceneCont.StartPanelChangeFade();
         yield return new WaitUntil(() => homeSceneCont.FadeEnd);
@@ -54,19 +53,10 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
             {
                 changePanel[ii].panel.SetActive(true);
                 processedPanels.Add(changePanel[ii].panel);
-
-                // ホームディレクターを再生
-                if (changePanel[ii].isPlayHomeDirector)
-                {
-                    homeSceneCont.PlayHomeDirector();
-                }
             }
             else
             {
-                if (!processedPanels.Contains(changePanel[ii].panel))
-                {
-                    changePanel[ii].panel.SetActive(false);
-                }
+                changePanel[ii].panel.SetActive(false);
             }
         }
 

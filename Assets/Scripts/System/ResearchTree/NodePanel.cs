@@ -40,7 +40,6 @@ public class NodePanel : MonoBehaviour
             changePanel[ii].button.onClick.AddListener(() => ChangePanelButtonClick(count));
         }
 
-        ChangePanelButtonClick(0);
         canvasGroup.alpha = 0f;
         explanation.text = "";
     }

@@ -25,9 +25,9 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public void PlaySE(SE sound)
+    public void PlaySE(int soundNum)
     {
-        seSouse.PlayOneShot(seClips[(int)sound]);
+        seSouse.PlayOneShot(seClips[soundNum]);
     }
 
     public void StopBgm()
@@ -40,13 +40,4 @@ public class SoundManager : MonoBehaviour
         bgmSouse.clip = playerDieBgm;
         bgmSouse.Play();
     }
-}
-
-public enum SE
-{
-    Explosion,
-    EnemyBigBoom,
-    GameOver,
-    GameClear,
-    CountDown
 }

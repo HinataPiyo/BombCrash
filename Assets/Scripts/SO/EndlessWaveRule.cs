@@ -7,45 +7,29 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Wave/Endless Wave Rule")]
 public class EndlessWaveRule : ScriptableObject
 {
-    /// <summary>
-    /// 各Waveの基準となる長さ（秒）
-    /// Wave数に応じて短くなる（durationDecreasePerWaveで調整）
-    /// </summary>
-    public float baseWaveDuration = 15f;
+    [Header("通常Wave進行設定")]
+    public float baseWaveDuration = 15f;        // 各Wave進行時間の基準となる長さ（秒）
+    public float baseReadyTime = 5f;            // wave終了時の次のwaveに行くまでの待機時間
+    public float baseSpawnInterval = 2f;        // 敵の出現間隔（秒）
+    // 例：0.03fならWave10で0.3秒早く出現
+    public float intervalDecreasePerWave = 0.03f;       // Waveが1進むごとに敵の出現間隔をどれだけ短くするか
 
-    /// <summary>
-    /// 敵の出現間隔（秒）
-    /// Waveが進むごとに短くなり、難易度が上がる
-    /// </summary>
-    public float baseSpawnInterval = 2f;
 
-    /// <summary>
     /// Waveが1進むごとにWaveの長さをどれだけ短くするか
     /// 例：0.1fならWave10では1秒短くなる（最低時間制限は生成時に別で設定する）
-    /// </summary>
     // public float durationDecreasePerWave = 0.1f;
 
-    /// <summary>
-    /// Waveが1進むごとに敵の出現間隔をどれだけ短くするか
-    /// 例：0.03fならWave10で0.3秒早く出現
-    /// </summary>
-    public float intervalDecreasePerWave = 0.03f;
 
-    /// <summary>
-    /// 敵が大量に出るイベントの間隔
-    /// 例: 10waveごとに大量発生する
-    /// </summary>
-    public int stampedeWaveInterval = 10;
+    [Header("スタンピード設定")]
+    public int stampedeWaveInterval = 10;       // 敵が大量に出るイベントの間隔
+    public float stampedeSpawnInterval = 0.5f;  // スタンピード時, 敵のスポーン間隔
+    public float stampedeWaveDuration = 10f;    // スタンピード時, Wave進行時間
+    public float stampedeReadyTime = 8f;        // スタンピード時, wave終了時の次のwaveに行くまでの待機時間
 
-    /// <summary>
-    /// スタンピード時の敵のスポーン間隔
-    /// </summary>
-    public float stampedeSpawnInterval = 0.5f;
 
-    /// <summary>
-    /// 1waveごとに敵のステータスを上昇する係数
-    /// </summary>
-    public float enemyHpUp = 0.075f;
+    [Header("敵のHP上昇率(%)")]
+    // 基礎ステータスをもとに上昇する
+    public float enemyHpUp = 0.06f;            // 1waveごとに敵のステータスを上昇する係数
 
     /// <summary>
     /// 出現する敵の種類ごとのスケーリング設定リスト

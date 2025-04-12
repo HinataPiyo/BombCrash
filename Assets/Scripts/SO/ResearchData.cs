@@ -4,17 +4,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ResearchData", menuName = "SO/ResearchData")]
 public class ResearchData : ScriptableObject
 {
-    public const float explosionRadius = 0.1f;       // 10%
+    public const float explosionRadius = 0.1f;
     public const float bombCreateSpeed = 0.08f;
     public const int bombStockAmountUp = 1;
-    public const float attackDamageUp = 0.1f;        // 5%
+    public const float attackDamageUp = 0.1f;
+    public const int criticalDamageUp = 10;     // 基礎値を基せず固定値で上昇する
+    public const float criticalChanceUp = 1f;   // 基礎値を基せず固定値で上昇する
     public const int throwAmount = 1;
 
-    public const float dropScrapAmountUp = 0.1f;
-    public const float insightPointAmountUp = 0.1f;
+    public const float scrapBonusUp = 0.1f;
+    public const float insightPointUp = 0.1f;
 
     [Header("ジャンル")] public ResearchesGenre genre;
-    [Header("識別Enum")] public ResearchName researchName;
+    [Header("識別Enum")] public StatusName statusName;
     [Header("表示名")] public string displayName;
     [Header("説明")] public string explanation;
     [Header("画像"), SerializeField] public Sprite icon;
@@ -53,16 +55,4 @@ public enum ResearchState
     Locked,    // ロックされている
     Unlocked,  // 解放されている
     Completed  // 研究が終了している
-}
-
-public enum ResearchName
-{
-    ExplosionRadiusUp,
-    BombCreateSpeedUp,
-    BombStockAmountUp,
-    AttackDamageUp,
-    ThrowAmountUp,
-
-    DropScrapUp,
-    TakeWavePointUp,
 }
