@@ -85,21 +85,21 @@ public class ResearchNode : MonoBehaviour
     void BombCountUp()
     {
         // 自身に設定されている研究内容に当てはめる
-        switch(data.researchName)
+        switch(data.statusName)
         {
-            case ResearchName.ExplosionRadiusUp:
+            case StatusName.ExplosionRadiusUp:
                 player.Bomb_RC.ExplosionRadiusUp = 1;
                 break;
-            case ResearchName.BombCreateSpeedUp:
+            case StatusName.BombCreateSpeedUp:
                 player.Bomb_RC.BombCreateSpeedUp = 1;
                 break;
-            case ResearchName.BombStockAmountUp:
+            case StatusName.BombStockAmountUp:
                 player.Bomb_RC.BombStockAmountUp = 1;
                 break;
-            case ResearchName.AttackDamageUp:
+            case StatusName.BombAttackDamageUp:
                 player.Bomb_RC.AttackDamageUp = 1;
                 break;
-            case ResearchName.ThrowAmountUp:
+            case StatusName.ThrowAmountUp:
                 player.Bomb_RC.ThrowAmountUp = 1;
                 break;
         }
@@ -108,13 +108,13 @@ public class ResearchNode : MonoBehaviour
     void SupportCountUp()
     {
         // 自身に設定されている研究内容に当てはめる
-        switch(data.researchName)
+        switch(data.statusName)
         {
-            case ResearchName.DropScrapUp:
-                player.Support_RC.DropScrapAmountUp = 1;
+            case StatusName.DropScrapUp:
+                player.Support_RC.ScrapBonusUp = 1;
                 break;
-            case ResearchName.TakeWavePointUp:
-                player.Support_RC.WavePointAmountUp = 1;
+            case StatusName.GetInsightPointUp:
+                player.Support_RC.InsightBonusUp = 1;
                 break;
         }
     }

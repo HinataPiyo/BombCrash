@@ -5,13 +5,13 @@ using UnityEngine;
 public class ScrapMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
-    MainCanvas mainCanvas;
+    GameSceneMainCanvas mainCanvas;
     Vector2 haveScrapTextPos = new Vector2(3, -2.5f);
     bool isMove;
     bool isArrival;
     void Start()
     {
-        mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<MainCanvas>();
+        mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<GameSceneMainCanvas>();
         StartCoroutine(MoveFlow());
     }
 

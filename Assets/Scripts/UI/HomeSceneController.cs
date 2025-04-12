@@ -51,6 +51,7 @@ public class HomeSceneController : MonoBehaviour
 
     void ChangePanelProc(int num)
     {
+        SoundManager.Instance.PlaySE(1);
         StartCoroutine(ChangePanelButtonClick(num));
     }
     /// <summary>

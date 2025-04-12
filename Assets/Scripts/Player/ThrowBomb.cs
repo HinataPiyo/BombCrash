@@ -5,7 +5,7 @@ public class ThrowBomb : MonoBehaviour
     [SerializeField] PlayerStatusSO statusSO;
     [SerializeField] Transform bombExplosionPoint;
     [SerializeField] GameObject bombPrefab;
-    MainCanvas mainCanvas;
+    GameSceneMainCanvas mainCanvas;
     float explosionPointSpeed = 5f;
     float reloadProgressTime;
     Range rangeY = new Range { min = -1.5f, max = 4f };
@@ -13,7 +13,7 @@ public class ThrowBomb : MonoBehaviour
 
     void Start()
     {
-        mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<MainCanvas>();
+        mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<GameSceneMainCanvas>();
         bombExplosionPoint.position = Vector2.zero;     // 着地地点を0に設定
 
         // 現在の爆弾の数の更新

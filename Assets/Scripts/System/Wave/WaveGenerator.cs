@@ -20,24 +20,27 @@ public static class WaveGenerator
 
         float spawn;
         float waveDur;
+        float readyTime;
         // スタンピードを起こす
         if(0 == (waveNumber - 1) % rule.stampedeWaveInterval)
         {
-            waveDur = rule.baseWaveDuration * 1.5f;
-            float val = rule.baseSpawnInterval - rule.intervalDecreasePerWave * waveNumber;
-            spawn = val < rule.stampedeSpawnInterval ? val * 1.5f : rule.stampedeSpawnInterval;
-            Debug.Log("スタンピード発生！！ : " + spawn);
+            waveDur = rule.stampedeWaveDuration;        // wave進行時間を設定
+            readyTime = rule.stampedeReadyTime;         // 次のwaveまでの待機時間を設定
+            float val = Mathf.Max(0.1f, rule.baseSpawnInterval - rule.intervalDecreasePerWave * waveNumber);
+            spawn = val < rule.stampedeSpawnInterval ? val : rule.stampedeSpawnInterval;
+            Debug.Log("スタンピード発生！！");
         }
-        else
+        else        // 通常wave
         {
-            // Wave 時間を減衰させて設定（最低10秒まで）
-            waveDur = rule.baseWaveDuration;
-            // 出現間隔も減衰（最低0.3秒まで）
-            spawn = Mathf.Max(0.3f, rule.baseSpawnInterval - rule.intervalDecreasePerWave * waveNumber);
+            waveDur = rule.baseWaveDuration;        // wave進行時間を設定
+            readyTime = rule.baseReadyTime;         // 次のwaveまでの待機時間を設定
+            spawn = Mathf.Max(0.3f, rule.baseSpawnInterval - rule.intervalDecreasePerWave * waveNumber);        // 出現間隔も減衰（最低0.3秒まで）
         }
         wave.waveDuration = waveDur;
+        wave.readyTime = readyTime;
         wave.spawnInterval = spawn;
 
+        Debug.Log("【敵生成時間】: " + spawn);
         // 出現する敵のリストを作成
         List<IntervalWaveData.EnemySpawnOption> options = new();
 
@@ -55,6 +58,7 @@ public static class WaveGenerator
             // 出現率が0より大きい場合だけリストに追加
             if (weight > 0f)
             {
+                // 新規で選出された敵を追加
                 options.Add(new IntervalWaveData.EnemySpawnOption
                 {
                     enemySO = pattern.enemySO,

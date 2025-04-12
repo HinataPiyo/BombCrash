@@ -25,7 +25,6 @@ public class WaveManager : MonoBehaviour
 
     [Header("ステータス")]
     bool isWaveEnd;                   // true: Wave終了中 / false: Wave進行中
-    float readyTime = 3f;            // 次Waveまでのインターバル時間
     float readyProgressTime;         // インターバル経過時間（カウント）
 
     [Header("Wave設定")]
@@ -34,6 +33,7 @@ public class WaveManager : MonoBehaviour
     private IntervalWaveData currentWaveData; // 現在進行中のWaveデータ（毎回生成される）
     List<GameObject> enemyList = new List<GameObject>();
     public List<GameObject> EnemyList { get { return enemyList; } }
+    public int WaveCount { get { return currentWaveIndex; } }
 
     void Start()
     {
@@ -42,6 +42,9 @@ public class WaveManager : MonoBehaviour
 
         // Wave進行開始
         StartCoroutine(WaveTimer());
+
+        // 自身の出現waveを保持する
+        foreach(var enemy in waveRule.enemyPatterns) { enemy.enemySO.StartWave = enemy.startWave; }
     }
 
     void Update()
@@ -68,7 +71,6 @@ public class WaveManager : MonoBehaviour
             // スライダーUI設定
             sliderFill.color = red;
             waveTimerSlider.maxValue = waveDuration;
-
             float time = waveDuration;
 
             // 敵出現処理スタート
@@ -163,23 +165,25 @@ public class WaveManager : MonoBehaviour
     bool WaveTimeReady()
     {
         sliderFill.color = yellow;
-        waveTimerSlider.maxValue = readyTime;
+        waveTimerSlider.maxValue = currentWaveData.readyTime;
         waveTimerSlider.value = readyProgressTime;
 
         DebugManager.Instance.WaveTime = readyProgressTime;
         readyProgressTime += Time.deltaTime;
 
-        return readyProgressTime >= readyTime;
+        return readyProgressTime >= currentWaveData.readyTime;
     }
 
-    void EnemyStatusUP(EnemyStatus enemy)
+    void EnemyStatusUP(EnemyStatus status)
     {
+        // 100waveごとに大幅に上昇
         if(currentWaveIndex > 0 && currentWaveIndex % 100 == 0)
         {
-            enemy.EnemySO.UpMaxHp = 1.5f * currentWaveIndex / 100;
+            status.EnemySO.UpMaxHp = 1.5f * currentWaveIndex / 100;
         }
 
-        float increase = enemy.EnemySO.DefaultMaxHp * (waveRule.enemyHpUp * currentWaveIndex);
-        enemy.SetHpUP(increase);
+        // 毎waveごとに上昇
+        float increase = status.EnemySO.DefaultMaxHp * (waveRule.enemyHpUp * (currentWaveIndex - status.EnemySO.StartWave));
+        status.SetHpUP(increase);
     }
 }
