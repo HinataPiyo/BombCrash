@@ -2213,6 +2213,7 @@ GameObject:
   - component: {fileID: 612960397}
   - component: {fileID: 612960396}
   - component: {fileID: 612960400}
+  - component: {fileID: 612960401}
   m_Layer: 5
   m_Name: ResultCanvas
   m_TagString: Untagged
@@ -2317,6 +2318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveManager: {fileID: 1123184839}
   playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
+  insightPointCalculation: {fileID: 612960401}
   waveText: {fileID: 1054692199}
   scrapText: {fileID: 1425322128}
   scrapBonusText: {fileID: 614393681}
@@ -2335,6 +2337,20 @@ MonoBehaviour:
     insightBonus: 0
     insightTotal: 0
     killEnemies: []
+--- !u!114 &612960401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612960395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5580b133041e6634eb98f771fbcfcd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveManager: {fileID: 1123184839}
+  playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
 --- !u!1 &614393679
 GameObject:
   m_ObjectHideFlags: 0

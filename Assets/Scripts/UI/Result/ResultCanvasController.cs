@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultCanvasController : MonoBehaviour
@@ -8,6 +9,7 @@ public class ResultCanvasController : MonoBehaviour
 
     [SerializeField] WaveManager waveManager;
     [SerializeField] PlayerStatusSO playerSO;
+    [SerializeField] InsightPointCalculation insightPointCalculation;
     [Header("到達WAVE数")]
     [SerializeField] TextMeshProUGUI waveText;
     [Header("スクラップ")]
@@ -39,6 +41,7 @@ public class ResultCanvasController : MonoBehaviour
 
     void Start()
     {
+        returnButton.onClick.AddListener(ReturnButtonOnClick);
         result = new ResultData();
         beforScrap = playerSO.ScrapHaveAmount;
         beforInsight = playerSO.InsightPointHaveAmount;
@@ -50,8 +53,11 @@ public class ResultCanvasController : MonoBehaviour
         result.scrap = playerSO.ScrapHaveAmount - beforScrap;
         result.scrapBonus = (int)Mathf.Round(result.scrap * playerSO.Support_RC.ScrapBonusUp);
         result.scrapTotal = result.scrap + result.scrapBonus;
-        result.insight = playerSO.InsightPointHaveAmount - beforInsight;
-        result.insightBonus = (int)Mathf.Round(result.insight * playerSO.Support_RC.InsightBonusUp);
+
+        int insight = insightPointCalculation.GetDefaultInsight();              // 知見ポイントの計算
+        int bonusInsight = insightPointCalculation.GetInsightBonus();           // ボーナス知見ポイントの計算
+        result.insight = insight;
+        result.insightBonus = bonusInsight;
         result.insightTotal = result.insight + result.insightBonus;
 
         waveText.text = result.waveCount.ToString("F0");
@@ -61,6 +67,12 @@ public class ResultCanvasController : MonoBehaviour
         insightText.text = result.insight.ToString("F0");
         insightBonusText.text = result.insightBonus.ToString("F0");
         insightTotalText.text = result.insightTotal.ToString("F0");
+    }
+
+    void ReturnButtonOnClick()
+    {
+        playerSO.SceneName = SceneName.HomeScene;
+        SceneManager.LoadScene("LoadScene");
     }
 
     [System.Serializable]
