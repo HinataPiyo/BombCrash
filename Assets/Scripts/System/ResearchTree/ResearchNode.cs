@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class ResearchNode : MonoBehaviour
 {
+    [Header("前提ノード"), SerializeField] ResearchNode prerequisiteNode;
+    [Header("研究の状態")] public ResearchState state;      // 研究の状態
     [Header("Param")]
     [SerializeField] ResearchData data;
     [SerializeField] PlayerStatusSO player;
@@ -58,7 +60,7 @@ public class ResearchNode : MonoBehaviour
     /// <param name="interactable"></param>
     public void CanClickButton()
     {
-        switch(data.state)
+        switch(state)
         {
             case ResearchState.Locked:
                 icon.color = new Color32(130, 130, 130, 255);
@@ -79,7 +81,16 @@ public class ResearchNode : MonoBehaviour
         return player.ArrivalWave >= data.RequiredWave
         && player.ScrapHaveAmount >= data.ScrapCost
         && player.InsightPointHaveAmount >= data.InsightPointCost
-        && data.ClearPrerequisites();
+        && ClearPrerequisites();
+    }
+
+    /// <summary>
+    /// 前提研究が完了しているか確認する
+    /// </summary>
+    public bool ClearPrerequisites()
+    {
+        if(prerequisiteNode == null) return true;
+        return prerequisiteNode.state == ResearchState.Completed;
     }
 
     void BombCountUp()

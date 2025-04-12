@@ -1,13 +1,26 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CursorControlle : MonoBehaviour
 {
-    public Texture2D cursorTexture; // カーソル画像
-    public Vector2 hotspot = Vector2.zero; // ホットスポット（クリック位置）
-    public CursorMode cursorMode = CursorMode.Auto;
-
     void Start()
     {
+        UpdateCursorSize();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // シーンロード後にカーソルを再設定
         UpdateCursorSize();
     }
 
@@ -22,10 +35,10 @@ public class CursorControlle : MonoBehaviour
         int newHeight = Mathf.Clamp(screenHeight / 20, 16, 128);
 
         // カーソル画像をリサイズ
-        Texture2D resizedCursor = ResizeTexture(cursorTexture, newWidth, newHeight);
+        Texture2D resizedCursor = ResizeTexture(CursorManager.Instance.cursorTexture, newWidth, newHeight);
 
         // カーソルを設定
-        Cursor.SetCursor(resizedCursor, hotspot, cursorMode);
+        CursorManager.Instance.UpdateCursor(resizedCursor, CursorManager.Instance.hotspot, CursorManager.Instance.cursorMode);
     }
 
     Texture2D ResizeTexture(Texture2D originalTexture, int width, int height)

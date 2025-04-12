@@ -1,7 +1,5 @@
 using TMPro;
-using TreeEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
@@ -33,6 +31,7 @@ public class EnemyStatus : MonoBehaviour
         {
             GetComponent<DropScrap>().SpawnScrap();     // 死んだらスクラップをドロップ
             Instantiate(enemySO.Explosion_Prefab, transform.position, Quaternion.identity);
+            EnemyKillCountController.Instance.AddEnemyCount(enemySO);       // キルカウントを増やす
             Destroy(gameObject);        // 自身を破棄
         }
     }

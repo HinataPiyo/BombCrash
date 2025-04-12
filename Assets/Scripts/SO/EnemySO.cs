@@ -8,6 +8,8 @@ public class EnemySO : ScriptableObject
     [SerializeField] GameObject explosion_Prefab;
     [SerializeField] GameObject scrap_Prefab;
     [SerializeField] GameObject countzero_Prefab;
+    [SerializeField] string enemyName;
+    [SerializeField] Sprite enemyIcon;
     [SerializeField] float defaultMaxHp;
     [SerializeField] float upMaxHp;
     [SerializeField] float countDown;
@@ -19,6 +21,8 @@ public class EnemySO : ScriptableObject
     public GameObject Explosion_Prefab => explosion_Prefab;
     public GameObject Scrap_Prefab => scrap_Prefab;
     public GameObject Countzero_Prefab => countzero_Prefab;
+    public string EnemyName => enemyName;
+    public Sprite EnemyIcon => enemyIcon;
     public float DefaultMaxHp => defaultMaxHp;
     public float CountDown => countDown;
     public float UpMaxHp { get { return upMaxHp; } set { upMaxHp = defaultMaxHp * value; } }
