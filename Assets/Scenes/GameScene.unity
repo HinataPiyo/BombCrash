@@ -4269,8 +4269,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &983058931
 MonoBehaviour:
@@ -4292,7 +4292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 03e91a56269a04557882700043a10b09, type: 3}
+  m_Sprite: {fileID: 3264237394479210659, guid: bc6d0265ce7c970489ea3b24377895cb, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5158,7 +5158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1062877049dcc47a3e20f0f9c12ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWaveIndex: 9
+  currentWaveIndex: 1
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1312307802}
   waveRule: {fileID: 11400000, guid: b225d3088735a2c459af95c35fbeabc4, type: 2}
@@ -6515,7 +6515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.6745098, b: 0, a: 1}
+  m_Color: {r: 0.46666667, g: 0.46666667, b: 0.46666667, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
