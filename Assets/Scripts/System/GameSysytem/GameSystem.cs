@@ -71,7 +71,8 @@ public class GameSystem : MonoBehaviour
     /// <param name="endObj"></param>
     public void GameOver()
     {
-        ResultCanvasController.Instance.SetResultTextValue();
+        ResultCanvasController.Instance.SetResultTextValue();       // resultの設定
+        player.ArrivalWave = waveManager.WaveCount;     // WAVE最高到達地点を設定
         SoundManager.Instance.StopBgm();        // BGMを停止させる
         isGameOver = true;                      // GameOverになったことを知らせる
         StartCoroutine(GameOverFlow());         // コルーチンの再生

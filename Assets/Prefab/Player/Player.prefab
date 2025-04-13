@@ -34,6 +34,7 @@ Transform:
   m_Children:
   - {fileID: 3252072144968177907}
   - {fileID: 7597977210903818167}
+  - {fileID: 7825354426913922072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8631348604955225818
@@ -65,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
   bombExplosionPoint: {fileID: 7597977210903818167}
+  throwPoint: {fileID: 7825354426913922072}
   bombPrefab: {fileID: 1325194240078632101, guid: 56cdfe063e9ee7c479208bec049c25c7, type: 3}
 --- !u!50 &5149260436216232631
 Rigidbody2D:
@@ -168,7 +170,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1904388643
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 178083141707881171, guid: df0056e72a22d1143b9757258866867d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -290,3 +292,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8546464567016401609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7825354426913922072}
+  m_Layer: 0
+  m_Name: ThrowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7825354426913922072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8546464567016401609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.322, y: 0.661, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8999633199430392047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

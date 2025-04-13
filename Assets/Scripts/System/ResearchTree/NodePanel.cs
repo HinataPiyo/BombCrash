@@ -54,12 +54,12 @@ public class NodePanel : MonoBehaviour
         currentNode = node;
         ResearchData d = node.ResearchData;
 
-        if(node.ResearchData.state == ResearchState.Locked)
+        if(node.state == ResearchState.Locked)
         {
             UpdateUI(d);
             researchObj.SetActive(false);
         }
-        else if(node.ResearchData.state == ResearchState.Unlocked)
+        if(node.state == ResearchState.Unlocked)
         {
             UpdateUI(d);
             // 研究するボタンを押せるか否か
@@ -67,7 +67,7 @@ public class NodePanel : MonoBehaviour
             researchText.SetText("研究");
             researchObj.SetActive(true);
         }
-        else if(node.ResearchData.state == ResearchState.Completed)
+        else if(node.state == ResearchState.Completed)
         {
             UpdateUI(d);
             researchText.SetText("完了");

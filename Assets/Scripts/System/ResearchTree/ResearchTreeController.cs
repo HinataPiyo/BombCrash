@@ -40,8 +40,8 @@ public class ResearchTreeController : MonoBehaviour
             {
                 foreach(var node in n)
                 {
-                    if(!CompletedResearchReset && node.ResearchData.state == ResearchState.Completed) continue;
-                    node.ResearchData.state = ResearchState.Locked;
+                    if(!CompletedResearchReset && node.state == ResearchState.Completed) continue;
+                    node.state = ResearchState.Locked;
                 }
             }
         }
@@ -60,19 +60,20 @@ public class ResearchTreeController : MonoBehaviour
     /// </summary>
     /// <param name="genre"></param>
     public void UnlockResearches(ResearchesGenre genre)
-{
-    var nodes = NodeList(genre);
-
-    foreach (var node in nodes)
     {
-        if (node.ResearchData.state == ResearchState.Locked     // ロックされている状態だった場合
-        && node.ClearParam())             // 前提研究を終了しているか確認する
+        var nodes = NodeList(genre);
+
+        foreach (var node in nodes)
         {
-            node.ResearchData.state = ResearchState.Unlocked; // 前提条件を満たしている場合、解放
+            if (node.state == ResearchState.Locked     // ロックされている状態だった場合
+            && node.ClearPrerequisites())             // 前提研究を終了しているか確認する
+            {
+                // 前提条件を満たしている場合、解放
+                node.state = ResearchState.Unlocked;
+            }
+            node.CanClickButton();
         }
-        node.CanClickButton();
     }
-}
 
     /// <summary>
     /// 研究するタイミングで処理
@@ -82,10 +83,10 @@ public class ResearchTreeController : MonoBehaviour
     public void CompleteResearch(ResearchNode node, ResearchesGenre genre)
     {
         // 解放はされている状態だった場合
-        if(node.ResearchData.state == ResearchState.Unlocked)
+        if(node.state == ResearchState.Unlocked)
         {
             Debug.Log("研究が完了しました");
-            node.ResearchData.state = ResearchState.Completed; // 研究を完了
+            node.state = ResearchState.Completed; // 研究を完了
             node.AddPlayerStatus();      // プレイヤーのステータスに反映
             UnlockResearches(genre);     // 新たに解放可能な研究をチェック
         }

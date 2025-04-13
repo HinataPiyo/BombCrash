@@ -67,6 +67,9 @@ public class ResultCanvasController : MonoBehaviour
         insightText.text = result.insight.ToString("F0");
         insightBonusText.text = result.insightBonus.ToString("F0");
         insightTotalText.text = result.insightTotal.ToString("F0");
+
+        // 敵を倒した数の設定
+        EnemyKillCountController.Instance.ResultSetKillCountUI();
     }
 
     void ReturnButtonOnClick()

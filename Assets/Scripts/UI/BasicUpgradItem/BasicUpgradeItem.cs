@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -59,27 +60,37 @@ public class BasicUpgradeItem : MonoBehaviour
         var statusValueMap = new Dictionary<StatusName, float>
         {
             { StatusName.BombAttackDamageUp, BombSO.Default_Damage },
-            { StatusName.BombStockAmountUp, PlayerStatusSO.maxHaveBomb },
+            { StatusName.BombStockAmountUp, PlayerStatusSO.defaultHaveBomb },
             { StatusName.BombCreateSpeedUp, PlayerStatusSO.createBombTime },
-            { StatusName.ExplosionRadiusUp, BombSO.Default_ExplosionRadius }
+            { StatusName.ExplosionRadiusUp, BombSO.Default_ExplosionRadius },
         };
 
         // 対応する値を加算(基礎値を加算)
         if (statusValueMap.TryGetValue(myB_Data.statusName, out float additionalValue))
         {
-            now += additionalValue;
-            next += additionalValue;
+            if(myB_Data.statusName == StatusName.BombCreateSpeedUp)
+            {
+                now = additionalValue * (1 - now);
+                next = additionalValue * (1 - next);
+            }
+            else
+            {
+                now += additionalValue;
+                next += additionalValue;
+            }
         }
 
-        if(myB_Data.statusName == StatusName.DropScrapUp)
+        // %表記するか否か判別する
+        if(myB_Data.isPercentage == true)
         {
             nowText.text = (now * 100).ToString("F0") + "%";
             nextText.text = (next * 100).ToString("F0") + "%";
         }
         else
         {
-            nowText.text = now.ToString("F1");
-            nextText.text = next.ToString("F1");
+            string f = myB_Data.useDecimalPlaces ? "F2" : "F1";
+            nowText.text = now.ToString(f);
+            nextText.text = next.ToString(f);
         }
         
 

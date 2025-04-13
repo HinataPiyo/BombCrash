@@ -4,7 +4,10 @@ public class ThrowBomb : MonoBehaviour
 {
     [SerializeField] PlayerStatusSO statusSO;
     [SerializeField] Transform bombExplosionPoint;
+    [SerializeField] Transform throwPoint;
     [SerializeField] GameObject bombPrefab;
+    Animator anim;
+    SpriteRenderer sprite;
     GameSceneMainCanvas mainCanvas;
     float explosionPointSpeed = 5f;
     float reloadProgressTime;
@@ -13,6 +16,8 @@ public class ThrowBomb : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<GameSceneMainCanvas>();
         bombExplosionPoint.position = Vector2.zero;     // 着地地点を0に設定
 
@@ -48,7 +53,9 @@ public class ThrowBomb : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && currentHaveBomb > 0)
         {
             // 爆弾をプレイヤーの位置に生成
-            GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+            anim.SetTrigger("Throw");
+            sprite.flipX = !sprite.flipX;
+            GameObject bomb = Instantiate(bombPrefab, throwPoint.position, Quaternion.identity);
             bomb.GetComponent<BombBase>().ExplosionPoint = bombExplosionPoint.position;
             currentHaveBomb--;
             mainCanvas.BombHaveUpdate(currentHaveBomb);

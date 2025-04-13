@@ -5,7 +5,7 @@ public class BasicUpgradeController : MonoBehaviour
 {
     [SerializeField] BasicUpgradeData b_UpDataSO;
     [SerializeField] Transform b_UpItemBombParent;
-    [SerializeField]Transform b_UpItemSupportParent;
+    [SerializeField] Transform b_UpItemSupportParent;
     BasicUpgradeItem[] b_UpItemBomb;
     BasicUpgradeItem[] b_UpItemSupport;
 
