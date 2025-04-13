@@ -6,8 +6,18 @@ public class EnemyStatus : MonoBehaviour
     [SerializeField] EnemySO enemySO;
     [SerializeField] float currentHp;
     [SerializeField] TextMeshPro hpText;
+    [SerializeField] TextMeshPro countDownText;
+    [SerializeField] SpriteRenderer sprite;
 
     public EnemySO EnemySO => enemySO;
+    
+
+    public void SetOrderInLayer(int oderinlayer)
+    {
+        sprite.sortingOrder = oderinlayer;
+        hpText.sortingOrder = oderinlayer + 1;
+        countDownText.sortingOrder = oderinlayer + 1;
+    }
 
     public void SetHpUP(float inc)
     {

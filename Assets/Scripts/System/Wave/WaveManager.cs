@@ -133,6 +133,7 @@ public class WaveManager : MonoBehaviour
         );
         GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);   // 敵生成
         EnemyStatus status = enemy.GetComponent<EnemyStatus>();
+        status.SetOrderInLayer(enemyList.Count);
         status.EnemySO.ResetMaxHp();
         EnemyStatusUP(status);       // HPを上昇させる
         
