@@ -133,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459a48c061fde054dbf3bc7402adec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prerequisiteNode: {fileID: 0}
+  state: 0
   data: {fileID: 11400000, guid: 0a7d9966ffef19942ac82ab9611f99da, type: 2}
   player: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
   icon: {fileID: 4535778622455460423}
