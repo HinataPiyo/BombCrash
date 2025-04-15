@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6532284009121797638}
   - component: {fileID: 8922617109184870708}
   m_Layer: 0
-  m_Name: Normal_Ver1.0
+  m_Name: Normal_Ver1.3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 458992487
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -943486710903212786, guid: 7045f1e080e3e4a4e8f80eb55c9262c0, type: 3}
+  m_Sprite: {fileID: 7228919151062598055, guid: 6e78c038bd4520840893779f5f47469b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e62350aaf71542408ded043eee3ce09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: a03704b129257b84e82c66b56bb7ff5b, type: 2}
+  enemySO: {fileID: 11400000, guid: 9d587bb1e5d7de944b4077eb8980452f, type: 2}
   currentHp: 0
   hpText: {fileID: 4553679623956751428}
   countDownText: {fileID: 89306098387048752}
@@ -190,10 +190,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1170223446917877345}
     m_Modifications:
-    - target: {fileID: 1069780567276425552, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: -5013957895090389883, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
     - target: {fileID: 1896639146878161715, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_Name
       value: HpText
@@ -278,14 +274,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
-    - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -5013957895090389883, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -397,10 +385,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1454478298141353400, guid: 163a41b25b9987d48a050b079d724ef4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227676874265156157, guid: 163a41b25b9987d48a050b079d724ef4, type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5166597755379871779, guid: 163a41b25b9987d48a050b079d724ef4, type: 3}
