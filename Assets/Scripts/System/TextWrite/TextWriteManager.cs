@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// 場面に応じて効果音やBGMを再生できる様にしたい。
+/// </summary>
 public class TextWriteManager : MonoBehaviour
 {
     public static TextWriteManager instance;
