@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4475222259227751846, guid: 4b96ea0361fe148719f0f24402e3a079, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 4475222259329640169, guid: 4b96ea0361fe148719f0f24402e3a079, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -90,7 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475222259329640174, guid: 4b96ea0361fe148719f0f24402e3a079, type: 3}
       propertyPath: m_Name
-      value: Popup01
+      value: Popup01 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475222259876689393, guid: 4b96ea0361fe148719f0f24402e3a079, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
