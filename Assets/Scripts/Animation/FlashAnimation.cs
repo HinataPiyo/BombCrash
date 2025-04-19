@@ -18,7 +18,8 @@ public class FlashAnimation : MonoBehaviour
             {
                 MyFunction();
                 // 一度呼び出したら、これ以上呼ばないように制御する場合
-                callFunctionThreshold = int.MaxValue;
+                //callFunctionThreshold = int.MaxValue;
+                callFunctionThreshold++;
             }
         }
         else

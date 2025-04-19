@@ -4,10 +4,6 @@ public class EffectOn : MonoBehaviour
 {
     [SerializeField]public GameObject effect;
     [SerializeField]public GameObject effectPoint;
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
