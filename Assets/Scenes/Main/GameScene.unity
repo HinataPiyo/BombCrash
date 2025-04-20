@@ -4975,7 +4975,7 @@ MonoBehaviour:
   currentWaveIndex: 100
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1760297319}
-  waveRule: {fileID: 11400000, guid: b225d3088735a2c459af95c35fbeabc4, type: 2}
+  waveRule: {fileID: 11400000, guid: 22c0692c62b39c24b8d99c475740b519, type: 2}
 --- !u!1 &1128859222
 GameObject:
   m_ObjectHideFlags: 0
