@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e62350aaf71542408ded043eee3ce09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 4736edb49c0fdde458db948bd6ee826d, type: 2}
+  enemySO: {fileID: 11400000, guid: 35ff5d314bde3ea478eb02ba5ab7363a, type: 2}
   currentHp: 0
   hpText: {fileID: 4553679623956751428}
   countDownText: {fileID: 89306098387048752}

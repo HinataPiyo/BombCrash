@@ -26,24 +26,47 @@ public class PlayerStatusSO : ScriptableObject
 
     public SceneName SceneName { set { nextScene = value; } }
     public int MaxHaveBomb      // 爆弾所持数
-    { get{ int basic = (int)b_UpDataSO.GetPlayerData(StatusName.BombStockAmountUp).increaseValue;
-            return bomb_RC.BombStockAmountUp + basic + (defaultHaveBomb - 1); } }
+    {
+        get
+        {
+            int basic = (int)b_UpDataSO.GetPlayerData(StatusName.BombStockAmountUp).increaseValue;
+            return bomb_RC.BombStockAmountUp + basic + (defaultHaveBomb - 1);
+        }
+    }
     public float CreateBombTime     // 爆弾生成時間
-    {   get {   float basic = b_UpDataSO.GetPlayerData(StatusName.BombCreateSpeedUp).increaseValue;
-                return createBombTime * (1 - (bomb_RC.BombCreateSpeedUp + basic)); } }
+    {
+        get
+        {
+            float basic = b_UpDataSO.GetPlayerData(StatusName.BombCreateSpeedUp).increaseValue;
+            return createBombTime * (1 - (bomb_RC.BombCreateSpeedUp + basic));
+        }
+    }
     public float CriticalDamage     // クリティカルダメージ
-    { get {     float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalDamageUp).increaseValue;
-                return criticalDamage + bomb_RC.CriticalDamageUp + basic; } }
+    {
+        get
+        {
+            float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalDamageUp).increaseValue;
+            return criticalDamage + bomb_RC.CriticalDamageUp + basic;
+        }
+    }
     public float CriticalChance     // クリティカル率
-    { get {     float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalChanceUp).increaseValue;
-                return criticalChance + bomb_RC.CriticalChanceUp + basic; } }
+    {
+        get
+        {
+            float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalChanceUp).increaseValue;
+            return criticalChance + bomb_RC.CriticalChanceUp + basic;
+        }
+    }
     // スクラップの所持数
     public int ScrapHaveAmount { get { return scrapHaveAmount; } set { scrapHaveAmount += value; } }
     // 知見ポイントの所持数
     public int InsightPointHaveAmount { get { return insightPointHaveAmount; } set { insightPointHaveAmount += value; } }
     // WAVE最高到達地点
-    public int ArrivalWave { get { return arrivalWave; } 
-        set { if(arrivalWave < value) arrivalWave = value; } }  // 前回の到達地点と比較して大きい大きければ上書き
+    public int ArrivalWave
+    {
+        get { return arrivalWave; }
+        set { if (arrivalWave < value) arrivalWave = value; }
+    }  // 前回の到達地点と比較して大きい大きければ上書き
 
     [System.Serializable]
     public class BombResearchCompleteds
@@ -54,15 +77,15 @@ public class PlayerStatusSO : ScriptableObject
         [Header("爆発範囲の解放数"), SerializeField] int explosionRadiusUp;
         [Header("爆弾生成速度の解放数"), SerializeField] int bombCreateSpeedUp;
         [Header("爆弾ストック数の解放数"), SerializeField] int bombStockAmountUp;
-        [Header("投擲数の解放数"), SerializeField]  int throwAmountUp;
+        [Header("投擲数の解放数"), SerializeField] int throwAmountUp;
 
         public float ExplosionRadiusUp { get { return explosionRadiusUp * ResearchData.explosionRadius; } set { explosionRadiusUp += (int)value; } }
         public float BombCreateSpeedUp { get { return bombCreateSpeedUp * ResearchData.bombCreateSpeed; } set { bombCreateSpeedUp += (int)value; } }
         public int BombStockAmountUp { get { return bombStockAmountUp * ResearchData.bombStockUp; } set { bombStockAmountUp += (int)value; } }
         public float AttackDamageUp { get { return attackDamageUp * ResearchData.attackDamageUp; } set { attackDamageUp += (int)value; } }
-        public float CriticalDamageUp { get { return criticalDamageUp * ResearchData.criticalDamageUp; }}
-        public float CriticalChanceUp { get { return criticalChanceUp * ResearchData.criticalChanceUp; }}
-        public int ThrowAmountUp { get { return throwAmountUp * ResearchData.throwAmount; } set { throwAmountUp += (int)value; }}
+        public float CriticalDamageUp { get { return criticalDamageUp * ResearchData.criticalDamageUp; } }
+        public float CriticalChanceUp { get { return criticalChanceUp * ResearchData.criticalChanceUp; } }
+        public int ThrowAmountUp { get { return throwAmountUp * ResearchData.throwAmount; } set { throwAmountUp += (int)value; } }
     }
 
     [System.Serializable]
@@ -77,7 +100,7 @@ public class PlayerStatusSO : ScriptableObject
 
     public string NextSceneName()
     {
-        switch(nextScene)
+        switch (nextScene)
         {
             case SceneName.GameScene:
                 return "GameScene";
@@ -88,6 +111,8 @@ public class PlayerStatusSO : ScriptableObject
         return null;
     }
 }
+
+public enum Rarity { N, R, SR, SSR }
 
 public enum SceneName
 {
