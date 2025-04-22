@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SkillSO", menuName = "SkillSO")]
 public class SkillSO : ScriptableObject
 {
+    [Header("スキル処理"), SerializeField] SkillLogicBase skillLogicBase;
     [Header("カテゴリ"), SerializeField] Category category;
     [Header("画像"), SerializeField] Sprite sprite;
     [Header("名前"), SerializeField] new string name;
@@ -19,6 +20,7 @@ public class SkillSO : ScriptableObject
     public int Level => level;
     public float CoolTime => coolTime;
     public float Proficiency => proficiency;
+    public SkillLogicBase SkillLogicBase => skillLogicBase;
 }
 
 // カテゴリ

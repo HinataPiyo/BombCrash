@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OtomoSkillStatusSlot : SkillSlotBase
 {
@@ -8,6 +7,8 @@ public class OtomoSkillStatusSlot : SkillSlotBase
     [SerializeField] TextMeshProUGUI effectText;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI coolTimeText;
+
+    public SkillSO SkillSO => m_skillSO;
 
     public override void SetSkill(SkillSO skillSO)
     {
