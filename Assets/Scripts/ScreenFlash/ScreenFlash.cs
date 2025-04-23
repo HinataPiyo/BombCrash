@@ -24,6 +24,6 @@ public class ScreenFlash : MonoBehaviour
     {
         flashImage.color = flashColor;
         yield return new WaitForSeconds(flashDuration);
-        flashImage.color = Color.clear; // または new Color(1f, 1f, 1f, 0f);
+        //flashImage.color = Color.clear; // または new Color(1f, 1f, 1f, 0f);
     }
 }
