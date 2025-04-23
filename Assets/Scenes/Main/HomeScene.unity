@@ -4634,6 +4634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 397049756}
   - component: {fileID: 397049757}
+  - component: {fileID: 397049758}
   m_Layer: 5
   m_Name: Otomo SkillDev Upgrade 4
   m_TagString: Untagged
@@ -4685,6 +4686,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &397049758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397049755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4958a1950827a6345921d6cbd9c203db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1888756306}
+  nameText: {fileID: 1133603115}
+  rarityText: {fileID: 1412809695}
+  levelText: {fileID: 1755888366}
+  coolTimeText: {fileID: 703545840}
+  currentEffectText: {fileID: 1402700875}
+  nextEffectText: {fileID: 1702184160}
+  proficiencyText: {fileID: 1604583181}
+  proficiencySlider: {fileID: 546309223}
+  insightPointText: {fileID: 1364155413}
 --- !u!1001 &399037442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19478,7 +19501,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 569729036}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.024390243
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -22790,7 +22813,7 @@ GameObject:
   - component: {fileID: 1936599850}
   - component: {fileID: 1936599849}
   m_Layer: 5
-  m_Name: EffectValue Background
+  m_Name: CurrentEffectValue Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23987,7 +24010,7 @@ GameObject:
   - component: {fileID: 2037279287}
   - component: {fileID: 2037279286}
   m_Layer: 5
-  m_Name: UpgradedValue Background
+  m_Name: NextEffectValue Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24063,7 +24086,7 @@ GameObject:
   - component: {fileID: 2062851126}
   - component: {fileID: 2062851125}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: InsightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
