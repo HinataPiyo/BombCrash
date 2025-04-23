@@ -12,7 +12,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
     struct ChangePanel
     {
         public Button button;
-        public GameObject panel;
+        public GameObject[] panel;
         public bool isPlayHomeDirector;
     }
 
@@ -51,22 +51,25 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
         HashSet<GameObject> processedPanels = new HashSet<GameObject>();
         for (int ii = 0; ii < changePanel.Length; ii++)
         {
-            if (ii == num)
+            for(int qq = 0; qq < changePanel[ii].panel.Length; qq++)
             {
-                changePanel[ii].panel.SetActive(true);
-                processedPanels.Add(changePanel[ii].panel);
+                if (ii == num)
+                {
+                    changePanel[ii].panel[qq].SetActive(true);
+                    processedPanels.Add(changePanel[ii].panel[qq]);
 
-                // ホームディレクターを再生
-                if (changePanel[ii].isPlayHomeDirector)
-                {
-                    homeSceneCont.PlayHomeDirector();
+                    // ホームディレクターを再生
+                    if (changePanel[ii].isPlayHomeDirector)
+                    {
+                        homeSceneCont.PlayHomeDirector();
+                    }
                 }
-            }
-            else
-            {
-                if (!processedPanels.Contains(changePanel[ii].panel))
+                else
                 {
-                    changePanel[ii].panel.SetActive(false);
+                    if (!processedPanels.Contains(changePanel[ii].panel[qq]))
+                    {
+                        changePanel[ii].panel[qq].SetActive(false);
+                    }
                 }
             }
         }
