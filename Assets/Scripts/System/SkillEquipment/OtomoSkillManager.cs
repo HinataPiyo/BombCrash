@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -7,11 +6,10 @@ public class OtomoSkillManager : MonoBehaviour
 {
     public static OtomoSkillManager Instance;
 
+    [SerializeField] SkillSO[] SkillSO_Table;
     [SerializeField] List<SkillSO> equippedSkill = new List<SkillSO>();
-
     public List<SkillSO> EquippedSkill { get { return equippedSkill; } }
-
-    [SerializeField] bool test;
+    public SkillSO[] SkillSoTabel => SkillSO_Table;
 
     void Awake()
     {
@@ -23,14 +21,12 @@ public class OtomoSkillManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    
+
+
 
     void Update()
     {
-        if (test == true)
-        {
-            test = false;
-        }
+        
     }
 
     
