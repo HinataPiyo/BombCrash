@@ -894,7 +894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1115,6 +1115,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1443641713723096050, guid: fbb020113437188459c4c5b899780e89, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7032354330748755127, guid: fbb020113437188459c4c5b899780e89, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1199,6 +1203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equipment_SkillSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 9014293522464837378, guid: fbb020113437188459c4c5b899780e89, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1218,7 +1226,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8631053677547656750, guid: fbb020113437188459c4c5b899780e89, type: 3}
       insertIndex: -1
       addedObject: {fileID: 423995930733621718}
+    - targetCorrespondingSourceObject: {fileID: 8631053677547656750, guid: fbb020113437188459c4c5b899780e89, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5336892099560483258}
   m_SourcePrefab: {fileID: 100100000, guid: fbb020113437188459c4c5b899780e89, type: 3}
+--- !u!114 &2406100147727375231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9014293522464837378, guid: fbb020113437188459c4c5b899780e89, type: 3}
+  m_PrefabInstance: {fileID: 6664513144130442365}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151027649726349907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3151027649726349907 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8631053677547656750, guid: fbb020113437188459c4c5b899780e89, type: 3}
@@ -1238,12 +1260,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_skillSO: {fileID: 0}
   rarityText: {fileID: 1263719070370920993}
-  slotButton: {fileID: 0}
+  slotButton: {fileID: 5336892099560483258}
   icon: {fileID: 5221293857659400079}
   nameText: {fileID: 1581623083306856179}
   effectText: {fileID: 2813670357366313373}
   levelText: {fileID: 2321752853424542627}
   coolTimeText: {fileID: 2864549214663395754}
+  slotState: 1
+--- !u!114 &5336892099560483258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151027649726349907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2406100147727375231}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!224 &4461636103700777162 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7032354330748755127, guid: fbb020113437188459c4c5b899780e89, type: 3}

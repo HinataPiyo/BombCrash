@@ -24,6 +24,18 @@ public class OtomoSkillInventorySlot : SkillSlotBase
     void ButtonOnClick()
     {
         anim.SetTrigger("Click");
-        OtomoSkillDetailPanel.Instance.SetText(m_skillSO);
+
+        // スキル変更中だった場合
+        if(OtomoSkillManager.Instance.isEquipmentChangeNow == true)
+        {
+            // スキルを変更
+            SkillSlotController skillSlotController = FindAnyObjectByType<SkillSlotController>();
+            skillSlotController.SkillChange_SetSkill(m_skillSO);
+        }
+        else
+        {
+            // 強化画面の詳細パネルにセット
+            OtomoSkillDetailPanel.Instance.SetText(m_skillSO);
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace Parts
         [SerializeField] bool isHolding = false;
         [SerializeField] Button upgradeButton;
         [SerializeField] RectTransform progressImage;
-        const int maxProgress = 150;
-        const float progressSpeed = 150f;
+        const int maxProgress = 200;
+        const float progressSpeed = 200f;
 
 
         void Start()

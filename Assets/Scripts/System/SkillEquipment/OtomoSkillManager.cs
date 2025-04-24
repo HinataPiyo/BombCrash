@@ -11,6 +11,8 @@ public class OtomoSkillManager : MonoBehaviour
     public List<SkillSO> EquippedSkill { get { return equippedSkill; } }
     public SkillSO[] SkillSoTabel => SkillSO_Table;
 
+    public bool isEquipmentChangeNow;
+
     void Awake()
     {
         if (Instance == null)
