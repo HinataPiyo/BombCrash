@@ -13,6 +13,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
 
     [Header("スロットの状態"), SerializeField] SkillEquipmentState slotState;
     public SkillSO SkillSO { get { return m_skillSO; } set { m_skillSO = value; } }
+    public SkillEquipmentState SlotState => slotState;
     public Button SkillChangeButton => slotButton;
 
     void Start()

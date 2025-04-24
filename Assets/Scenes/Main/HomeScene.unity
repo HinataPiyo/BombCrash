@@ -2514,10 +2514,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.000015258789
       objectReference: {fileID: 0}
-    - target: {fileID: 423995930733621718, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
-      propertyPath: m_skillSO
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3151027649726349907, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
       propertyPath: m_Name
       value: Equipment_SkillSlot_2

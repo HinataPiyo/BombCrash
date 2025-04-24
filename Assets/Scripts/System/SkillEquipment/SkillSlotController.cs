@@ -34,6 +34,8 @@ public class SkillSlotController : MonoBehaviour
     {
         // ディレクターが再生中だった場合処理を終了
         if(OtomoPanelChange.Instance.Director.state == PlayState.Playing) return;
+        // スロットがロック状態か確認する、ロック状態だったら処理を終了
+        if(equipmentSkillSlot[slotNo].SlotState == SkillEquipmentState.Locked) return;
         // 装備変更中に別の装備スロットをクリックしたときに備えて
         if(OtomoSkillManager.Instance.isEquipmentChangeNow == false)
         {
