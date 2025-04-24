@@ -23,6 +23,13 @@ public class OtomoSkillStatusSlot : SkillSlotBase
 
     public override void SetSkill(SkillSO skillSO)
     {
+        if(skillSO == null)
+        {
+            m_skillSO = null;
+            // スロットの中身が空だった場合テキストの表示を簡素化する
+            SkillNullSlot();
+            return;
+        }
         base.SetSkill(skillSO);
         nameText.text = skillSO.Name;
         effectText.text = skillSO.Effect;
