@@ -9,10 +9,16 @@ public class OtomoSkillStatusSlot : SkillSlotBase
     [SerializeField] TextMeshProUGUI effectText;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI coolTimeText;
+    Animator anim;
 
     [Header("スロットの状態"), SerializeField] SkillEquipmentState slotState;
     public SkillSO SkillSO { get { return m_skillSO; } set { m_skillSO = value; } }
     public Button SkillChangeButton => slotButton;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     public override void SetSkill(SkillSO skillSO)
     {
@@ -50,6 +56,8 @@ public class OtomoSkillStatusSlot : SkillSlotBase
             coolTimeText.text = "-";
         }
     }
+
+    public void ClickAnimation() { anim.SetTrigger("Click"); }
 }
 
 public enum SkillEquipmentState

@@ -42,8 +42,12 @@ public class SkillSlotController : MonoBehaviour
 
         // スキル変更中フラグを立てる
         OtomoSkillManager.Instance.isEquipmentChangeNow = true;
+        
         // 現在選択されている装備スロットを格納する
         currentSelectSlot = equipmentSkillSlot[slotNo];
+
+        // アニメーション再生
+        currentSelectSlot.ClickAnimation();
     }
 
     /// <summary>
@@ -64,5 +68,8 @@ public class SkillSlotController : MonoBehaviour
         // スキル一覧から選ばれたスキルをセットする
         currentSelectSlot.SetSkill(skillSO);
         OtomoSkillManager.Instance.EquippedSkill.Add(skillSO);
+
+        // アニメーション再生
+        currentSelectSlot.ClickAnimation();
     }
 }
