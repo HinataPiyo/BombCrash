@@ -6,6 +6,7 @@ public class OtomoSkillRunner : MonoBehaviour
     List<SkillSO> equippedSkill = new List<SkillSO>();
     void Start()
     {
+        if(OtomoSkillManager.Instance != null) 
         equippedSkill = OtomoSkillManager.Instance.EquippedSkill;
     }
 
