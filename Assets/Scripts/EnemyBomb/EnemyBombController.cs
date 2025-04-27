@@ -8,6 +8,9 @@ public class EnemyBombController : MonoBehaviour
     [SerializeField] TextMeshPro countDownText;
     float countdownTime;
 
+    float delayTime;
+    public float DelayTime { set { delayTime = value; } }
+
     private void Start()
     {
         enemySO = GetComponent<EnemyStatus>().EnemySO;
@@ -27,8 +30,13 @@ public class EnemyBombController : MonoBehaviour
 
             countDownText.text = countdownTime.ToString("F0");
             CheckCountColor();
-            
-            yield return new WaitForSeconds(1f);
+            float time = 1f;
+            while(time > 0)
+            {
+                yield return new WaitUntil(() => Delay());
+                time -= Time.deltaTime;
+            }
+
             countdownTime--;
         }
         
@@ -66,5 +74,16 @@ public class EnemyBombController : MonoBehaviour
         {
             countDownText.color = Color.green;
         }
+    }
+
+    bool Delay()
+    {
+        if(delayTime > 0)
+        {
+            delayTime -= Time.deltaTime;
+            return false;
+        }
+
+        return true;
     }
 }

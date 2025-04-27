@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 2032449876893127494}
   - component: {fileID: 542910486449175528}
   m_Layer: 0
-  m_Name: Palus Enemy
+  m_Name: Palus HitEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
