@@ -4,6 +4,7 @@ using UnityEngine;
 public class DelayDestroy : MonoBehaviour
 {
     [SerializeField] float waitTime;
+    public float WaitTime { set { waitTime = value; } }
     void Start()
     {
         StartCoroutine(Destroy());

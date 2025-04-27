@@ -97,6 +97,7 @@ public class HomeSceneController : MonoBehaviour
     IEnumerator GoGameScene()
     {
         player.SceneName = SceneName.GameScene;
+        OtomoSkillManager.Instance.ReplaceEquippedSkills();     // 装備を最新のに更新する
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("LoadScene");
     }

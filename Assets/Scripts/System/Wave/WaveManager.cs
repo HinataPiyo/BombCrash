@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance;
     [SerializeField] int currentWaveIndex;
 
     [Header("生成範囲")]
@@ -34,6 +36,12 @@ public class WaveManager : MonoBehaviour
     List<GameObject> enemyList = new List<GameObject>();
     public List<GameObject> EnemyList { get { return enemyList; } }
     public int WaveCount { get { return currentWaveIndex; } }
+
+    void Awake()
+    {
+        if(Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     void Start()
     {

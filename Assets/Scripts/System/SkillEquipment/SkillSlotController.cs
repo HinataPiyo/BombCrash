@@ -7,7 +7,7 @@ public class SkillSlotController : MonoBehaviour
     [SerializeField] OtomoSkillStatusSlot[] equipmentSkillSlot;
 
     OtomoSkillStatusSlot currentSelectSlot;
-    public OtomoSkillStatusSlot CurrentEquipmentSkillSlot => currentSelectSlot;
+    public OtomoSkillStatusSlot[] EquipmentSkillSlot => equipmentSkillSlot;
     void Start()
     {
         equipmentSkillSlot = equipmentSkillSlot_Parent.GetComponentsInChildren<OtomoSkillStatusSlot>();
@@ -34,6 +34,10 @@ public class SkillSlotController : MonoBehaviour
     {
         // ディレクターが再生中だった場合処理を終了
         if(OtomoPanelChange.Instance.Director.state == PlayState.Playing) return;
+
+        // スロットがロック状態か確認する、ロック状態だったら処理を終了
+        if(equipmentSkillSlot[slotNo].SlotState == SkillEquipmentState.Locked) return;
+
         // 装備変更中に別の装備スロットをクリックしたときに備えて
         if(OtomoSkillManager.Instance.isEquipmentChangeNow == false)
         {
@@ -42,8 +46,12 @@ public class SkillSlotController : MonoBehaviour
 
         // スキル変更中フラグを立てる
         OtomoSkillManager.Instance.isEquipmentChangeNow = true;
+        
         // 現在選択されている装備スロットを格納する
         currentSelectSlot = equipmentSkillSlot[slotNo];
+
+        // アニメーション再生
+        currentSelectSlot.ClickAnimation();
     }
 
     /// <summary>
@@ -51,6 +59,14 @@ public class SkillSlotController : MonoBehaviour
     /// </summary>
     public void SkillChange_SetSkill(SkillSO skillSO)
     {
+        // 「はずす」スロットをクリックした時の処理
+        if(skillSO == null)
+        {
+            currentSelectSlot.SetSkill(null);
+            currentSelectSlot.ClickAnimation();
+            return;
+        }
+
         for(int ii = 0; ii < equipmentSkillSlot.Length; ii++)
         {
             // 選択したスキルが既に装備されているか確認
@@ -63,6 +79,8 @@ public class SkillSlotController : MonoBehaviour
 
         // スキル一覧から選ばれたスキルをセットする
         currentSelectSlot.SetSkill(skillSO);
-        OtomoSkillManager.Instance.EquippedSkill.Add(skillSO);
+
+        // アニメーション再生
+        currentSelectSlot.ClickAnimation();
     }
 }

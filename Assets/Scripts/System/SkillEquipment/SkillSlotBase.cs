@@ -11,6 +11,7 @@ public class SkillSlotBase : MonoBehaviour
 
     public virtual void SetSkill(SkillSO skillSO)
     {
+        // 通常表示
         m_skillSO = skillSO;
 
         if (skillSO.Icon != null)
@@ -18,8 +19,13 @@ public class SkillSlotBase : MonoBehaviour
             icon.sprite = skillSO.Icon;
             icon.enabled = true;
         }
-        else icon.enabled = false;
+        else
+        {
+            icon.enabled = false;
+        }
+
         rarityText.text = m_skillSO.Rarity.ToString();
+        rarityText.enabled = true;
     }
     
 }
