@@ -3551,7 +3551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 62789732755690094, guid: 48ca33b9bd5b90b4b8fdc98caaeaee1a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 499695477516073297, guid: 48ca33b9bd5b90b4b8fdc98caaeaee1a, type: 3}
       propertyPath: m_Pivot.x
@@ -5209,6 +5209,9 @@ MonoBehaviour:
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1760297319}
   waveRule: {fileID: 11400000, guid: 22c0692c62b39c24b8d99c475740b519, type: 2}
+  animationFlowController: {fileID: 1123184842}
+  cutinAnimationName: CutintypeA
+  cutinRepeatCount: 0
 --- !u!114 &1123184840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5256,8 +5259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782695dcf1813c145b42e6dfee5aee06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveManager: {fileID: 1123184839}
   animator: {fileID: 1891080364}
   animationToPlay: CutintypeA
+  repeatCount: 0
 --- !u!1 &1128859222
 GameObject:
   m_ObjectHideFlags: 0
