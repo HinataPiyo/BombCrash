@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance;
     [SerializeField] int currentWaveIndex;
 
     [Header("生成範囲")]
@@ -35,14 +37,14 @@ public class WaveManager : MonoBehaviour
     public List<GameObject> EnemyList { get { return enemyList; } }
     public int WaveCount { get { return currentWaveIndex; } }
 
-    //ここから古西のコード
-    [Header("カットインアニメーション")]
-    public AnimationFlowController animationFlowController; // Inspectorからアサイン
-    [SerializeField] string cutinAnimationName = "Cutin"; // 再生するカットインアニメーション名
-    [SerializeField] int cutinRepeatCount = 1; // カットインの繰り返し回数（0で無限ループ）
+    [Header("カットインの設定")]
+    public Animator animator;
 
-    private bool isCutinPlaying = false;
-    //ここまで
+    void Awake()
+    {
+        if(Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -54,15 +56,16 @@ public class WaveManager : MonoBehaviour
 
         // 自身の出現waveを保持する
         foreach(var enemy in waveRule.enemyPatterns) { enemy.enemySO.StartWave = enemy.startWave; }
-
+        /*
         // AnimationFlowController が存在すればイベントを購読
         if (animationFlowController != null)
         {
             //animationFlowController.OnAnimationFinished += OnCutinAnimationFinished;
         }
+        */
 
         //ここ古西のコード
-        StartNextWave(); // 最初のウェーブを開始
+        //StartNextWave(); // 最初のウェーブを開始
         //ここまで
     }
 
@@ -127,7 +130,7 @@ public class WaveManager : MonoBehaviour
 
             // 次のWaveへ進行
             //currentWaveIndex++;
-                animationFlowController.PlayAnimation();
+                //animationFlowController.PlayAnimation();
             // 無限Wave方式なので、終了条件は設けていない
             // 終了を入れるならここで break や return を入れる
         }
@@ -216,7 +219,7 @@ public class WaveManager : MonoBehaviour
         float increase = status.EnemySO.DefaultMaxHp * (waveRule.enemyHpUp * (currentWaveIndex - status.EnemySO.StartWave));
         status.SetHpUP(increase);
     }
-    
+    /*
     //古西のコード
      void StartNextWave()
     {
@@ -250,7 +253,7 @@ public class WaveManager : MonoBehaviour
         // StartCoroutine(WaveTimer()); // WaveTimerはループしているので再起動は不要
     }
     */
-
+    /*
     void OnDestroy()
     {
         // イベント購読を解除 (メモリリーク防止)
@@ -259,5 +262,6 @@ public class WaveManager : MonoBehaviour
             //animationFlowController.OnAnimationFinished -= OnCutinAnimationFinished;
         }
     }
+    */
     //ここまで
 }

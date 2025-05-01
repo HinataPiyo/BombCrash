@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class HomeSceneController : MonoBehaviour
@@ -98,6 +97,7 @@ public class HomeSceneController : MonoBehaviour
     IEnumerator GoGameScene()
     {
         player.SceneName = SceneName.GameScene;
+        OtomoSkillManager.Instance.ReplaceEquippedSkills();     // 装備を最新のに更新する
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("LoadScene");
     }
