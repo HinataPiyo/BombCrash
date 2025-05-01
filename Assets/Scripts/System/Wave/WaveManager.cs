@@ -38,7 +38,12 @@ public class WaveManager : MonoBehaviour
     public int WaveCount { get { return currentWaveIndex; } }
 
     [Header("カットインの設定")]
-    public Animator animator;
+    public AnimationFlowController animationFlowController;
+    bool isCutinPlaying = false;
+    public int numberOfWaves = 0;
+    public bool canStartNextWave = false;
+    public string  cutinAnimationName = "Cutin";
+    public int cutinRepeatCount = 0;
 
     void Awake()
     {
@@ -56,16 +61,16 @@ public class WaveManager : MonoBehaviour
 
         // 自身の出現waveを保持する
         foreach(var enemy in waveRule.enemyPatterns) { enemy.enemySO.StartWave = enemy.startWave; }
-        /*
+        
         // AnimationFlowController が存在すればイベントを購読
         if (animationFlowController != null)
         {
             //animationFlowController.OnAnimationFinished += OnCutinAnimationFinished;
         }
-        */
+        
 
         //ここ古西のコード
-        //StartNextWave(); // 最初のウェーブを開始
+        StartNextWave(); // 最初のウェーブを開始
         //ここまで
     }
 
@@ -73,14 +78,14 @@ public class WaveManager : MonoBehaviour
     {
         enemyList.RemoveAll(enemyList => enemyList == null);
 
-        /*
+        
         // 何らかの条件で次のウェーブを開始できる状態になったら
         if (canStartNextWave && WaveCount < numberOfWaves)
         {
             canStartNextWave = false;
             StartNextWave();
         }
-        */
+        
     }
 
     /// <summary>
@@ -130,7 +135,7 @@ public class WaveManager : MonoBehaviour
 
             // 次のWaveへ進行
             //currentWaveIndex++;
-                //animationFlowController.PlayAnimation();
+                animationFlowController.PlayAnimation();
             // 無限Wave方式なので、終了条件は設けていない
             // 終了を入れるならここで break や return を入れる
         }
@@ -219,7 +224,7 @@ public class WaveManager : MonoBehaviour
         float increase = status.EnemySO.DefaultMaxHp * (waveRule.enemyHpUp * (currentWaveIndex - status.EnemySO.StartWave));
         status.SetHpUP(increase);
     }
-    /*
+    
     //古西のコード
      void StartNextWave()
     {
@@ -243,7 +248,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    /*
+    
     // AnimationFlowControllerからアニメーション終了が通知された時に呼ばれる関数
     void OnCutinAnimationFinished()
     {
@@ -252,8 +257,8 @@ public class WaveManager : MonoBehaviour
         // カットイン終了後に次のウェーブを開始できるようにする
         // StartCoroutine(WaveTimer()); // WaveTimerはループしているので再起動は不要
     }
-    */
-    /*
+    
+    
     void OnDestroy()
     {
         // イベント購読を解除 (メモリリーク防止)
@@ -262,6 +267,6 @@ public class WaveManager : MonoBehaviour
             //animationFlowController.OnAnimationFinished -= OnCutinAnimationFinished;
         }
     }
-    */
+    
     //ここまで
 }
