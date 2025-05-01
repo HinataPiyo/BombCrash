@@ -69,6 +69,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
                     changePanel[ii].panel.SetActive(false);
                 }
             }
+            
         }
 
         // フェードアウト処理

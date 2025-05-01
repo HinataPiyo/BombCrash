@@ -19,15 +19,23 @@ public class GameSystem : MonoBehaviour
     GameObject currentPlayer;
     [SerializeField] GameObject diePlayer;
 
+    [Header("プレイヤー")]
+    [SerializeField] GameObject otomo_Prefab;
+    [SerializeField] Transform otomoSpawnPoint;
+    GameObject currentOtomo;
+
     [Header("マウスクリックエフェクト")]
     [SerializeField] GameObject mouseClick_Prefab;
     CameraShake cameraShake;
     // float playTime = 1f;
+    [Header("敵出現フィールドの中心"), SerializeField] Transform centerPos;
     bool isGameOver = false;
     bool isAllDirection;        // 全てのゲームオーバー演出が終了したかどうか
     public bool IsGameOver { get { return isGameOver; } }
     public Transform MainCanvas { get { return mainCanvas; } }
     public CameraShake CameraShake { get { return cameraShake; } }
+    public GameObject Otomo { get { return currentOtomo; } }
+    public Transform Center { get { return centerPos; } }
 
     void Awake()
     {
@@ -45,6 +53,7 @@ public class GameSystem : MonoBehaviour
     {
         cameraShake = cinemachine.GetComponent<CameraShake>();
         currentPlayer = Instantiate(player_Prefab, spawnPoint.position, Quaternion.identity);
+        currentOtomo = Instantiate(otomo_Prefab, otomoSpawnPoint.position, Quaternion.identity);
     }
 
     void Update()
