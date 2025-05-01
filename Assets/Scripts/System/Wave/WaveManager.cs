@@ -37,12 +37,7 @@ public class WaveManager : MonoBehaviour
     public int WaveCount { get { return currentWaveIndex; } }
 
     [Header("カットインの設定")]
-    public AnimationFlowController animationFlowController;
-    bool isCutinPlaying = false;
-    public int numberOfWaves = 0;
-    public bool canStartNextWave = false;
-    public string  cutinAnimationName = "Cutin";
-    public int cutinRepeatCount = 0;
+    public CutInFlowController cutInFlowCont;
 
     void Awake()
     {
@@ -60,31 +55,11 @@ public class WaveManager : MonoBehaviour
 
         // 自身の出現waveを保持する
         foreach(var enemy in waveRule.enemyPatterns) { enemy.enemySO.StartWave = enemy.startWave; }
-        
-        // AnimationFlowController が存在すればイベントを購読
-        if (animationFlowController != null)
-        {
-            //animationFlowController.OnAnimationFinished += OnCutinAnimationFinished;
-        }
-        
-
-        //ここ古西のコード
-        StartNextWave(); // 最初のウェーブを開始
-        //ここまで
     }
 
     void Update()
     {
         enemyList.RemoveAll(enemyList => enemyList == null);
-
-        
-        // 何らかの条件で次のウェーブを開始できる状態になったら
-        if (canStartNextWave && WaveCount < numberOfWaves)
-        {
-            canStartNextWave = false;
-            StartNextWave();
-        }
-        
     }
 
     /// <summary>
@@ -96,8 +71,8 @@ public class WaveManager : MonoBehaviour
         {
             // Wave開始
             isWaveEnd = false;
+            StartNextWave(); // 最初のウェーブを開始
             waveCountText.text = currentWaveIndex.ToString("F0");
-
             // Waveデータをルールに基づいて生成
             currentWaveData = WaveGenerator.GenerateWave(currentWaveIndex + 1, waveRule);
 
@@ -106,8 +81,12 @@ public class WaveManager : MonoBehaviour
             // スライダーUI設定
             sliderFill.color = red;
             waveTimerSlider.maxValue = waveDuration;
+            waveTimerSlider.value = waveDuration;
             float time = waveDuration;
 
+            // カットインが終了するまで待機
+            yield return new WaitUntil(() => cutInFlowCont.CutInDirectorState());
+            yield return new WaitForSeconds(1f);
             // 敵出現処理スタート
             StartCoroutine(SpawnEnemiesCoroutine(currentWaveData));
 
@@ -126,12 +105,7 @@ public class WaveManager : MonoBehaviour
            
             // 最後の敵が倒されるまで待機
             yield return new WaitUntil(() => FieldOnEnemiesCheck());
-
-            // 次のWaveへ進行
-            //currentWaveIndex++;
-                // animationFlowController.PlayAnimation();
-            // 無限Wave方式なので、終了条件は設けていない
-            // 終了を入れるならここで break や return を入れる
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -218,47 +192,11 @@ public class WaveManager : MonoBehaviour
     }
     
     //古西のコード
-     void StartNextWave()
+    void StartNextWave()
     {
         currentWaveIndex++;
         Debug.Log("ウェーブ " + currentWaveIndex + " 開始！");
-
-        isCutinPlaying = false; // カットイン再生フラグをリセット
-
-        // ウェーブの開始演出としてアニメーションを再生する場合
-        if (animationFlowController != null && !string.IsNullOrEmpty(cutinAnimationName))
-        {
-            animationFlowController.animationToPlay = cutinAnimationName; // 再生するアニメーションを設定
-            animationFlowController.repeatCount = cutinRepeatCount; // 繰り返し回数を設定
-            animationFlowController.PlayAnimation();
-            isCutinPlaying = true;
-        }
-        else
-        {
-            // アニメーションがない場合は、すぐに次のウェーブを開始
-            // canStartNextWave = true; // Updateで処理するのでここでは不要
-        }
+        cutInFlowCont.StartCutin();     // カットインの再生
     }
-
-    
-    // AnimationFlowControllerからアニメーション終了が通知された時に呼ばれる関数
-    void OnCutinAnimationFinished()
-    {
-        Debug.Log("カットインアニメーション終了！次のウェーブを開始します。");
-        isCutinPlaying = false;
-        // カットイン終了後に次のウェーブを開始できるようにする
-        // StartCoroutine(WaveTimer()); // WaveTimerはループしているので再起動は不要
-    }
-    
-    
-    void OnDestroy()
-    {
-        // イベント購読を解除 (メモリリーク防止)
-        if (animationFlowController != null)
-        {
-            //animationFlowController.OnAnimationFinished -= OnCutinAnimationFinished;
-        }
-    }
-    
     //ここまで
 }
