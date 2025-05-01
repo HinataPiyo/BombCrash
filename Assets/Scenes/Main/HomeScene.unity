@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
-  bombSO: {fileID: 11400000, guid: a70e98b42c2be7044980c29527282704, type: 2}
+  bombSO: {fileID: 11400000, guid: 360ad5043c13f4e4fa5e926089b03af6, type: 2}
   b_UpDataSO: {fileID: 11400000, guid: 6c7df52dedaae254db6992bfb030d684, type: 2}
   bomb_StatusElementParent: {fileID: 1400383936}
   support_StatusElementParent: {fileID: 1452867287}

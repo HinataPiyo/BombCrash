@@ -27,7 +27,6 @@ public class WaveManager : MonoBehaviour
 
     [Header("ステータス")]
     bool isWaveEnd;                   // true: Wave終了中 / false: Wave進行中
-    float readyProgressTime;         // インターバル経過時間（カウント）
 
     [Header("Wave設定")]
     public EndlessWaveRule waveRule; // Wave生成ルール（ScriptableObjectで定義）
@@ -124,18 +123,13 @@ public class WaveManager : MonoBehaviour
 
             // Wave終了
             isWaveEnd = true;
-
-            // 次のWaveまでのインターバル（待機時間）
-            readyProgressTime = 0f;
            
-            while (!WaveTimeReady())
-            {
-                yield return null;
-            }
+            // 最後の敵が倒されるまで待機
+            yield return new WaitUntil(() => FieldOnEnemiesCheck());
 
             // 次のWaveへ進行
             //currentWaveIndex++;
-                animationFlowController.PlayAnimation();
+                // animationFlowController.PlayAnimation();
             // 無限Wave方式なので、終了条件は設けていない
             // 終了を入れるならここで break や return を入れる
         }
@@ -200,16 +194,14 @@ public class WaveManager : MonoBehaviour
     /// <summary>
     /// Waveのインターバル処理（スライダーでカウントダウン）
     /// </summary>
-    bool WaveTimeReady()
+    bool FieldOnEnemiesCheck()
     {
-        sliderFill.color = yellow;
-        waveTimerSlider.maxValue = currentWaveData.readyTime;
-        waveTimerSlider.value = readyProgressTime;
+        if(enemyList.Count == 0)
+        {
+            return true;
+        }
 
-        DebugManager.Instance.WaveTime = readyProgressTime;
-        readyProgressTime += Time.deltaTime;
-
-        return readyProgressTime >= currentWaveData.readyTime;
+        return false;
     }
 
     void EnemyStatusUP(EnemyStatus status)
