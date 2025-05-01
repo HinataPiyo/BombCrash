@@ -86,6 +86,7 @@ public class WaveManager : MonoBehaviour
             StartNextWave();
         }
         
+        
     }
 
     /// <summary>
@@ -261,7 +262,7 @@ public class WaveManager : MonoBehaviour
     
     void OnDestroy()
     {
-        // イベント購読を解除 (メモリリーク防止)
+        // イベントの読み込みを解除 (メモリリーク防止)
         if (animationFlowController != null)
         {
             //animationFlowController.OnAnimationFinished -= OnCutinAnimationFinished;
