@@ -85,7 +85,10 @@ public class WaveManager : MonoBehaviour
             float time = waveDuration;
 
             // カットインが終了するまで待機
-            yield return new WaitUntil(() => cutInFlowCont.CutInDirectorState());
+            if(cutInFlowCont != null)
+            {
+                yield return new WaitUntil(() => cutInFlowCont.CutInDirectorState());
+            }
             yield return new WaitForSeconds(1f);
             // 敵出現処理スタート
             StartCoroutine(SpawnEnemiesCoroutine(currentWaveData));
@@ -104,7 +107,10 @@ public class WaveManager : MonoBehaviour
             isWaveEnd = true;
            
             // 最後の敵が倒されるまで待機
-            yield return new WaitUntil(() => FieldOnEnemiesCheck());
+            if(cutInFlowCont != null)
+            {
+                yield return new WaitUntil(() => FieldOnEnemiesCheck());
+            }
             yield return new WaitForSeconds(1f);
         }
     }
@@ -196,7 +202,7 @@ public class WaveManager : MonoBehaviour
     {
         currentWaveIndex++;
         Debug.Log("ウェーブ " + currentWaveIndex + " 開始！");
-        cutInFlowCont.StartCutin();     // カットインの再生
+        cutInFlowCont?.StartCutin();     // カットインの再生
     }
     //ここまで
 }
