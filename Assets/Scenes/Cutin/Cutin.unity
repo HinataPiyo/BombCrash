@@ -10033,8 +10033,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15.605}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -800, y: -255}
-  m_SizeDelta: {x: 502.98, y: 258.5}
+  m_AnchoredPosition: {x: 950, y: 336}
+  m_SizeDelta: {x: 600, y: 429.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4480569070087066911
 CanvasRenderer:
@@ -10134,13 +10134,17 @@ PlayableDirector:
   m_GameObject: {fileID: 62789732408514441}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: f188631e581834a48ac5b7e4b5ce42dc, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: bbccf7226c6197442b83205e0a04d9fd, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -4542212642078686271, guid: f188631e581834a48ac5b7e4b5ce42dc, type: 2}
+    value: {fileID: 5874627817886388734}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: -628255982828134509, guid: bbccf7226c6197442b83205e0a04d9fd, type: 2}
     value: {fileID: 5874627817886388734}
   m_ExposedReferences:
     m_References: []
