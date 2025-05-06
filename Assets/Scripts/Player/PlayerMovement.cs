@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float power;
     [SerializeField] float rotatespeed;
     [SerializeField] SpriteRenderer sprite;
+    public Transform otomoMovePoint;
 
     void Start()
     {
