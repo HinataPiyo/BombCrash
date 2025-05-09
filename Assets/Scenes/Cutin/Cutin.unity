@@ -6003,12 +6003,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391108219}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -512.00006, y: -384.30954, z: 0}
+  m_LocalScale: {x: 1.7685666, y: 1.7685666, z: 1.7685666}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 499695476867038390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1402962272
 GameObject:
@@ -10041,6 +10041,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1462679659438230348}
+  - {fileID: 1391108220}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10165,7 +10166,7 @@ PlayableDirector:
   m_GameObject: {fileID: 62789732408514441}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: f0e3a21672c5e7340b6a2ec3fbeb5f50, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: bbccf7226c6197442b83205e0a04d9fd, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -10194,6 +10195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutinDirector: {fileID: 5874627817886388732}
+  cutinType: 0
   cutinEffect: {fileID: 1225648669073497808, guid: d05217f40f3af9049878a12bb186fd54, type: 3}
   effectPoint: {fileID: 1391108219}
 --- !u!95 &5874627817886388734
@@ -10363,4 +10365,3 @@ SceneRoots:
   - {fileID: 1425939314}
   - {fileID: 312738942}
   - {fileID: 499695476867038390}
-  - {fileID: 1391108220}

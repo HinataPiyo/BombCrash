@@ -4,6 +4,8 @@ using UnityEngine.Playables;
 public class CutInFlowController : MonoBehaviour
 {
     [SerializeField] PlayableDirector cutinDirector;
+    public enum CutinType { CutinTypeA, CutinTypeB } 
+    public CutinType cutinType = CutinType.CutinTypeA;
     public GameObject cutinEffect;
     public GameObject effectPoint;
 
@@ -13,7 +15,15 @@ public class CutInFlowController : MonoBehaviour
     public void StartCutin()
     {
         cutinDirector?.Play();
-        Invoke("EffectOn",0.25f);
+        if(cutinType == CutinType.CutinTypeA)
+        {
+            
+        }
+        else
+        {
+            Invoke("EffectOn",0.25f);
+        }
+        
     }
 
     public bool CutInDirectorState()
