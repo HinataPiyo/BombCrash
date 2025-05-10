@@ -53,7 +53,16 @@ public class GameSystem : MonoBehaviour
     {
         cameraShake = cinemachine.GetComponent<CameraShake>();
         currentPlayer = Instantiate(player_Prefab, spawnPoint.position, Quaternion.identity);
-        currentOtomo = Instantiate(otomo_Prefab, otomoSpawnPoint.position, Quaternion.identity);
+
+        // オトモが解放されていたら
+        if(player.IsReleaseOtomo == true)
+        {
+            currentOtomo = Instantiate(otomo_Prefab, otomoSpawnPoint.position, Quaternion.identity);
+
+            OtomoMovement otomoMovement = currentOtomo.GetComponent<OtomoMovement>();
+            otomoMovement.SetOtomoMovePoint(currentPlayer.GetComponent<PlayerMovement>().otomoMovePoint);
+            otomoMovement.SetPlayerPos(currentPlayer.transform);
+        }
     }
 
     void Update()
@@ -93,19 +102,6 @@ public class GameSystem : MonoBehaviour
     IEnumerator GameOverFlow()
     {
         Debug.Log("GameOver");
-        // Time.timeScale = 0;
-
-
-        // // 一定時間後にゲームオーバー処理を実行
-        // float time = playTime;
-        // while(time > 0f)
-        // {
-        //     time -= Time.unscaledDeltaTime;
-        //     yield return null;
-        // }
-
-        // Time.timeScale = 1;     // ゲーム再開
-        // playTime = 1f;          // ゲームオーバー処理の時間をリセット
 
         // UIを非表示にする
         StartCoroutine(mainCanvas.GetComponent<GameSceneMainCanvas>().CanvasGroupAlpha());

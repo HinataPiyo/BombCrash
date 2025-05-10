@@ -27,7 +27,6 @@ public class WaveManager : MonoBehaviour
 
     [Header("ステータス")]
     bool isWaveEnd;                   // true: Wave終了中 / false: Wave進行中
-    float readyProgressTime;         // インターバル経過時間（カウント）
 
     [Header("Wave設定")]
     public EndlessWaveRule waveRule; // Wave生成ルール（ScriptableObjectで定義）
@@ -38,12 +37,7 @@ public class WaveManager : MonoBehaviour
     public int WaveCount { get { return currentWaveIndex; } }
 
     [Header("カットインの設定")]
-    public AnimationFlowController animationFlowController;
-    bool isCutinPlaying = false;
-    public int numberOfWaves = 0;
-    public bool canStartNextWave = false;
-    public string  cutinAnimationName = "Cutin";
-    public int cutinRepeatCount = 0;
+    public CutInFlowController cutInFlowCont;
 
     void Awake()
     {
@@ -61,31 +55,11 @@ public class WaveManager : MonoBehaviour
 
         // 自身の出現waveを保持する
         foreach(var enemy in waveRule.enemyPatterns) { enemy.enemySO.StartWave = enemy.startWave; }
-        
-        // AnimationFlowController が存在すればイベントを購読
-        if (animationFlowController != null)
-        {
-            //animationFlowController.OnAnimationFinished += OnCutinAnimationFinished;
-        }
-        
-
-        //ここ古西のコード
-        StartNextWave(); // 最初のウェーブを開始
-        //ここまで
     }
 
     void Update()
     {
         enemyList.RemoveAll(enemyList => enemyList == null);
-
-        
-        // 何らかの条件で次のウェーブを開始できる状態になったら
-        if (canStartNextWave && WaveCount < numberOfWaves)
-        {
-            canStartNextWave = false;
-            StartNextWave();
-        }
-        
     }
 
     /// <summary>
@@ -97,8 +71,8 @@ public class WaveManager : MonoBehaviour
         {
             // Wave開始
             isWaveEnd = false;
+            StartNextWave(); // 最初のウェーブを開始
             waveCountText.text = currentWaveIndex.ToString("F0");
-
             // Waveデータをルールに基づいて生成
             currentWaveData = WaveGenerator.GenerateWave(currentWaveIndex + 1, waveRule);
 
@@ -107,8 +81,15 @@ public class WaveManager : MonoBehaviour
             // スライダーUI設定
             sliderFill.color = red;
             waveTimerSlider.maxValue = waveDuration;
+            waveTimerSlider.value = waveDuration;
             float time = waveDuration;
 
+            // カットインが終了するまで待機
+            if(cutInFlowCont != null)
+            {
+                yield return new WaitUntil(() => cutInFlowCont.CutInDirectorState());
+            }
+            yield return new WaitForSeconds(1f);
             // 敵出現処理スタート
             StartCoroutine(SpawnEnemiesCoroutine(currentWaveData));
 
@@ -124,20 +105,13 @@ public class WaveManager : MonoBehaviour
 
             // Wave終了
             isWaveEnd = true;
-
-            // 次のWaveまでのインターバル（待機時間）
-            readyProgressTime = 0f;
            
-            while (!WaveTimeReady())
+            // 最後の敵が倒されるまで待機
+            if(cutInFlowCont != null)
             {
-                yield return null;
+                yield return new WaitUntil(() => FieldOnEnemiesCheck());
             }
-
-            // 次のWaveへ進行
-            //currentWaveIndex++;
-                animationFlowController.PlayAnimation();
-            // 無限Wave方式なので、終了条件は設けていない
-            // 終了を入れるならここで break や return を入れる
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -200,16 +174,14 @@ public class WaveManager : MonoBehaviour
     /// <summary>
     /// Waveのインターバル処理（スライダーでカウントダウン）
     /// </summary>
-    bool WaveTimeReady()
+    bool FieldOnEnemiesCheck()
     {
-        sliderFill.color = yellow;
-        waveTimerSlider.maxValue = currentWaveData.readyTime;
-        waveTimerSlider.value = readyProgressTime;
+        if(enemyList.Count == 0)
+        {
+            return true;
+        }
 
-        DebugManager.Instance.WaveTime = readyProgressTime;
-        readyProgressTime += Time.deltaTime;
-
-        return readyProgressTime >= currentWaveData.readyTime;
+        return false;
     }
 
     void EnemyStatusUP(EnemyStatus status)
@@ -226,47 +198,51 @@ public class WaveManager : MonoBehaviour
     }
     
     //古西のコード
-     void StartNextWave()
+    void StartNextWave()
     {
         currentWaveIndex++;
         Debug.Log("ウェーブ " + currentWaveIndex + " 開始！");
+        cutInFlowCont?.StartCutin();     // カットインの再生
+    }
+    //ここまで
 
-        isCutinPlaying = false; // カットイン再生フラグをリセット
+    /// <summary>
+    /// 敵のカウントダウンが0になる敵を選出する
+    /// </summary>
+    /// <returns>カウントダウンが0になる敵のTransform</returns>
+    /// <remarks>敵がいない場合はnullを返す</remarks>
+    public Transform CrossTo0Enemy()
+    {
+        GameObject lowestCountdownEnemy = null;
+        float lowestCountdown = float.MaxValue;
 
-        // ウェーブの開始演出としてアニメーションを再生する場合
-        if (animationFlowController != null && !string.IsNullOrEmpty(cutinAnimationName))
+        foreach (var enemy in enemyList)
         {
-            animationFlowController.animationToPlay = cutinAnimationName; // 再生するアニメーションを設定
-            animationFlowController.repeatCount = cutinRepeatCount; // 繰り返し回数を設定
-            animationFlowController.PlayAnimation();
-            isCutinPlaying = true;
+            if (enemy != null)
+            {
+                var enemyBombController = enemy.GetComponent<EnemyBombController>();
+                if (enemyBombController != null)
+                {
+                    float countdownTime = enemyBombController.CountDownTime;
+                    if (countdownTime < lowestCountdown)
+                    {
+                        lowestCountdown = countdownTime;
+                        lowestCountdownEnemy = enemy;
+                    }
+                }
+            }
+        }
+
+        if (lowestCountdownEnemy != null)
+        {
+            // 必要に応じてここで選出した敵に対する処理を追加
+            return lowestCountdownEnemy.transform;
         }
         else
         {
-            // アニメーションがない場合は、すぐに次のウェーブを開始
-            // canStartNextWave = true; // Updateで処理するのでここでは不要
+            Debug.Log("敵が存在しないか、カウントダウンを持つ敵がいません。");
+            return null;
         }
+            
     }
-
-    
-    // AnimationFlowControllerからアニメーション終了が通知された時に呼ばれる関数
-    void OnCutinAnimationFinished()
-    {
-        Debug.Log("カットインアニメーション終了！次のウェーブを開始します。");
-        isCutinPlaying = false;
-        // カットイン終了後に次のウェーブを開始できるようにする
-        // StartCoroutine(WaveTimer()); // WaveTimerはループしているので再起動は不要
-    }
-    
-    
-    void OnDestroy()
-    {
-        // イベント購読を解除 (メモリリーク防止)
-        if (animationFlowController != null)
-        {
-            //animationFlowController.OnAnimationFinished -= OnCutinAnimationFinished;
-        }
-    }
-    
-    //ここまで
 }
