@@ -10,7 +10,7 @@ public class EnemyBombController : MonoBehaviour
 
     float delayTime;
     public float DelayTime { set { delayTime = value; } }
-
+    public float CountDownTime { get { return countdownTime; } }
     private void Start()
     {
         enemySO = GetComponent<EnemyStatus>().EnemySO;

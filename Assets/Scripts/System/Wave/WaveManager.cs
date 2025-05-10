@@ -205,4 +205,44 @@ public class WaveManager : MonoBehaviour
         cutInFlowCont?.StartCutin();     // カットインの再生
     }
     //ここまで
+
+    /// <summary>
+    /// 敵のカウントダウンが0になる敵を選出する
+    /// </summary>
+    /// <returns>カウントダウンが0になる敵のTransform</returns>
+    /// <remarks>敵がいない場合はnullを返す</remarks>
+    public Transform CrossTo0Enemy()
+    {
+        GameObject lowestCountdownEnemy = null;
+        float lowestCountdown = float.MaxValue;
+
+        foreach (var enemy in enemyList)
+        {
+            if (enemy != null)
+            {
+                var enemyBombController = enemy.GetComponent<EnemyBombController>();
+                if (enemyBombController != null)
+                {
+                    float countdownTime = enemyBombController.CountDownTime;
+                    if (countdownTime < lowestCountdown)
+                    {
+                        lowestCountdown = countdownTime;
+                        lowestCountdownEnemy = enemy;
+                    }
+                }
+            }
+        }
+
+        if (lowestCountdownEnemy != null)
+        {
+            // 必要に応じてここで選出した敵に対する処理を追加
+            return lowestCountdownEnemy.transform;
+        }
+        else
+        {
+            Debug.Log("敵が存在しないか、カウントダウンを持つ敵がいません。");
+            return null;
+        }
+            
+    }
 }
