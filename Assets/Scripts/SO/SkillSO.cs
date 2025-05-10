@@ -14,6 +14,7 @@ public class SkillSO : ScriptableObject
     [Header("クールタイム(CT)"), SerializeField] float coolTime;
     [Header("現在の熟練度"), SerializeField] float currentProficiency;
     [Header("次の最大熟練度"), SerializeField] float maxProficiency;
+    [Header("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.25f;
     
     static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト
     public Category Category => category;
@@ -34,7 +35,8 @@ public class SkillSO : ScriptableObject
     {
         // レアリティごとに決まった値を返す
         // 0:N, 1:R, 2:SR, 3:SSR
-        return IPBaseCost[(int)rarity];
+        int cost = Mathf.FloorToInt(IPBaseCost[(int)rarity] * (ipCostUpRate * level));
+        return cost;
     }
 }
 
