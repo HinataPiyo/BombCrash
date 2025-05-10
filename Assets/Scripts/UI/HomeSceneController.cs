@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -13,6 +15,9 @@ public class HomeSceneController : MonoBehaviour
     [SerializeField] float fadespeed;
     [SerializeField] ChangePanel[] changePanel;
     [SerializeField] PlayableDirector homeDirector;
+    [Header("オトモボタン")]
+    [SerializeField] GameObject otomoButtonObject;
+    [SerializeField] CanvasGroup otomoButtonGroup; 
     [Header("マウスクリックエフェクト")]
     [SerializeField] GameObject mouseClick_Prefab;
     const int playNumber = 0;
@@ -29,6 +34,11 @@ public class HomeSceneController : MonoBehaviour
 
     void Start()
     {
+        // オトモが解放できるかチェックする
+        player.CheckIsReleaseOtomo();
+        otomoButtonObject.SetActive(!player.IsReleaseOtomo);
+        otomoButtonGroup.interactable = player.IsReleaseOtomo;
+
         fadePanel.alpha = 1;
         StartCoroutine(FadeOut());
 
