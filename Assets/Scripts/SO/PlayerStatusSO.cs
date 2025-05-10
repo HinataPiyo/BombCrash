@@ -5,6 +5,8 @@ public class PlayerStatusSO : ScriptableObject
 {
     [SerializeField] BasicUpgradeData b_UpDataSO;
     [SerializeField] SceneName nextScene;
+    [SerializeField] bool isReleaseOtomo;
+    [SerializeField] int maxWaveReleaseOtomo = 10;
 
     // 基礎値の設定(デフォルトの値-固定値)　基礎研究とは別
     public const float MoveSpeed = 6f;          // 移動速度
@@ -25,6 +27,17 @@ public class PlayerStatusSO : ScriptableObject
     public SupportResearchCompleteds Support_RC { get { return support_RC; } }
 
     public SceneName SceneName { set { nextScene = value; } }
+    public bool IsReleaseOtomo { get { return isReleaseOtomo; } }
+
+    /// <summary>
+    /// オトモが解放できるかチェックする
+    /// </summary>
+    public void CheckIsReleaseOtomo()
+    {
+        isReleaseOtomo = arrivalWave > maxWaveReleaseOtomo;
+    }
+
+
     public int MaxHaveBomb      // 爆弾所持数
     {
         get

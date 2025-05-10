@@ -1197,6 +1197,8 @@ MonoBehaviour:
   - button: {fileID: 1734886037}
     panel: {fileID: 1099052934}
   homeDirector: {fileID: 1099052936}
+  otomoButtonObject: {fileID: 1473892479}
+  otomoButtonGroup: {fileID: 924981622}
   mouseClick_Prefab: {fileID: 8775893652550691976, guid: e4ac8aa2cc9fed64ca5dbfe4d44c466b, type: 3}
 --- !u!1001 &87415914
 PrefabInstance:
@@ -9970,7 +9972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -397510903519932217, guid: 724639ba86249bb4e8895cfe2043569d, type: 3}
+  m_Sprite: {fileID: -855298285791758126, guid: 103cf8e65951cad41a526d677ab4a762, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10886,7 +10888,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 2129515597
   m_SortingOrder: 0

@@ -53,11 +53,16 @@ public class GameSystem : MonoBehaviour
     {
         cameraShake = cinemachine.GetComponent<CameraShake>();
         currentPlayer = Instantiate(player_Prefab, spawnPoint.position, Quaternion.identity);
-        currentOtomo = Instantiate(otomo_Prefab, otomoSpawnPoint.position, Quaternion.identity);
-        
-        OtomoMovement otomoMovement = currentOtomo.GetComponent<OtomoMovement>();
-        otomoMovement.SetOtomoMovePoint(currentPlayer.GetComponent<PlayerMovement>().otomoMovePoint);
-        otomoMovement.SetPlayerPos(currentPlayer.transform);
+
+        // オトモが解放されていたら
+        if(player.IsReleaseOtomo == true)
+        {
+            currentOtomo = Instantiate(otomo_Prefab, otomoSpawnPoint.position, Quaternion.identity);
+
+            OtomoMovement otomoMovement = currentOtomo.GetComponent<OtomoMovement>();
+            otomoMovement.SetOtomoMovePoint(currentPlayer.GetComponent<PlayerMovement>().otomoMovePoint);
+            otomoMovement.SetPlayerPos(currentPlayer.transform);
+        }
     }
 
     void Update()
