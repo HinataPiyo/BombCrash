@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,6 +37,31 @@ public class OtomoSkillRunner : MonoBehaviour
         if (equippedSkill[index].SkillLogicBase == null) return;
         if (equippedSkill[index].SkillLogicBase.ExecuteFlow() == null) return;
 
-        StartCoroutine(equippedSkill[index].SkillLogicBase.ExecuteFlow());         // スキルを発動
+        // クールタイムが終了していない場合は何もしない
+        if (equippedSkill[index].IsEndCoolTime == true)
+        {
+            StartCoroutine(equippedSkill[index].SkillLogicBase.ExecuteFlow());     // スキルを発動
+        }
+        else
+        {
+            return;
+        }
+
+        StartCoroutine(UpdateCoolTime(index));                                     // クールタイムを更新
+    }
+
+    IEnumerator UpdateCoolTime(int index)
+    {
+        if (equippedSkill[index] == null) yield break;
+
+        equippedSkill[index].IsEndCoolTime = false; // クールタイム中にする
+        float coolTime = equippedSkill[index].CoolTime;
+        while (coolTime > 0)
+        {
+            coolTime -= Time.deltaTime;
+            yield return null;
+        }
+        
+        equippedSkill[index].IsEndCoolTime = true; // クールタイムが終了した
     }
 }

@@ -12,10 +12,13 @@ public class SkillSO : ScriptableObject
     [Header("レアリティ"), SerializeField] Rarity rarity;
     [Header("レベル"), SerializeField] int level = 1;
     [Header("クールタイム(CT)"), SerializeField] float coolTime;
+    bool isEndCoolTime = true; // クールタイムが終了しているかどうか
     [Header("現在の熟練度"), SerializeField] float currentProficiency;
     [Header("次の最大熟練度"), SerializeField] float maxProficiency;
+    [Header("熟練度の上昇率"), SerializeField] float proficiencyCostUpRate = 1.25f;
     [Header("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.25f;
     
+    static readonly int[] ProficiencyBase = { 50, 75, 100, 150 };   // 熟練度のコスト
     static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト
     public Category Category => category;
     public Sprite Icon => sprite;
@@ -24,6 +27,7 @@ public class SkillSO : ScriptableObject
     public Rarity Rarity => rarity;
     public int Level => level;
     public float CoolTime => coolTime;
+    public bool IsEndCoolTime { get => isEndCoolTime; set => isEndCoolTime = value; }
     public float CurrentProficiency => currentProficiency;
     public float MaxProficiency => maxProficiency;
     public SkillLogicBase SkillLogicBase => skillLogicBase;
@@ -36,6 +40,18 @@ public class SkillSO : ScriptableObject
         // レアリティごとに決まった値を返す
         // 0:N, 1:R, 2:SR, 3:SSR
         int cost = Mathf.FloorToInt(IPBaseCost[(int)rarity] * (ipCostUpRate * level));
+        return cost;
+    }
+
+
+    /// <summary>
+    /// 熟練度をレアリティごとに決まった値を返す
+    /// </summary>
+    public int ProficiencyFetchCost()
+    {
+        // レアリティごとに決まった値を返す
+        // 0:N, 1:R, 2:SR, 3:SSR
+        int cost = Mathf.FloorToInt(ProficiencyBase[(int)rarity] * (proficiencyCostUpRate * level));
         return cost;
     }
 }
