@@ -5,10 +5,23 @@ using UnityEngine;
 public class OtomoSkillRunner : MonoBehaviour
 {
     List<SkillSO> equippedSkill = new List<SkillSO>();
+    [SerializeField] Transform skillSlotParent;
+    [SerializeField] EquipmentNowSkilSlot[] equipmentNowSkilSlots;
     void Start()
     {
         if(OtomoSkillManager.Instance != null) 
         equippedSkill = OtomoSkillManager.Instance.EquippedSkill;
+        equipmentNowSkilSlots = skillSlotParent.GetComponentsInChildren<EquipmentNowSkilSlot>();
+
+        // スキルのスロットを更新する
+        for (int ii = 0; ii < equipmentNowSkilSlots.Length; ii++)
+        {
+            // スキルのスロットを更新する
+            equipmentNowSkilSlots[ii].SkillSO = ii < equippedSkill.Count ? equippedSkill[ii] : null;
+            equipmentNowSkilSlots[ii].UpdateSlot(equipmentNowSkilSlots[ii].SkillSO);
+            if(equippedSkill[ii] == null) continue;
+            equippedSkill[ii].IsEndCoolTime = true; // クールタイムが終了している
+        }
     }
 
     void Update()
@@ -58,10 +71,12 @@ public class OtomoSkillRunner : MonoBehaviour
         float coolTime = equippedSkill[index].CoolTime;
         while (coolTime > 0)
         {
+            equipmentNowSkilSlots[index].UpdateCoolTimeField(coolTime);
             coolTime -= Time.deltaTime;
             yield return null;
         }
-        
-        equippedSkill[index].IsEndCoolTime = true; // クールタイムが終了した
+
+        equippedSkill[index].IsEndCoolTime = true;      // クールタイムが終了した
+        equipmentNowSkilSlots[index].EndCoolTime();     // クールタイムが終了したときの処理
     }
 }
