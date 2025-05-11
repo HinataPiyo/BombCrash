@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 7484248082165353392, guid: 9b2886afa325b314fbbf920db15d8e11, type: 3}
-  bombSO: {fileID: 11400000, guid: 360ad5043c13f4e4fa5e926089b03af6, type: 2}
+  bombSO: {fileID: 11400000, guid: 29c649a41430eaa4b9f072d5b0af1194, type: 2}
   scaleUpSpeed: 1
   maxScale: 1
   defaultScale: 0.5
