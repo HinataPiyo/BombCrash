@@ -33,3 +33,25 @@ public enum Category
     Auxiliary,
     Disruption,
 }
+/*
+public class Level : MonoBehaviour
+{
+    public SkillSO skillSO;
+    public int currentProficiency = 1;
+    public int requiredproficiency = 10;
+    public float proficiencymultiplier = 1.2f;
+    public int maxProficiency = 30;
+
+    public void LevlUp()
+    {
+        if(requiredproficiency >= maxProficiency)
+        {
+            float _maxProficiency = (float)maxProficiency * proficiencymultiplier;
+            _maxProficiency = maxProficiency;
+
+            currentProficiency++;
+            requiredproficiency = 0;
+        }
+    }
+}
+*/
