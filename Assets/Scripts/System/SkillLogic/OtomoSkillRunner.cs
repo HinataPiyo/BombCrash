@@ -14,11 +14,28 @@ public class OtomoSkillRunner : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            foreach (var skill in equippedSkill)
-            {
-                if (skill == null) continue;
-                StartCoroutine(skill.SkillLogicBase.ExecuteFlow());         // スキルを発動
-            }
+            SkillExecute(0); // スキル1を発動
         }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            SkillExecute(1); // スキル2を発動
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            SkillExecute(2); // スキル3を発動
+        }
+    }
+
+    /// <summary>
+    /// スキルを発動する
+    /// </summary>
+    /// <param name="index">スキルのインデックス</param>
+    void SkillExecute(int index)
+    {
+        if (equippedSkill[index] == null) return;
+        if (equippedSkill[index].SkillLogicBase == null) return;
+        if (equippedSkill[index].SkillLogicBase.ExecuteFlow() == null) return;
+
+        StartCoroutine(equippedSkill[index].SkillLogicBase.ExecuteFlow());         // スキルを発動
     }
 }
