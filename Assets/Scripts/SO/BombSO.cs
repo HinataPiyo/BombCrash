@@ -11,16 +11,24 @@ public class BombSO : ScriptableObject
     public float AttackDamage 
     { 
         get
-        { 
-            float baseDamage = Default_Damage + b_UpDataSO.GetPlayerData(StatusName.BombAttackDamageUp).increaseValue;
-            float _damege =  baseDamage + baseDamage * player.Bomb_RC.AttackDamageUp;
-            if(DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
+        {
+            if(b_UpDataSO != null)
+            {
+                float baseDamage = Default_Damage + b_UpDataSO.GetPlayerData(StatusName.BombAttackDamageUp).increaseValue;
+                float _damege =  baseDamage + baseDamage * player.Bomb_RC.AttackDamageUp;
+                if(DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
 
-            float critical = IsCritical();
-            if(critical > 0) _damege *= critical;
-            return _damege;
+                float critical = IsCritical();
+                if(critical > 0) _damege *= critical;
+                return _damege;
+            }
+            else
+            {
+                return Default_Damage;
+            }
         }
     }
+
 
     /// <summary>
     /// クリティカルの抽選
@@ -44,8 +52,15 @@ public class BombSO : ScriptableObject
     {
         get
         {
-            float baseDamage = Default_ExplosionRadius * (1 + b_UpDataSO.GetPlayerData(StatusName.ExplosionRadiusUp).increaseValue);
-            return baseDamage + baseDamage * player.Bomb_RC.ExplosionRadiusUp;
+            if(b_UpDataSO != null)
+            {
+                float baseDamage = Default_ExplosionRadius * (1 + b_UpDataSO.GetPlayerData(StatusName.ExplosionRadiusUp).increaseValue);
+                return baseDamage + baseDamage * player.Bomb_RC.ExplosionRadiusUp;
+            }
+            else
+            {
+                return Default_ExplosionRadius;
+            }
         }    
     }
 }
