@@ -33,7 +33,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
         base.SetSkill(skillSO);
         nameText.text = skillSO.Name;
         effectText.text = skillSO.Effect;
-        levelText.text = "Lv " + skillSO.Level.ToString("F0");
+        levelText.text = "Lv " + (skillSO.Level + 1).ToString("F0");
         coolTimeText.text = "CT:" + skillSO.CoolTime.ToString("F0");
     }
 
