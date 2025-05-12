@@ -14,13 +14,12 @@ namespace OtomoSkill
 
         void Start()
         {
-            upgradeButton.onClick.AddListener(() => ButtonOnClick());
             progressImage.sizeDelta = new Vector2(0, 40);
         }
 
         void Update()
         {
-            bool isCheck = isHolding && OtomoSkillDetailPanel.Instance.CheckIPCostAndProficiency();
+            bool isCheck = OtomoSkillDetailPanel.Instance.CheckIPCostAndProficiency();
             upgradeButton.interactable = isCheck; // ボタンのインタラクティブを更新
             // 長押し中
             if (isHolding && isCheck)
@@ -30,10 +29,10 @@ namespace OtomoSkill
                     Vector2 size = new Vector2(progressSpeed * Time.deltaTime, 0);
                     progressImage.sizeDelta += size;
                 }
-                else    // 最大まで押された場合
+                else if (progressImage.sizeDelta.x >= maxProgress)    // 最大まで押された場合
                 {
                     // ボタンを押したときの処理を実行
-                    ButtonOnClick();
+                    ExecuteUpgrade();
                 }
             }
             else
@@ -49,13 +48,12 @@ namespace OtomoSkill
         /// <summary>
         /// ボタンを押したときの処理
         /// </summary>
-        void ButtonOnClick()
+        void ExecuteUpgrade()
         {
-            // スキルのレベルアップ処理を実行
-            OtomoSkillDetailPanel.Instance.SkillSO.ProficiencyLevelUp();
+            OtomoSkillDetailPanel.Instance.SkillSO.ProficiencyLevelUp();        // スキルのレベルアップ
             Debug.Log("スキルのレベルアップ処理を実行");
-            // テキストを更新
-            OtomoSkillDetailPanel.Instance.SetText(OtomoSkillDetailPanel.Instance.SkillSO);
+            OtomoSkillDetailPanel.Instance.SetText(OtomoSkillDetailPanel.Instance.SkillSO);     // スキルの情報を更新
+            progressImage.sizeDelta = new Vector2(0, 40);       // プログレスバーをリセット
         }
 
         // EventTriggerから呼び出す
