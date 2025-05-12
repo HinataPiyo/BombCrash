@@ -7,11 +7,11 @@ public class BombBase : MonoBehaviour
     [SerializeField] GameObject explosionPrefab;
 
     [SerializeField] protected BombSO bombSO;
-    [SerializeField] protected float scaleUpSpeed = 1f;
+    [SerializeField] protected float scaleUpSpeed = 2f;
     [SerializeField] protected float maxScale = 1f;
     [SerializeField] protected float defaultScale = 0.5f;
 
-    const float throwForce = 4f;
+    const float throwForce = 6f;
     Vector3 explosionPoint;
     public Vector3 ExplosionPoint { set { explosionPoint = value; } }
 

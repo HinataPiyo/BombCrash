@@ -11,7 +11,7 @@ public class SkillSO : ScriptableObject
     [Header("名前"), SerializeField] new string name;
     [Header("効果"), SerializeField] string effect;
     [Header("レアリティ"), SerializeField] Rarity rarity;
-    [Header("レベル"), SerializeField] int level = 1;
+    [Header("レベル"), SerializeField] int level = 0;
     [Header("クールタイム(CT)"), SerializeField] float coolTime;
     bool isEndCoolTime = true; // クールタイムが終了しているかどうか
     [Header("現在の熟練度"), SerializeField] float currentProficiency;
@@ -34,10 +34,22 @@ public class SkillSO : ScriptableObject
     public SkillLogicBase SkillLogicBase => skillLogicBase;
 
     /// <summary>
+    /// 初期化処理
+    /// </summary>
+    public void Initialize()
+    {
+        maxProficiency = ProficiencyFetchCost();        // 熟練度の最大値を取得
+    }
+
+    /// <summary>
     /// 知見ポイントをレアリティごとに決まった値を返す
     /// </summary>
     public int InsightPointFetchCost()
     {
+        if(level == 0)
+        {
+            return IPBaseCost[(int)rarity];
+        }
         // レアリティごとに決まった値を返す
         // 0:N, 1:R, 2:SR, 3:SSR
         int cost = Mathf.FloorToInt(IPBaseCost[(int)rarity] * (ipCostUpRate * level));
@@ -50,28 +62,34 @@ public class SkillSO : ScriptableObject
     /// </summary>
     public int ProficiencyFetchCost()
     {
+        if(level == 0)
+        {
+            return IPBaseCost[(int)rarity];
+        }
         // レアリティごとに決まった値を返す
         // 0:N, 1:R, 2:SR, 3:SSR
         int cost = Mathf.FloorToInt(ProficiencyBase[(int)rarity] * (proficiencyCostUpRate * level));
         return cost;
     }
-    public void LevelUp()
-    { 
-        /*
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            level++;
-            currentProficiency += Mathf.FloorToInt(ProficiencyBase[(int)rarity]); //* (proficiencyCostUpRate * level);
-            if(currentProficiency >= maxProficiency)
-            {
-                float _maxProficiency = (float)maxProficiency * proficiencyCostUpRate;
-                _maxProficiency = maxProficiency;
 
-                level++;
-                currentProficiency = 0;
-            }
-        }
-        */
+    /// <summary>
+    /// 熟練度を上げる(スキルのレベルアップ)
+    /// </summary>
+    public void ProficiencyLevelUp()
+    {
+        level++;
+        currentProficiency = 0;
+        maxProficiency = ProficiencyFetchCost();
+
+        // スキルのレベルが上がった時の処理
+    }
+
+    /// <summary>
+    /// 熟練度のコストをチェックする
+    /// </summary>
+    public bool CheckProficiencyCost()
+    {
+        return currentProficiency >= maxProficiency;
     }
 }
 

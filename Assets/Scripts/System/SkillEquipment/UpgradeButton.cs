@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Parts
+namespace OtomoSkill
 {
     public class UpgradeButton : MonoBehaviour
     {
@@ -14,13 +14,16 @@ namespace Parts
 
         void Start()
         {
+            upgradeButton.onClick.AddListener(() => ButtonOnClick());
             progressImage.sizeDelta = new Vector2(0, 40);
         }
 
         void Update()
         {
+            bool isCheck = isHolding && OtomoSkillDetailPanel.Instance.CheckIPCostAndProficiency();
+            upgradeButton.interactable = isCheck; // ボタンのインタラクティブを更新
             // 長押し中
-            if (isHolding)
+            if (isHolding && isCheck)
             {
                 if (progressImage.sizeDelta.x < maxProgress)
                 {
@@ -29,7 +32,8 @@ namespace Parts
                 }
                 else    // 最大まで押された場合
                 {
-
+                    // ボタンを押したときの処理を実行
+                    ButtonOnClick();
                 }
             }
             else
@@ -37,9 +41,21 @@ namespace Parts
                 if (progressImage.sizeDelta.x > 0)
                 {
                     Vector2 size = new Vector2(progressSpeed * 4 * Time.deltaTime, 0);
-                    progressImage.sizeDelta -= size; ;
+                    progressImage.sizeDelta -= size;
                 }
             }
+        }
+
+        /// <summary>
+        /// ボタンを押したときの処理
+        /// </summary>
+        void ButtonOnClick()
+        {
+            // スキルのレベルアップ処理を実行
+            OtomoSkillDetailPanel.Instance.SkillSO.ProficiencyLevelUp();
+            Debug.Log("スキルのレベルアップ処理を実行");
+            // テキストを更新
+            OtomoSkillDetailPanel.Instance.SetText(OtomoSkillDetailPanel.Instance.SkillSO);
         }
 
         // EventTriggerから呼び出す
