@@ -77,6 +77,7 @@ public class SkillSO : ScriptableObject
     /// </summary>
     public void ProficiencyLevelUp()
     {
+        
         level++;
         currentProficiency = 0;
         maxProficiency = ProficiencyFetchCost();
@@ -90,6 +91,20 @@ public class SkillSO : ScriptableObject
     public bool CheckProficiencyCost()
     {
         return currentProficiency >= maxProficiency;
+    }
+
+    /// <summary>
+    /// スキルのクールタイムをチェックする
+    /// </summary>
+    public void AddProficiency()
+    {
+        currentProficiency ++;      // 熟練度を上げる
+        // 熟練度が最大値を超えた場合
+        if (currentProficiency > maxProficiency)
+        {
+            // 熟練度を最大値にする
+            currentProficiency = maxProficiency;
+        }
     }
 }
 

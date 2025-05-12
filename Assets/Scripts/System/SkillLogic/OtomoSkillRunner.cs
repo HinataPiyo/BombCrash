@@ -54,6 +54,7 @@ public class OtomoSkillRunner : MonoBehaviour
         if (equippedSkill[index].IsEndCoolTime == true)
         {
             StartCoroutine(equippedSkill[index].SkillLogicBase.ExecuteFlow());     // スキルを発動
+            equippedSkill[index].AddProficiency(); // 熟練度を上昇させる
         }
         else
         {

@@ -5,6 +5,7 @@ namespace OtomoSkill
 {
     public class UpgradeButton : MonoBehaviour
     {
+        [SerializeField] PlayerStatusSO playerSO;
         [SerializeField] bool isHolding = false;
         [SerializeField] Button upgradeButton;
         [SerializeField] RectTransform progressImage;
@@ -50,10 +51,14 @@ namespace OtomoSkill
         /// </summary>
         void ExecuteUpgrade()
         {
-            OtomoSkillDetailPanel.Instance.SkillSO.ProficiencyLevelUp();        // スキルのレベルアップ
+            SkillSO skill = OtomoSkillDetailPanel.Instance.SkillSO;
+            if (skill == null) return; // スキルが選択されていない場合は何もしない
             Debug.Log("スキルのレベルアップ処理を実行");
-            OtomoSkillDetailPanel.Instance.SetText(OtomoSkillDetailPanel.Instance.SkillSO);     // スキルの情報を更新
-            InventoryController.Instance.ProficiencyUpSlotUpdate(OtomoSkillDetailPanel.Instance.SkillSO); // スキルのインベントリを更新
+            skill.ProficiencyLevelUp();        // スキルのレベルアップ
+            playerSO.InsightPointHaveAmount = -skill.InsightPointFetchCost();   // 知見ポイントを消費
+            OtomoSkillDetailPanel.Instance.SetText(skill);     // スキルの情報を更新
+            InventoryController.Instance.ProficiencyUpSlotUpdate(skill); // スキルのインベントリを更新
+
             progressImage.sizeDelta = new Vector2(0, 40);       // プログレスバーをリセット
         }
 
