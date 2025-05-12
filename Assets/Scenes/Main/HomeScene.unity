@@ -14348,6 +14348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921fdf09d960935409d4d5cc8f8b5cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
   isHolding: 0
   upgradeButton: {fileID: 1270666649}
   progressImage: {fileID: 1891858811}

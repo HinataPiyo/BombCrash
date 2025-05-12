@@ -1,10 +1,10 @@
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillSO", menuName = "SkillSO")]
 public class SkillSO : ScriptableObject
 {
     [Header("スキル処理"), SerializeField] SkillLogicBase skillLogicBase;
+    [Header("手動(false)or自動(true)"), SerializeField] bool isAuto;       // 手動（false）か自動（true）か
     [Header("カテゴリ"), SerializeField] Category category;
     [Header("画像"), SerializeField] Sprite sprite;
     [Header("名前"), SerializeField] new string name;
@@ -28,7 +28,8 @@ public class SkillSO : ScriptableObject
     public Rarity Rarity => rarity;
     public int Level => level;
     public float CoolTime => coolTime;
-    public bool IsEndCoolTime { get => isEndCoolTime; set => isEndCoolTime = value; }
+    public bool IsEndCoolTime { get { return isEndCoolTime; } set { isEndCoolTime = value; } }
+    public bool IsAuto { get { return isAuto; } set { isAuto = value; } }
     public float CurrentProficiency => currentProficiency;
     public float MaxProficiency => maxProficiency;
     public SkillLogicBase SkillLogicBase => skillLogicBase;
