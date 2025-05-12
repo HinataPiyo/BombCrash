@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
@@ -53,6 +54,24 @@ public class SkillSO : ScriptableObject
         // 0:N, 1:R, 2:SR, 3:SSR
         int cost = Mathf.FloorToInt(ProficiencyBase[(int)rarity] * (proficiencyCostUpRate * level));
         return cost;
+    }
+    public void LevelUp()
+    { 
+        /*
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            level++;
+            currentProficiency += Mathf.FloorToInt(ProficiencyBase[(int)rarity]); //* (proficiencyCostUpRate * level);
+            if(currentProficiency >= maxProficiency)
+            {
+                float _maxProficiency = (float)maxProficiency * proficiencyCostUpRate;
+                _maxProficiency = maxProficiency;
+
+                level++;
+                currentProficiency = 0;
+            }
+        }
+        */
     }
 }
 
