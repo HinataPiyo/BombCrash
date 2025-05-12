@@ -15,8 +15,9 @@ public class SkillSO : ScriptableObject
     bool isEndCoolTime = true; // クールタイムが終了しているかどうか
     [Header("現在の熟練度"), SerializeField] int currentProficiency;
     [Header("次の最大熟練度"), SerializeField] int maxProficiency;
-    [Header("熟練度の上昇率"), SerializeField] float proficiencyCostUpRate = 1.25f;
-    [Header("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.25f;
+    [Header("熟練度の上昇率"), SerializeField] float proficiencyCostUpRate = 1.5f;
+    [Header("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.7f;
+    
     
     static readonly int[] ProficiencyBase = { 50, 75, 100, 150 };   // 熟練度のコスト
     static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト

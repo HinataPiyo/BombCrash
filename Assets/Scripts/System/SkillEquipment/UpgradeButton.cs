@@ -53,6 +53,7 @@ namespace OtomoSkill
             OtomoSkillDetailPanel.Instance.SkillSO.ProficiencyLevelUp();        // スキルのレベルアップ
             Debug.Log("スキルのレベルアップ処理を実行");
             OtomoSkillDetailPanel.Instance.SetText(OtomoSkillDetailPanel.Instance.SkillSO);     // スキルの情報を更新
+            InventoryController.Instance.ProficiencyUpSlotUpdate(OtomoSkillDetailPanel.Instance.SkillSO); // スキルのインベントリを更新
             progressImage.sizeDelta = new Vector2(0, 40);       // プログレスバーをリセット
         }
 
