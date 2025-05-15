@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class OtomoSkillRunner : MonoBehaviour
@@ -8,8 +7,6 @@ public class OtomoSkillRunner : MonoBehaviour
     List<SkillSO> equippedSkill = new List<SkillSO>();
     [SerializeField] Transform skillSlotParent;
     [SerializeField] EquipmentNowSkilSlot[] equipmentNowSkilSlots;
-    float isAutoWaitTime = 1f; // 自動発動の待機時間
-
     void Start()
     {
         if(OtomoSkillManager.Instance != null) 
@@ -29,18 +26,6 @@ public class OtomoSkillRunner : MonoBehaviour
 
     void Update()
     {
-        for(int ii = 0; ii < equipmentNowSkilSlots.Length; ii++)
-        {
-            if (equipmentNowSkilSlots[ii].SkillSO == null) continue;
-
-            // 自動になっているかつクールタイムが終了していればスキルを発動する
-            if (equipmentNowSkilSlots[ii].SkillSO.IsAuto
-            && equipmentNowSkilSlots[ii].SkillSO.IsEndCoolTime)
-            {
-                StartCoroutine(AutoSkillExecute(ii)); // スキルを発動
-            }
-        }
-        
         if(Input.GetKeyDown(KeyCode.Z))
         {
             SkillExecute(0); // スキル1を発動
@@ -69,7 +54,6 @@ public class OtomoSkillRunner : MonoBehaviour
         if (equippedSkill[index].IsEndCoolTime == true)
         {
             StartCoroutine(equippedSkill[index].SkillLogicBase.ExecuteFlow());     // スキルを発動
-            equippedSkill[index].AddProficiency(); // 熟練度を上昇させる
         }
         else
         {
@@ -79,23 +63,6 @@ public class OtomoSkillRunner : MonoBehaviour
         StartCoroutine(UpdateCoolTime(index));                                     // クールタイムを更新
     }
 
-    /// <summary>
-    /// 自動発動のスキルを実行する
-    /// </summary>
-    IEnumerator AutoSkillExecute(int index)
-    {
-        if (equippedSkill[index] == null) yield break;
-
-        // 自動発動の待機時間を待つ
-        yield return new WaitForSeconds(isAutoWaitTime);
-
-        // スキルを発動する
-        SkillExecute(index);
-    }
-
-    /// <summary>
-    /// クールタイムを更新する
-    /// </summary>
     IEnumerator UpdateCoolTime(int index)
     {
         if (equippedSkill[index] == null) yield break;

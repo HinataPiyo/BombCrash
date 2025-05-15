@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class OtomoSkillDetailPanel : MonoBehaviour
 {
     public static OtomoSkillDetailPanel Instance;
-    [SerializeField] PlayerStatusSO playerSO;
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI rarityText;
@@ -17,9 +16,6 @@ public class OtomoSkillDetailPanel : MonoBehaviour
     [SerializeField] Slider proficiencySlider;
     [SerializeField] TextMeshProUGUI insightPointText;
     [SerializeField] Animator iconAnim;
-
-    SkillSO m_skillSO;
-    public SkillSO SkillSO => m_skillSO;
 
     void Awake()
     {
@@ -48,7 +44,6 @@ public class OtomoSkillDetailPanel : MonoBehaviour
 
     public void SetText(SkillSO skillSO)
     {
-        m_skillSO = skillSO;
         if(skillSO.Icon != null)
         {
             icon.sprite = skillSO.Icon;
@@ -57,24 +52,11 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         }
         nameText.text = $"{skillSO.Name}";
         rarityText.text = $"{skillSO.Rarity}";
-        levelText.text = $"{skillSO.Level + 1}";
+        levelText.text = $"{skillSO.Level}";
         coolTimeText.text = $"{skillSO.CoolTime}";
         currentEffectText.text = $"{skillSO.Effect}";
         nextEffectText.text = "";
         proficiencyText.text = $"{skillSO.CurrentProficiency} / {skillSO.MaxProficiency}";
-        proficiencySlider.maxValue = skillSO.MaxProficiency;
-        proficiencySlider.value = skillSO.CurrentProficiency;
-        insightPointText.text = $"{skillSO.InsightPointFetchCost()}";
+        insightPointText.text = "-";
     }
-
-    /// <summary>
-    /// スキルのレベルアップ処理
-    /// </summary>
-    public bool CheckIPCostAndProficiency()
-    {
-        if (m_skillSO == null) return false;
-        return playerSO.InsightPointHaveAmount >= m_skillSO.InsightPointFetchCost() &&
-               m_skillSO.CheckProficiencyCost();
-    }
-    
 }
