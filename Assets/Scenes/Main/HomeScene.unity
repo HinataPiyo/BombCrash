@@ -4707,6 +4707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4958a1950827a6345921d6cbd9c203db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
   icon: {fileID: 1888756306}
   nameText: {fileID: 1133603115}
   rarityText: {fileID: 1412809695}
@@ -6134,7 +6135,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1402582841}
   m_HandleRect: {fileID: 0}
@@ -14347,6 +14348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921fdf09d960935409d4d5cc8f8b5cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
   isHolding: 0
   upgradeButton: {fileID: 1270666649}
   progressImage: {fileID: 1891858811}
