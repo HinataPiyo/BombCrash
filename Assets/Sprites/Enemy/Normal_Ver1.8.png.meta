@@ -3,8 +3,8 @@ guid: 0d358d2b710247c4e8e05c14c61cb39f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1577593594234390981
-    second: icon_energy_gry_0
+      213: 7455749281556774137
+    second: Normal_Ver1.8_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: icon_energy_gry_0
+      name: Normal_Ver1.8_0
       rect:
         serializedVersion: 2
         x: 241
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b363ab70cf24b1ae0800000000000000
-      internalID: -1577593594234390981
+      spriteID: 9fcb0952874287760800000000000000
+      internalID: 7455749281556774137
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      icon_energy_gry_0: -1577593594234390981
+      Normal_Ver1.8_0: 7455749281556774137
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
