@@ -8,12 +8,14 @@ public class EnemyStatus : MonoBehaviour
     [SerializeField] TextMeshPro hpText;
     [SerializeField] TextMeshPro countDownText;
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Animator anim;
 
     public EnemySO EnemySO => enemySO;
     
 
     public void SetOrderInLayer(int oderinlayer)
     {
+        anim.SetTrigger("Spawn");       // スポーン時のアニメーションを再生
         sprite.sortingOrder = oderinlayer - 1;
         hpText.sortingOrder = oderinlayer;
         countDownText.sortingOrder = oderinlayer;
