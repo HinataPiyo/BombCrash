@@ -127,17 +127,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.19}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.63, y: 7.02}
+    oldSize: {x: 3.3228571, y: 2.0057142}
     newSize: {x: 11.63, y: 7.02}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.7, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &8337219971877051485
 MonoBehaviour:
@@ -193,7 +193,7 @@ PrefabInstance:
     - target: {fileID: 1069780567276425552, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: -5013957895090389883, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
+      objectReference: {fileID: -6933640386107567374, guid: d5c08c295c340d34c85b746700f65a4c, type: 2}
     - target: {fileID: 1896639146878161715, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_Name
       value: HpText
@@ -281,11 +281,11 @@ PrefabInstance:
     - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d5c08c295c340d34c85b746700f65a4c, type: 2}
     - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -5013957895090389883, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
+      objectReference: {fileID: -6933640386107567374, guid: d5c08c295c340d34c85b746700f65a4c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

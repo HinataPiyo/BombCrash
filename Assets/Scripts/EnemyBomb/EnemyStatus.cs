@@ -14,9 +14,9 @@ public class EnemyStatus : MonoBehaviour
 
     public void SetOrderInLayer(int oderinlayer)
     {
-        sprite.sortingOrder = oderinlayer;
-        hpText.sortingOrder = oderinlayer + 1;
-        countDownText.sortingOrder = oderinlayer + 1;
+        sprite.sortingOrder = oderinlayer - 1;
+        hpText.sortingOrder = oderinlayer;
+        countDownText.sortingOrder = oderinlayer;
     }
 
     public void SetHpUP(float inc)
