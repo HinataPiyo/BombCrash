@@ -82,12 +82,12 @@ SpriteRenderer:
   m_SortingLayerID: 458992487
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -943486710903212786, guid: 7045f1e080e3e4a4e8f80eb55c9262c0, type: 3}
+  m_Sprite: {fileID: -2234531404997010057, guid: 7045f1e080e3e4a4e8f80eb55c9262c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 11.63, y: 7.02}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -131,8 +131,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.3228571, y: 2.0057142}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 11.63, y: 7.02}
+    newSize: {x: 11.63, y: 7.02}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -281,7 +281,7 @@ PrefabInstance:
     - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_sharedMaterial
       value: 
