@@ -22,7 +22,7 @@ public class EnemyStatus : MonoBehaviour
     public void SetHpUP(float inc)
     {
         currentHp = enemySO.UpMaxHp + inc;
-        hpText.text = "Hp " + currentHp.ToString("F2");
+        hpText.text = "Hp " + currentHp.ToString("F1");
 
         //Debug.LogFormat($"<color=green>係数 : {inc}</color>");
         //Debug.LogFormat($"<color=blue>敵のHP : {currentHp}</color>");
@@ -36,7 +36,7 @@ public class EnemyStatus : MonoBehaviour
         if(GameSystem.Instance.IsGameOver == true) return;      // ゲームオーバーになっていた場合ダメージ処理を行わない
         Debug.LogFormat($"<color=red>プレイヤーATK : {damage}</color>");
         currentHp -= damage;        // ダメージ処理
-        hpText.text = "Hp " + currentHp.ToString("F2");
+        hpText.text = "Hp " + currentHp.ToString("F1");
         if (currentHp <= 0)
         {
             GetComponent<DropScrap>().SpawnScrap();     // 死んだらスクラップをドロップ

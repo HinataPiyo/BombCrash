@@ -18,13 +18,20 @@ public class OtomoSkillRunner : MonoBehaviour
         // スキルのスロットを更新する
         for (int ii = 0; ii < equipmentNowSkilSlots.Length; ii++)
         {
-            if (equippedSkill.Count == 0) return;       // スキルが装備されていない場合は何もしない
-            
-            // スキルのスロットを更新する
+            if (ii < equippedSkill.Count)
+            {
+                // スキルのスロットを更新する
                 equipmentNowSkilSlots[ii].SkillSO = ii < equippedSkill.Count ? equippedSkill[ii] : null;
-            equipmentNowSkilSlots[ii].UpdateSlot(equipmentNowSkilSlots[ii].SkillSO);
-            if (equippedSkill[ii] == null) continue;        // スキルが装備されていない場合は何もしない
-            equippedSkill[ii].IsEndCoolTime = true; // クールタイムが終了している
+                equipmentNowSkilSlots[ii].UpdateSlot(equipmentNowSkilSlots[ii].SkillSO);
+                if (equippedSkill[ii] == null) continue;        // スキルが装備されていない場合は何もしない
+                equippedSkill[ii].IsEndCoolTime = true;         // クールタイムが終了している
+            }
+            else
+            {
+                // スキルのスロットを空にする
+                equipmentNowSkilSlots[ii].SkillSO = null;
+                equipmentNowSkilSlots[ii].UpdateSlot(null);
+            }
         }
     }
 
