@@ -1,12 +1,11 @@
-using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ColdShotLogic", menuName = "Skills/ColdShot")]
-public class ColdShot : SkillLogicBase
+[CreateAssetMenu(fileName = "ColdShot", menuName = "Skills/ColdShot")]
+public class ColdShot : SkillSO
 {
     [Header("スキルが発動する前に行う動作"), SerializeField] GameObject trigger_Preafab;    // 爆弾を投げるなど
 
-    public override IEnumerator ExecuteFlow()
+    public override void Execute()
     {
         // 攻撃処理
         Debug.Log("攻撃スキルを発動しました。");
@@ -21,7 +20,5 @@ public class ColdShot : SkillLogicBase
         {
             Debug.Log("カウントダウンが0になる敵がいません。");
         }
-
-        yield break;
     }
 }

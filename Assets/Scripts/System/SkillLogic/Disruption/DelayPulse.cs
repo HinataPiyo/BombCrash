@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DelayPulseLogic", menuName = "SkillLogic/DelayPulse")]
-public class DelayPulse : SkillLogicBase
+[CreateAssetMenu(fileName = "DelayPulse", menuName = "Skills/DelayPulse")]
+public class DelayPulse : SkillSO
 {
     [SerializeField] float delayTime = 1f;
     [Header("スキルが発動する前に行う動作"), SerializeField] GameObject trigger_Preafab;    // 爆弾を投げるなど
@@ -15,13 +15,18 @@ public class DelayPulse : SkillLogicBase
     /// 移動処理(爆弾が爆発点に向かう)
     /// </summary>
     /// <param name="pos">生成された爆弾</param>
-    public override IEnumerator ExecuteFlow()
+    public override void Execute()
+    {
+        GameSystem.Instance.StartCoroutine(Flow());
+    }
+
+    IEnumerator Flow()
     {
         Debug.Log("妨害スキルを発動しました。");
         Transform center = GameSystem.Instance.Center;
         Transform pos = Instantiate(trigger_Preafab, GameSystem.Instance.Otomo.transform.position, Quaternion.identity).transform;
-        
-        while(Vector3.Distance(center.position, pos.position) > 0.05f)
+
+        while (Vector3.Distance(center.position, pos.position) > 0.05f)
         {
             Vector3 dir = center.position - pos.position;
             pos.position += dir * throwForce * Time.deltaTime;
@@ -31,7 +36,7 @@ public class DelayPulse : SkillLogicBase
         Destroy(pos.gameObject);
         Instantiate(fire_Prefab, center.position, Quaternion.identity);
 
-        foreach(var enemy in WaveManager.Instance.EnemyList)
+        foreach (var enemy in WaveManager.Instance.EnemyList)
         {
             GameObject effect_obj = Instantiate(hitEnemy_Prefab, enemy.transform);
             enemy.GetComponent<EnemyBombController>().DelayTime = delayTime;

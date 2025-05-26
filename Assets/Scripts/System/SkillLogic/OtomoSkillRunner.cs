@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class OtomoSkillRunner : MonoBehaviour
@@ -64,14 +63,12 @@ public class OtomoSkillRunner : MonoBehaviour
     void SkillExecute(int index)
     {
         if (equippedSkill[index] == null) return;
-        if (equippedSkill[index].SkillLogicBase == null) return;
-        if (equippedSkill[index].SkillLogicBase.ExecuteFlow() == null) return;
 
         // クールタイムが終了していない場合は何もしない
         if (equippedSkill[index].IsEndCoolTime == true)
         {
-            StartCoroutine(equippedSkill[index].SkillLogicBase.ExecuteFlow());     // スキルを発動
-            equippedSkill[index].AddProficiency(); // 熟練度を上昇させる
+            equippedSkill[index].Execute();         // スキルを発動
+            equippedSkill[index].AddProficiency();  // 熟練度を上昇させる
         }
         else
         {
