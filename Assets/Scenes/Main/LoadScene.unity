@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
-  loadSceneTips: {fileID: 11400000, guid: 7645eb61bfd571d44b0ee80950e5a79b, type: 2}
+  loadSceneTips: {fileID: 11400000, guid: f41d3095d67ac6040bd4b6436bb1196d, type: 2}
   background: {fileID: 102811526}
   tipsText: {fileID: 1514285178}
   progressBar: {fileID: 1753669838}
