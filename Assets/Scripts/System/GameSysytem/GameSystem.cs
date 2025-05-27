@@ -19,7 +19,7 @@ public class GameSystem : MonoBehaviour
     GameObject currentPlayer;
     [SerializeField] GameObject diePlayer;
 
-    [Header("プレイヤー")]
+    [Header("オトモ")]
     [SerializeField] GameObject otomo_Prefab;
     [SerializeField] Transform otomoSpawnPoint;
     GameObject currentOtomo;
@@ -112,6 +112,7 @@ public class GameSystem : MonoBehaviour
         yield return new WaitWhile(() => currentPlayer != null);
         gameOverDirector.Play();                // ライトの演出
         yield return new WaitForSeconds(1f);
+        Destroy(currentOtomo);                  // オトモを破棄
         Instantiate(diePlayer);                 // ゲームオーバー時のプレイヤーの画像を生成
         cameraShake.Shake(0.3f, 0.5f);          // カメラ振動
         SoundManager.Instance.PlayerDeiBGM();   // BGMを再生

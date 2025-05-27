@@ -5,6 +5,7 @@ namespace OtomoSkill
 {
     public class UpgradeButton : MonoBehaviour
     {
+        [SerializeField] PlayerStatusSO playerSO;
         [SerializeField] bool isHolding = false;
         [SerializeField] Button upgradeButton;
         [SerializeField] RectTransform progressImage;
@@ -14,13 +15,12 @@ namespace OtomoSkill
 
         void Start()
         {
-            upgradeButton.onClick.AddListener(() => ButtonOnClick());
             progressImage.sizeDelta = new Vector2(0, 40);
         }
 
         void Update()
         {
-            bool isCheck = isHolding && OtomoSkillDetailPanel.Instance.CheckIPCostAndProficiency();
+            bool isCheck = OtomoSkillDetailPanel.Instance.CheckIPCostAndProficiency();
             upgradeButton.interactable = isCheck; // ボタンのインタラクティブを更新
             // 長押し中
             if (isHolding && isCheck)
@@ -30,10 +30,10 @@ namespace OtomoSkill
                     Vector2 size = new Vector2(progressSpeed * Time.deltaTime, 0);
                     progressImage.sizeDelta += size;
                 }
-                else    // 最大まで押された場合
+                else if (progressImage.sizeDelta.x >= maxProgress)    // 最大まで押された場合
                 {
                     // ボタンを押したときの処理を実行
-                    ButtonOnClick();
+                    ExecuteUpgrade();
                 }
             }
             else
@@ -49,13 +49,17 @@ namespace OtomoSkill
         /// <summary>
         /// ボタンを押したときの処理
         /// </summary>
-        void ButtonOnClick()
+        void ExecuteUpgrade()
         {
-            // スキルのレベルアップ処理を実行
-            OtomoSkillDetailPanel.Instance.SkillSO.ProficiencyLevelUp();
+            SkillSO skill = OtomoSkillDetailPanel.Instance.SkillSO;
+            if (skill == null) return; // スキルが選択されていない場合は何もしない
             Debug.Log("スキルのレベルアップ処理を実行");
-            // テキストを更新
-            OtomoSkillDetailPanel.Instance.SetText(OtomoSkillDetailPanel.Instance.SkillSO);
+            skill.ProficiencyLevelUp();        // スキルのレベルアップ
+            playerSO.InsightPointHaveAmount = -skill.InsightPointFetchCost();   // 知見ポイントを消費
+            OtomoSkillDetailPanel.Instance.SetText(skill);     // スキルの情報を更新
+            InventoryController.Instance.ProficiencyUpSlotUpdate(skill); // スキルのインベントリを更新
+
+            progressImage.sizeDelta = new Vector2(0, 40);       // プログレスバーをリセット
         }
 
         // EventTriggerから呼び出す

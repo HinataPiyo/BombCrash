@@ -9,6 +9,8 @@ public class SkillSlotBase : MonoBehaviour
     [SerializeField] protected Button slotButton;
     [SerializeField] protected Image icon;
 
+    public SkillSO SkillSO => m_skillSO;
+
     public virtual void SetSkill(SkillSO skillSO)
     {
         // 通常表示

@@ -1,13 +1,11 @@
-using System.Collections;
-using UnityEngine;
+    using UnityEngine;
 
-[CreateAssetMenu(fileName = "CoolChargeLogic", menuName = "Skills/CoolCharge")]
-public class CoolCharge : SkillLogicBase
+[CreateAssetMenu(fileName = "CoolCharge", menuName = "Skills/CoolCharge")]
+public class CoolCharge : SkillSO
 {
-    public override IEnumerator ExecuteFlow()
+    public override void Execute()
     {
         // 補助処理
         Debug.Log("補助スキルを発動しました。");
-        yield break;
     }
 }

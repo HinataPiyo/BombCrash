@@ -12,7 +12,6 @@ public class OtomoSkillStatusSlot : SkillSlotBase
     Animator anim;
 
     [Header("スロットの状態"), SerializeField] SkillEquipmentState slotState;
-    public SkillSO SkillSO { get { return m_skillSO; } set { m_skillSO = value; } }
     public SkillEquipmentState SlotState => slotState;
     public Button SkillChangeButton => slotButton;
 
