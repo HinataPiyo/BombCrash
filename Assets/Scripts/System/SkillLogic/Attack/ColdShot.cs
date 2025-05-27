@@ -9,7 +9,7 @@ public class ColdShot : SkillSO
     {
         // 攻撃処理
         Debug.Log("攻撃スキルを発動しました。");
-        Transform clossTo0Enemy = WaveManager.Instance.CrossTo0Enemy();
+        Transform clossTo0Enemy = WaveManager.Instance.GetCrossTo0Enemy();
         if (clossTo0Enemy != null)
         {
             // スキルの発動
