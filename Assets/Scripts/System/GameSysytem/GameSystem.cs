@@ -107,7 +107,7 @@ public class GameSystem : MonoBehaviour
         StartCoroutine(mainCanvas.GetComponent<GameSceneMainCanvas>().CanvasGroupAlpha());
 
         // フィールドにいる敵をすべて破棄
-        foreach(var obj in waveManager.EnemyList) Destroy(obj);
+        foreach(var obj in waveManager.GetEnemyList()) Destroy(obj);
 
         yield return new WaitWhile(() => currentPlayer != null);
         gameOverDirector.Play();                // ライトの演出

@@ -36,7 +36,7 @@ public class DelayPulse : SkillSO
         Destroy(pos.gameObject);
         Instantiate(fire_Prefab, center.position, Quaternion.identity);
 
-        foreach (var enemy in WaveManager.Instance.EnemyList)
+        foreach (var enemy in WaveManager.Instance.GetEnemyList())
         {
             GameObject effect_obj = Instantiate(hitEnemy_Prefab, enemy.transform);
             enemy.GetComponent<EnemyBombController>().DelayTime = delayTime;

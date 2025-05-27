@@ -4790,6 +4790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123184838}
   - component: {fileID: 1123184839}
+  - component: {fileID: 1123184840}
   m_Layer: 0
   m_Name: EnemySpawnField
   m_TagString: Untagged
@@ -4827,10 +4828,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWaveIndex: 0
+  eSpawnC: {fileID: 1123184840}
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1760297319}
   waveRule: {fileID: 11400000, guid: 22c0692c62b39c24b8d99c475740b519, type: 2}
   cutInFlowCont: {fileID: 0}
+  bossSpawnController: {fileID: 0}
+--- !u!114 &1123184840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123184837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c41edff7405ef429c0ac1a8ff26a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1128859222
 GameObject:
   m_ObjectHideFlags: 0
