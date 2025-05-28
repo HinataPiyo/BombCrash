@@ -9,11 +9,11 @@ public class EnemySpawnController : MonoBehaviour
     // 生成範囲
     static readonly Range rangeX = new Range { min = -5f, max = 5f };       // 敵の出現位置（X軸範囲）
     static readonly Range rangeY = new Range { min = -1.5f, max = 3.5f };   // 敵の出現位置（Y軸範囲）
-
-    public List<GameObject> EnemyList { get; private set; }
+    List<GameObject> enemyList = new List<GameObject>();
+    public List<GameObject> EnemyList => enemyList;
 
     void Start() => wm = WaveManager.Instance;
-    void Update() => EnemyList.RemoveAll(enemyList => enemyList == null);
+    void Update() => enemyList.RemoveAll(enemyList => enemyList == null);
     public void StartSpawnEnemy(IntervalWaveData data) => StartCoroutine(SpawnEnemiesCoroutine(data));
 
 
@@ -46,11 +46,11 @@ public class EnemySpawnController : MonoBehaviour
         );
         GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);   // 敵生成
         EnemyStatus status = enemy.GetComponent<EnemyStatus>();
-        status.SetOrderInLayer(EnemyList.Count);
+        status.SetOrderInLayer(enemyList.Count);
         status.EnemySO.ResetMaxHp();
         EnemyStatusUP(status);       // HPを上昇させる
 
-        EnemyList.Add(enemy);
+        enemyList.Add(enemy);
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class EnemySpawnController : MonoBehaviour
         GameObject lowestCountdownEnemy = null;
         float lowestCountdown = float.MaxValue;
 
-        foreach (var enemy in EnemyList)
+        foreach (var enemy in enemyList)
         {
             if (enemy != null)
             {
@@ -132,5 +132,5 @@ public class EnemySpawnController : MonoBehaviour
     /// <summary>
     /// Waveのインターバル処理（スライダーでカウントダウン）
     /// </summary>
-    public bool FieldOnEnemiesCheck() => EnemyList.Count == 0;
+    public bool FieldOnEnemiesCheck() => enemyList.Count == 0;
 }
