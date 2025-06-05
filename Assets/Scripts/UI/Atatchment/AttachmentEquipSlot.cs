@@ -44,7 +44,7 @@ public class AttachmentEquipSlot : MonoBehaviour
         icon.enabled = true;
         icon.sprite = data.Icon;
         effectName.text = data.StatusNameToName(data.UseSutatusName);
-        upstatusValue.text = $"{data.UpgreadeValue}";
+        upstatusValue.text = $"+{data.UpgreadeValue}";
     }
 
     /// <summary>
