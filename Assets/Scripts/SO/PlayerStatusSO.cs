@@ -95,7 +95,7 @@ public class PlayerStatusSO : ScriptableObject
     /// 一致していたら合算して返す
     /// </summary>
     /// <param name="upgradName">アップグレードしたいステータスネーム</param>
-    float CheckAttachmentStatusName(StatusName upgradName)
+    public float CheckAttachmentStatusName(StatusName upgradName)
     {
         float total = 0;
         foreach (AttachmentDataSO data in attachments)
