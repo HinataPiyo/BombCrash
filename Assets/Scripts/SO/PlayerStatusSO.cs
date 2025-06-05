@@ -20,7 +20,7 @@ public class PlayerStatusSO : ScriptableObject
     [Header("最大到達WAVE数"), SerializeField] int arrivalWave;
 
     [Header("装備中のアタッチメント"), SerializeField] AttachmentDataSO[] attachments;        // 装備中のアタッチメント
-
+    public AttachmentDataSO[] EquipAttachments { get { return attachments; } set { attachments = value; } }
     public SceneName SceneName { set { nextScene = value; } }
     public bool IsReleaseOtomo { get { return isReleaseOtomo; } }
 

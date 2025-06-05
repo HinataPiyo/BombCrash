@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using TMPro;
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class AttachmentShopSlot : MonoBehaviour
     [SerializeField] Button openCloseButton;
     [SerializeField] TextMeshProUGUI resourceValue;
 
-    AttachmentDataSO m_attachmentDataSO;
+    public AttachmentDataSO AttachmentDataSO { get; private set; }
     PlayerStatusSO playerStatusSO;
     AttachmentShopSlotController assCtrl;
     Animator anim;
@@ -33,26 +34,32 @@ public class AttachmentShopSlot : MonoBehaviour
 
     public void SetInit(AttachmentDataSO data, PlayerStatusSO playerstatus, AttachmentShopSlotController ctrl)
     {
-        m_attachmentDataSO = data;
+        AttachmentDataSO = data;
         playerStatusSO = playerstatus;
         assCtrl = ctrl;
 
         icon.sprite = data.Icon;
         attachmentName.text = data.Name;
-        effectName.text = StatusNameToName(data.UseSutatusName);
+        effectName.text = data.StatusNameToName(data.UseSutatusName);
         upstatusText.text = $"+{data.UpgreadeValue}";
         resourceValue.text = $"{data.ResourceValue}";
 
-        CheckDeveloped();
+        CheckStat();
         CheckCanDevelop();
     }
 
     /// <summary>
-    /// 装備を購入したか否か
+    /// Attachmentの状態をテキストに反映
     /// </summary>
-    void CheckDeveloped()
+    public void CheckStat()
     {
-        if (m_attachmentDataSO.IsDeveloped)
+        if (AttachmentDataSO.IsEquiped)
+        {
+            devOrEquipButtonText.text = "装備中";
+            return;
+        }
+        
+        if (AttachmentDataSO.IsDeveloped)
         {
             devOrEquipButtonText.text = "装備";
             devOrEquipButtonText.color = new Color32(0, 107, 237, 255);
@@ -70,9 +77,9 @@ public class AttachmentShopSlot : MonoBehaviour
     void CheckCanDevelop()
     {
         // 開発済みなら以降の処理は行わない
-        if (m_attachmentDataSO.IsDeveloped) return;
+        if (AttachmentDataSO.IsDeveloped) return;
         // スクラップの所持数がリソースを超えていたらボタンが押せるようにする
-        if (m_attachmentDataSO.ResourceValue <= playerStatusSO.ScrapHaveAmount)
+        if (AttachmentDataSO.ResourceValue <= playerStatusSO.ScrapHaveAmount)
         {
             devOrEquipCanvasGroup.alpha = 1;
             devOrEquipCanvasGroup.interactable = true;
@@ -121,35 +128,24 @@ public class AttachmentShopSlot : MonoBehaviour
     /// </summary>
     public void DevelopOrEquipOnClick()
     {
-        // 所持リソースを減少させる
-        playerStatusSO.ScrapHaveAmount = -m_attachmentDataSO.ResourceValue;
-        // 開発完了フラグを立てる
-        m_attachmentDataSO.IsDeveloped = true;
-        CheckDeveloped();       // ボタンテキストを更新する
-    }
+        // 装備中だった場合以降の処理は行わない
+        CheckStat();
+        if (AttachmentDataSO.IsEquiped) return;
 
-
-    /// <summary>
-    /// StatusNameから日本語に変換した文字列を返す
-    /// </summary>
-    string StatusNameToName(StatusName statusName)
-    {
-        switch (statusName)
+        // 開発済みだった場合
+        if (AttachmentDataSO.IsDeveloped)
         {
-            case StatusName.BombAttackDamageUp:
-                return "冷却ダメージ";
-            case StatusName.BombCreateSpeedUp:
-                return "爆弾生成速度";
-            case StatusName.BombStockAmountUp:
-                return "最大爆弾所持数";
-            case StatusName.CriticalDamageUp:
-                return "クリティカルダメージ";
-            case StatusName.CriticalChanceUp:
-                return "クリティカル率";
-            case StatusName.ExplosionRadiusUp:
-                return "爆発範囲";
+            // 装備する処理
+            assCtrl.EquipOnClick(AttachmentDataSO);
+            CheckStat();
         }
-
-        return "";
+        else        // 未開発だった場合
+        {
+            // 所持リソースを減少させる
+            playerStatusSO.ScrapHaveAmount = -AttachmentDataSO.ResourceValue;
+            // 開発完了フラグを立てる
+            AttachmentDataSO.IsDeveloped = true;
+            CheckStat();       // ボタンテキストを更新する
+        }
     }
 }

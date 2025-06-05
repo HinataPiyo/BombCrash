@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// AttachmentShopSlot.csを管理す津クラス
 /// </summary>
+[RequireComponent(typeof(AttachmentEquipSlotController))]
 public class AttachmentShopSlotController : MonoBehaviour
 {
     [SerializeField] PlayerStatusSO player;
@@ -11,9 +12,11 @@ public class AttachmentShopSlotController : MonoBehaviour
     [SerializeField] Transform createSlot_Paent;
     [Header("データベース"), SerializeField] AttachmentDatabase attachmentDB;
     List<AttachmentShopSlot> slots = new List<AttachmentShopSlot>();
+    AttachmentEquipSlotController aesCtrl;
 
     void Awake()
     {
+        aesCtrl = GetComponent<AttachmentEquipSlotController>();
         foreach (AttachmentDataSO data in attachmentDB.AttachmentDB)
         {
             GameObject obj = Instantiate(attachmentShopSlot_Prefab, createSlot_Paent);
@@ -35,6 +38,31 @@ public class AttachmentShopSlotController : MonoBehaviour
             {
                 // 閉じる
                 slot.ClosePanel();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 装備する処理
+    /// </summary>
+    public void EquipOnClick(AttachmentDataSO data)
+    {
+        aesCtrl.EquipAttachment(data);
+    }
+
+    /// <summary>
+    /// attachmentを外したときの処理
+    /// ボタンテキストの更新
+    /// </summary>
+    /// <param name="removeData">外すattachment</param>
+    public void RemoveAttachment(AttachmentDataSO removeData)
+    {
+        foreach (AttachmentShopSlot slot in slots)
+        {
+            if (slot.AttachmentDataSO == removeData)
+            {
+                slot.CheckStat();       // テキストの更新
+                break;
             }
         }
     }
