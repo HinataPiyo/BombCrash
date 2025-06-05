@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +12,16 @@ public class AttachmentShopSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI effectName;
     [SerializeField] TextMeshProUGUI upstatusText;
     [SerializeField] Button devOrEquipButton;
+    [SerializeField] CanvasGroup devOrEquipCanvasGroup;
     [SerializeField] Button openCloseButton;
+    [SerializeField] TextMeshProUGUI resourceValue;
 
     AttachmentDataSO m_attachmentDataSO;
+    PlayerStatusSO playerStatusSO;
+    AttachmentShopSlotController assCtrl;
     Animator anim;
     TextMeshProUGUI devOrEquipButtonText;
-    bool isPanelOpen;
+    public bool IsPanelOpen { get; private set; }
 
     void Awake()
     {
@@ -26,16 +31,20 @@ public class AttachmentShopSlot : MonoBehaviour
         devOrEquipButtonText = devOrEquipButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void SetInit(AttachmentDataSO data)
+    public void SetInit(AttachmentDataSO data, PlayerStatusSO playerstatus, AttachmentShopSlotController ctrl)
     {
         m_attachmentDataSO = data;
+        playerStatusSO = playerstatus;
+        assCtrl = ctrl;
 
         icon.sprite = data.Icon;
         attachmentName.text = data.Name;
         effectName.text = StatusNameToName(data.UseSutatusName);
         upstatusText.text = $"+{data.UpgreadeValue}";
+        resourceValue.text = $"{data.ResourceValue}";
 
         CheckDeveloped();
+        CheckCanDevelop();
     }
 
     /// <summary>
@@ -56,19 +65,41 @@ public class AttachmentShopSlot : MonoBehaviour
     }
 
     /// <summary>
+    /// 開発できるかどうかを調べる
+    /// </summary>
+    void CheckCanDevelop()
+    {
+        // 開発済みなら以降の処理は行わない
+        if (m_attachmentDataSO.IsDeveloped) return;
+        // スクラップの所持数がリソースを超えていたらボタンが押せるようにする
+        if (m_attachmentDataSO.ResourceValue <= playerStatusSO.ScrapHaveAmount)
+        {
+            devOrEquipCanvasGroup.alpha = 1;
+            devOrEquipCanvasGroup.interactable = true;
+        }
+        else
+        {
+            devOrEquipCanvasGroup.alpha = 0.5f;
+            devOrEquipCanvasGroup.interactable = false;
+        }
+    }
+
+    /// <summary>
     /// パネルの開閉を管理するメソッド
     /// </summary>
     void OpenClosePanel()
     {
-        if (!isPanelOpen)
+        if (!IsPanelOpen)
         {
+            assCtrl.OtherPanelOnClick();        // 自身のパネルを開く前に他のパネルを閉じる
+            CheckCanDevelop();      // Openするときに毎回　リソースの所持数を超えているか確認
             anim.SetTrigger("Open");
-            isPanelOpen = true;
+            IsPanelOpen = true;
         }
         else
         {
             anim.SetTrigger("Close");
-            isPanelOpen = false;
+            IsPanelOpen = false;
         }
     }
 
@@ -79,7 +110,7 @@ public class AttachmentShopSlot : MonoBehaviour
     public void ClosePanel()
     {
         anim.SetTrigger("Close");
-        isPanelOpen = false;
+        IsPanelOpen = false;
     }
 
 

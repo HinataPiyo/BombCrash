@@ -8,6 +8,7 @@ public class AttachmentDataSO : ScriptableObject
     [SerializeField] Sprite icon;             // 画像
     [SerializeField] StatusName statusName;     // 強化したいステータスネーム
     [SerializeField] float upgradeValue;       // 強化率
+    [SerializeField] int resourceValue;
 
     [Header("購入済みか否か"), SerializeField] bool isDeveloped;
 
@@ -17,6 +18,7 @@ public class AttachmentDataSO : ScriptableObject
     public string Discription => discription;
     public StatusName UseSutatusName => statusName;
     public float UpgreadeValue => upgradeValue;
+    public int ResourceValue => resourceValue;
     public bool IsDeveloped { get { return isDeveloped; } set { isDeveloped = value; } }
 
     /// <summary>
