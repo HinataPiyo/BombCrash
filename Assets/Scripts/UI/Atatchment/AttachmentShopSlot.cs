@@ -76,11 +76,13 @@ public class AttachmentShopSlot : MonoBehaviour
         {
             devOrEquipCanvasGroup.alpha = 1;
             devOrEquipCanvasGroup.interactable = true;
+            devOrEquipButtonText.text = "開発";
         }
         else
         {
-            devOrEquipCanvasGroup.alpha = 0.5f;
+            devOrEquipCanvasGroup.alpha = 0.3f;
             devOrEquipCanvasGroup.interactable = false;
+            devOrEquipButtonText.text = "不足";
         }
     }
 
@@ -119,6 +121,8 @@ public class AttachmentShopSlot : MonoBehaviour
     /// </summary>
     public void DevelopOrEquipOnClick()
     {
+        // 所持リソースを減少させる
+        playerStatusSO.ScrapHaveAmount = -m_attachmentDataSO.ResourceValue;
         // 開発完了フラグを立てる
         m_attachmentDataSO.IsDeveloped = true;
         CheckDeveloped();       // ボタンテキストを更新する
