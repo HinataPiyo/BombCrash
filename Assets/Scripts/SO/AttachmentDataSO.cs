@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AttachmentDataSO", menuName = "SO/AttachmentDataSO")]
 public class AttachmentDataSO : ScriptableObject
 {
-    [SerializeField] protected PlayerStatusSO psSO;
     [SerializeField] new string name;           // 名前
     [SerializeField] string discription;        // 説明
     [SerializeField] Sprite sprite;             // 画像
