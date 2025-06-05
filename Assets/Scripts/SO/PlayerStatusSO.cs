@@ -43,7 +43,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             int basic = (int)b_UpDataSO.GetPlayerData(StatusName.BombStockAmountUp).increaseValue;
-            return bomb_RC.BombStockAmountUp + basic + (defaultHaveBomb - 1);
+            return basic;       // 修正する
         }
     }
     public float CreateBombTime     // 爆弾生成時間
@@ -51,7 +51,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             float basic = b_UpDataSO.GetPlayerData(StatusName.BombCreateSpeedUp).increaseValue;
-            return createBombTime * (1 - (bomb_RC.BombCreateSpeedUp + basic));
+            return basic;           // 修正する
         }
     }
     public float CriticalDamage     // クリティカルダメージ
@@ -59,7 +59,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalDamageUp).increaseValue;
-            return criticalDamage + bomb_RC.CriticalDamageUp + basic;
+            return basic;       // 修正する
         }
     }
     public float CriticalChance     // クリティカル率
@@ -67,7 +67,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalChanceUp).increaseValue;
-            return criticalChance + bomb_RC.CriticalChanceUp + basic;
+            return basic;       // 修正する
         }
     }
     // スクラップの所持数
@@ -92,13 +92,6 @@ public class PlayerStatusSO : ScriptableObject
         [Header("爆弾ストック数の解放数"), SerializeField] int bombStockAmountUp;
         [Header("投擲数の解放数"), SerializeField] int throwAmountUp;
 
-        public float ExplosionRadiusUp { get { return explosionRadiusUp * ResearchData.explosionRadius; } set { explosionRadiusUp += (int)value; } }
-        public float BombCreateSpeedUp { get { return bombCreateSpeedUp * ResearchData.bombCreateSpeed; } set { bombCreateSpeedUp += (int)value; } }
-        public int BombStockAmountUp { get { return bombStockAmountUp * ResearchData.bombStockUp; } set { bombStockAmountUp += (int)value; } }
-        public float AttackDamageUp { get { return attackDamageUp * ResearchData.attackDamageUp; } set { attackDamageUp += (int)value; } }
-        public float CriticalDamageUp { get { return criticalDamageUp * ResearchData.criticalDamageUp; } }
-        public float CriticalChanceUp { get { return criticalChanceUp * ResearchData.criticalChanceUp; } }
-        public int ThrowAmountUp { get { return throwAmountUp * ResearchData.throwAmount; } set { throwAmountUp += (int)value; } }
     }
 
     [System.Serializable]
@@ -106,9 +99,6 @@ public class PlayerStatusSO : ScriptableObject
     {
         [Header("スクラップのボーナス"), SerializeField] int scrapBonusUp;
         [Header("知見ポイントのボーナス"), SerializeField] int insightBonusUp;
-
-        public float ScrapBonusUp { get { return scrapBonusUp * ResearchData.scrapBonusUp; } set { scrapBonusUp += (int)value; } }
-        public float InsightBonusUp { get { return insightBonusUp * ResearchData.insightPointUp; } set { insightBonusUp += (int)value; } }
     }
 
     public string NextSceneName()

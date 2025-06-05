@@ -15,7 +15,7 @@ public class BombSO : ScriptableObject
             if(b_UpDataSO != null)
             {
                 float baseDamage = Default_Damage + b_UpDataSO.GetPlayerData(StatusName.BombAttackDamageUp).increaseValue;
-                float _damege =  baseDamage + baseDamage * player.Bomb_RC.AttackDamageUp;
+                float _damege =  baseDamage + baseDamage;       // 修正する
                 if(DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
 
                 float critical = IsCritical();
@@ -55,7 +55,7 @@ public class BombSO : ScriptableObject
             if(b_UpDataSO != null)
             {
                 float baseDamage = Default_ExplosionRadius * (1 + b_UpDataSO.GetPlayerData(StatusName.ExplosionRadiusUp).increaseValue);
-                return baseDamage + baseDamage * player.Bomb_RC.ExplosionRadiusUp;
+                return baseDamage + baseDamage;         // 修正する
             }
             else
             {
