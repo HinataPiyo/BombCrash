@@ -1,6 +1,4 @@
-using NUnit.Framework.Constraints;
 using TMPro;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,7 +56,7 @@ public class AttachmentShopSlot : MonoBehaviour
             devOrEquipButtonText.text = "装備中";
             return;
         }
-        
+
         if (AttachmentDataSO.IsDeveloped)
         {
             devOrEquipButtonText.text = "装備";
@@ -147,5 +145,24 @@ public class AttachmentShopSlot : MonoBehaviour
             AttachmentDataSO.IsDeveloped = true;
             CheckStat();       // ボタンテキストを更新する
         }
+    }
+
+    /// <summary>
+    /// カーソルがSlotに入った時の処理
+    /// </summary>
+    public void OnCursorEnter()
+    {
+        if (IsPanelOpen) return;
+        anim.SetTrigger("Select");
+    }
+
+
+    /// <summary>
+    /// カーソルがSlotから出たときの処理
+    /// </summary>
+    public void OnCursorExit()
+    {
+        if (IsPanelOpen) return;
+        anim.SetTrigger("Exit");
     }
 }

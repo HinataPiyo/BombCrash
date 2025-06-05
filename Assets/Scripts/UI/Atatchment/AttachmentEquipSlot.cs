@@ -14,10 +14,12 @@ public class AttachmentEquipSlot : MonoBehaviour
 
     public AttachmentDataSO AttachmentDataSO { get; private set; }
     AttachmentShopSlotController assCtrl;
+    Animator anim;
 
     void Awake()
     {
         removeButton.onClick.AddListener(RemoveAttachment);
+        anim = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -63,15 +65,15 @@ public class AttachmentEquipSlot : MonoBehaviour
     /// </summary>
     public void OnCursorEnter()
     {
-
+        anim.SetTrigger("Select");
     }
-    
+
 
     /// <summary>
     /// カーソルがSlotから出たときの処理
     /// </summary>
     public void OnCursorExit()
     {
-
+        anim.SetTrigger("Exit");
     }
 }
