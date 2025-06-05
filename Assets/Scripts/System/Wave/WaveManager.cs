@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class WaveManager : MonoBehaviour
 {
     #region なんかコメントアウトされてるやつ
+    #region もしミスった時用
     /*
     public static WaveManager Instance;
     [SerializeField] int currentWaveIndex;
@@ -247,7 +248,8 @@ public class WaveManager : MonoBehaviour
             
     }
     */
-#endregion
+    #endregion
+    #endregion
     public static WaveManager Instance { get; private set; }
     [SerializeField] int currentWaveIndex;
     [Header("スクリプト")]
