@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 977861113406998395}
   - component: {fileID: 1030001060811232400}
   m_Layer: 5
-  m_Name: GenreSelectButton
+  m_Name: DropDownGenreSelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

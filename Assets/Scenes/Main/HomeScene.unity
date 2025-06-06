@@ -952,6 +952,8 @@ MonoBehaviour:
   - button: {fileID: 1734886037}
     panel: {fileID: 1099052934}
   homeDirector: {fileID: 1099052936}
+  ipHaveAmountText: {fileID: 1299810872}
+  scrapHaveAmountText: {fileID: 1177655554}
   otomoButtonObject: {fileID: 1473892479}
   otomoButtonGroup: {fileID: 924981622}
   mouseClick_Prefab: {fileID: 8775893652550691976, guid: e4ac8aa2cc9fed64ca5dbfe4d44c466b, type: 3}
@@ -9740,6 +9742,17 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1177655554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5478407816749276253, guid: aed9d92e01420a64dbcb3bc7284768fe, type: 3}
+  m_PrefabInstance: {fileID: 1996404755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1181726337
 GameObject:
   m_ObjectHideFlags: 0
@@ -11329,6 +11342,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1299810872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5478407816749276253, guid: aed9d92e01420a64dbcb3bc7284768fe, type: 3}
+  m_PrefabInstance: {fileID: 1244393879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1300829398

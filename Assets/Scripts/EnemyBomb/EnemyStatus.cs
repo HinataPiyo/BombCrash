@@ -10,8 +10,16 @@ public class EnemyStatus : MonoBehaviour
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator anim;
 
+    [Header("ダメージを表示する")]
+    [SerializeField] GameObject applyDamageText_Prefab;
+    Transform applyDamageCanvas;
+
     public EnemySO EnemySO => enemySO;
-    
+
+    void Start()
+    {
+        applyDamageCanvas = GameObject.Find("ApplyDamageCanvas").transform;
+    }
 
     public void SetOrderInLayer(int oderinlayer)
     {
@@ -35,8 +43,8 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     public void TakeDamage(float damage)
     {
-        if(GameSystem.Instance.IsGameOver == true) return;      // ゲームオーバーになっていた場合ダメージ処理を行わない
-        Debug.LogFormat($"<color=red>プレイヤーATK : {damage}</color>");
+        if (GameSystem.Instance.IsGameOver == true) return;      // ゲームオーバーになっていた場合ダメージ処理を行わない
+        CreateDamageText(damage);
         currentHp -= damage;        // ダメージ処理
         hpText.text = "Hp " + currentHp.ToString("F1");
         if (currentHp <= 0)
@@ -46,6 +54,16 @@ public class EnemyStatus : MonoBehaviour
             EnemyKillCountController.Instance.AddEnemyCount(enemySO);       // キルカウントを増やす
             Destroy(gameObject);        // 自身を破棄
         }
+    }
+
+    /// <summary>
+    /// ダメージテキストを生成
+    /// </summary>
+    /// <param name="damage"></param>
+    void CreateDamageText(float damage)
+    {
+        GameObject obj = Instantiate(applyDamageText_Prefab, applyDamageCanvas);
+        obj.GetComponent<ApplyDamageText>()?.SetApplyDamageText(transform.position, damage);
     }
     
 }

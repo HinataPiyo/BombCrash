@@ -5,7 +5,7 @@ public class BombSO : ScriptableObject
 {
     [SerializeField] PlayerStatusSO player;
     [SerializeField] BasicUpgradeData b_UpDataSO;
-    public const float Default_Damage = 10f;
+    public const float Default_Damage = 6.5f;
     public const float Default_ExplosionRadius = 1f;
 
     public float AttackDamage 

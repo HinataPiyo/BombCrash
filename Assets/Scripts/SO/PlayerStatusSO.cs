@@ -38,32 +38,28 @@ public class PlayerStatusSO : ScriptableObject
     {
         get
         {
-            int basic = (int)b_UpDataSO.GetPlayerData(StatusName.BombStockAmountUp).increaseValue;
-            return basic + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
+            return defaultHaveBomb + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
         }
     }
     public float CreateBombTime     // 爆弾生成時間
     {
         get
         {
-            float basic = b_UpDataSO.GetPlayerData(StatusName.BombCreateSpeedUp).increaseValue;
-            return basic + CheckAttachmentStatusName(StatusName.BombCreateSpeedUp);
+            return createBombTime + CheckAttachmentStatusName(StatusName.BombCreateSpeedUp);
         }
     }
     public float CriticalDamage     // クリティカルダメージ
     {
         get
         {
-            float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalDamageUp).increaseValue;
-            return basic + CheckAttachmentStatusName(StatusName.CriticalDamageUp);
+            return criticalDamage + CheckAttachmentStatusName(StatusName.CriticalDamageUp);
         }
     }
     public float CriticalChance     // クリティカル率
     {
         get
         {
-            float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalChanceUp).increaseValue;
-            return basic + CheckAttachmentStatusName(StatusName.CriticalChanceUp);
+            return criticalChance + CheckAttachmentStatusName(StatusName.CriticalChanceUp);
         }
     }
     // スクラップの所持数

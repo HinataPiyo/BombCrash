@@ -101,6 +101,7 @@ MonoBehaviour:
   countDownText: {fileID: 89306098387048752}
   sprite: {fileID: 9179366036697393474}
   anim: {fileID: 5425847014715825480}
+  applyDamageText_Prefab: {fileID: 8208153366385396352, guid: 0c0f37f4578fc4744aa7af7a1177c930, type: 3}
 --- !u!114 &6532284009121797638
 MonoBehaviour:
   m_ObjectHideFlags: 0
