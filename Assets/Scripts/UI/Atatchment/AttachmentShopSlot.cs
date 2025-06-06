@@ -24,7 +24,6 @@ public class AttachmentShopSlot : MonoBehaviour
 
     void Awake()
     {
-        openCloseButton.onClick.AddListener(OpenClosePanel);
         devOrEquipButton.onClick.AddListener(DevelopOrEquipOnClick);
         anim = GetComponent<Animator>();
         devOrEquipButtonText = devOrEquipButton.GetComponentInChildren<TextMeshProUGUI>();
@@ -42,71 +41,38 @@ public class AttachmentShopSlot : MonoBehaviour
         upstatusText.text = $"+{data.UpgreadeValue}";
         resourceValue.text = $"{data.ResourceValue}";
 
-        CheckStat();
-        CheckCanDevelop();
-    }
-
-    /// <summary>
-    /// Attachmentの状態をテキストに反映
-    /// </summary>
-    public void CheckStat()
-    {
-        if (AttachmentDataSO.IsEquiped)
-        {
-            devOrEquipButtonText.text = "装備中";
-            return;
-        }
-
-        if (AttachmentDataSO.IsDeveloped)
-        {
-            devOrEquipButtonText.text = "装備";
-            devOrEquipButtonText.color = new Color32(0, 107, 237, 255);
-        }
-        else
-        {
-            devOrEquipButtonText.text = "開発";
-            devOrEquipButtonText.color = new Color32(237, 72, 0, 255);
-        }
+        CheckCanStat();
     }
 
     /// <summary>
     /// 開発できるかどうかを調べる
     /// </summary>
-    void CheckCanDevelop()
+    public void CheckCanStat()
     {
         // 開発済みなら以降の処理は行わない
-        if (AttachmentDataSO.IsDeveloped) return;
+        if (AttachmentDataSO.IsDeveloped)
+        {
+            devOrEquipCanvasGroup.alpha = 1;
+            devOrEquipCanvasGroup.interactable = true;
+            devOrEquipButtonText.text = AttachmentDataSO.IsEquiped ? "装備中" : "装備";
+            devOrEquipButtonText.color = new Color32(0, 107, 237, 255);
+            return;
+        }
+
         // スクラップの所持数がリソースを超えていたらボタンが押せるようにする
         if (AttachmentDataSO.ResourceValue <= playerStatusSO.ScrapHaveAmount)
         {
             devOrEquipCanvasGroup.alpha = 1;
             devOrEquipCanvasGroup.interactable = true;
             devOrEquipButtonText.text = "開発";
+            devOrEquipButtonText.color = new Color32(237, 72, 0, 255);
         }
         else
         {
             devOrEquipCanvasGroup.alpha = 0.3f;
             devOrEquipCanvasGroup.interactable = false;
             devOrEquipButtonText.text = "不足";
-        }
-    }
-
-    /// <summary>
-    /// パネルの開閉を管理するメソッド
-    /// </summary>
-    void OpenClosePanel()
-    {
-        if (!IsPanelOpen)
-        {
-            assCtrl.OtherPanelOnClick();        // 自身のパネルを開く前に他のパネルを閉じる
-            CheckCanDevelop();      // Openするときに毎回　リソースの所持数を超えているか確認
-            anim.SetTrigger("Open");
-            IsPanelOpen = true;
-        }
-        else
-        {
-            anim.SetTrigger("Close");
-            IsPanelOpen = false;
+            devOrEquipButtonText.color = new Color32(180, 150, 40, 255);
         }
     }
 
@@ -127,7 +93,7 @@ public class AttachmentShopSlot : MonoBehaviour
     public void DevelopOrEquipOnClick()
     {
         // 装備中だった場合以降の処理は行わない
-        CheckStat();
+        CheckCanStat();
         if (AttachmentDataSO.IsEquiped) return;
 
         // 開発済みだった場合
@@ -135,7 +101,7 @@ public class AttachmentShopSlot : MonoBehaviour
         {
             // 装備する処理
             assCtrl.EquipOnClick(AttachmentDataSO);
-            CheckStat();
+            CheckCanStat();
         }
         else        // 未開発だった場合
         {
@@ -143,7 +109,7 @@ public class AttachmentShopSlot : MonoBehaviour
             playerStatusSO.ScrapHaveAmount = -AttachmentDataSO.ResourceValue;
             // 開発完了フラグを立てる
             AttachmentDataSO.IsDeveloped = true;
-            CheckStat();       // ボタンテキストを更新する
+            CheckCanStat();
         }
     }
 
@@ -153,7 +119,10 @@ public class AttachmentShopSlot : MonoBehaviour
     public void OnCursorEnter()
     {
         if (IsPanelOpen) return;
-        anim.SetTrigger("Select");
+        assCtrl.OtherPanelOnClick();        // 自身のパネルを開く前に他のパネルを閉じる
+        CheckCanStat();      // Openするときに毎回　リソースの所持数を超えているか確認
+        anim.SetTrigger("Open");
+        IsPanelOpen = true;
     }
 
 
@@ -162,7 +131,7 @@ public class AttachmentShopSlot : MonoBehaviour
     /// </summary>
     public void OnCursorExit()
     {
-        if (IsPanelOpen) return;
-        anim.SetTrigger("Exit");
+        anim.SetTrigger("Close");
+        IsPanelOpen = false;
     }
 }

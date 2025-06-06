@@ -61,7 +61,7 @@ public class AttachmentShopSlotController : MonoBehaviour
         {
             if (slot.AttachmentDataSO == removeData)
             {
-                slot.CheckStat();       // テキストの更新
+                slot.CheckCanStat();       // テキストの更新
                 break;
             }
         }

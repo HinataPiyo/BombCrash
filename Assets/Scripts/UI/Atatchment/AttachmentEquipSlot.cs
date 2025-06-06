@@ -52,6 +52,7 @@ public class AttachmentEquipSlot : MonoBehaviour
     /// </summary>
     void RemoveAttachment()
     {
+        if (AttachmentDataSO == null) return;
         // 装備中のフラグを折る
         AttachmentDataSO.IsEquiped = false;
         // 装備を外す処理（ボタンテキストの更新）

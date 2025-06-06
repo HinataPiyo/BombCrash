@@ -10,7 +10,8 @@ public class AttachmentDataSO : ScriptableObject
     [SerializeField] float upgradeValue;       // 強化率
     [SerializeField] int resourceValue;
 
-    [Header("購入済みか否か"), SerializeField] bool isDeveloped;
+    [Header("開発済みか否か"), SerializeField] bool isDeveloped;
+    [Header("装備中か否か"), SerializeField] bool isEquiped;
 
     public StatusName StatusName => statusName;
     public Sprite Icon => icon;
@@ -20,7 +21,7 @@ public class AttachmentDataSO : ScriptableObject
     public float UpgreadeValue => upgradeValue;
     public int ResourceValue => resourceValue;
     public bool IsDeveloped { get { return isDeveloped; } set { isDeveloped = value; } }
-    public bool IsEquiped { get; set; }
+    public bool IsEquiped { get { return isEquiped; } set { isEquiped = value; } }
 
     /// <summary>
     /// 装備一覧で使用
