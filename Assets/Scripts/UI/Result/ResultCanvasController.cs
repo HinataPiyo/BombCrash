@@ -51,7 +51,7 @@ public class ResultCanvasController : MonoBehaviour
     {
         result.waveCount = waveManager.WaveCount;
         result.scrap = playerSO.ScrapHaveAmount - beforScrap;
-        result.scrapBonus = (int)Mathf.Round(result.scrap * playerSO.Support_RC.ScrapBonusUp);
+        result.scrapBonus = (int)Mathf.Round(result.scrap);     // 修正する
         result.scrapTotal = result.scrap + result.scrapBonus;
 
         int insight = insightPointCalculation.GetDefaultInsight();              // 知見ポイントの計算

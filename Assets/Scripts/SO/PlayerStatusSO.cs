@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStatus", menuName = "SO/PlayerStatus")]
@@ -15,17 +16,12 @@ public class PlayerStatusSO : ScriptableObject
     public const float criticalDamage = 1f;     // クリティカルダメージ
     public const float criticalChance = 0;      // クリティカル率
 
-
     [Header("スクラップの所持数"), SerializeField] int scrapHaveAmount;
     [Header("知見ポイントの所持数"), SerializeField] int insightPointHaveAmount;
     [Header("最大到達WAVE数"), SerializeField] int arrivalWave;
 
-    [Header("研究ツリーの解放数(RC)")]
-    [Header("爆弾"), SerializeField] BombResearchCompleteds bomb_RC;
-    [Header("支援"), SerializeField] SupportResearchCompleteds support_RC;
-    public BombResearchCompleteds Bomb_RC { get { return bomb_RC; } }
-    public SupportResearchCompleteds Support_RC { get { return support_RC; } }
-
+    [Header("装備中のアタッチメント"), SerializeField] List<AttachmentDataSO> attachments;        // 装備中のアタッチメント
+    public List<AttachmentDataSO> EquipAttachments { get { return attachments; } set { attachments = value; } }
     public SceneName SceneName { set { nextScene = value; } }
     public bool IsReleaseOtomo { get { return isReleaseOtomo; } }
 
@@ -43,7 +39,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             int basic = (int)b_UpDataSO.GetPlayerData(StatusName.BombStockAmountUp).increaseValue;
-            return bomb_RC.BombStockAmountUp + basic + (defaultHaveBomb - 1);
+            return basic + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
         }
     }
     public float CreateBombTime     // 爆弾生成時間
@@ -51,7 +47,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             float basic = b_UpDataSO.GetPlayerData(StatusName.BombCreateSpeedUp).increaseValue;
-            return createBombTime * (1 - (bomb_RC.BombCreateSpeedUp + basic));
+            return basic + CheckAttachmentStatusName(StatusName.BombCreateSpeedUp);
         }
     }
     public float CriticalDamage     // クリティカルダメージ
@@ -59,7 +55,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalDamageUp).increaseValue;
-            return criticalDamage + bomb_RC.CriticalDamageUp + basic;
+            return basic + CheckAttachmentStatusName(StatusName.CriticalDamageUp);
         }
     }
     public float CriticalChance     // クリティカル率
@@ -67,7 +63,7 @@ public class PlayerStatusSO : ScriptableObject
         get
         {
             float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalChanceUp).increaseValue;
-            return criticalChance + bomb_RC.CriticalChanceUp + basic;
+            return basic + CheckAttachmentStatusName(StatusName.CriticalChanceUp);
         }
     }
     // スクラップの所持数
@@ -78,37 +74,8 @@ public class PlayerStatusSO : ScriptableObject
     public int ArrivalWave
     {
         get { return arrivalWave; }
+        // 前回の到達地点と比較して大きい大きければ上書き
         set { if (arrivalWave < value) arrivalWave = value; }
-    }  // 前回の到達地点と比較して大きい大きければ上書き
-
-    [System.Serializable]
-    public class BombResearchCompleteds
-    {
-        [Header("攻撃力の解放数"), SerializeField] int attackDamageUp;
-        [Header("クリティカルダメージの解放数"), SerializeField] int criticalDamageUp;
-        [Header("クリティカル率の解放数"), SerializeField] int criticalChanceUp;
-        [Header("爆発範囲の解放数"), SerializeField] int explosionRadiusUp;
-        [Header("爆弾生成速度の解放数"), SerializeField] int bombCreateSpeedUp;
-        [Header("爆弾ストック数の解放数"), SerializeField] int bombStockAmountUp;
-        [Header("投擲数の解放数"), SerializeField] int throwAmountUp;
-
-        public float ExplosionRadiusUp { get { return explosionRadiusUp * ResearchData.explosionRadius; } set { explosionRadiusUp += (int)value; } }
-        public float BombCreateSpeedUp { get { return bombCreateSpeedUp * ResearchData.bombCreateSpeed; } set { bombCreateSpeedUp += (int)value; } }
-        public int BombStockAmountUp { get { return bombStockAmountUp * ResearchData.bombStockUp; } set { bombStockAmountUp += (int)value; } }
-        public float AttackDamageUp { get { return attackDamageUp * ResearchData.attackDamageUp; } set { attackDamageUp += (int)value; } }
-        public float CriticalDamageUp { get { return criticalDamageUp * ResearchData.criticalDamageUp; } }
-        public float CriticalChanceUp { get { return criticalChanceUp * ResearchData.criticalChanceUp; } }
-        public int ThrowAmountUp { get { return throwAmountUp * ResearchData.throwAmount; } set { throwAmountUp += (int)value; } }
-    }
-
-    [System.Serializable]
-    public class SupportResearchCompleteds
-    {
-        [Header("スクラップのボーナス"), SerializeField] int scrapBonusUp;
-        [Header("知見ポイントのボーナス"), SerializeField] int insightBonusUp;
-
-        public float ScrapBonusUp { get { return scrapBonusUp * ResearchData.scrapBonusUp; } set { scrapBonusUp += (int)value; } }
-        public float InsightBonusUp { get { return insightBonusUp * ResearchData.insightPointUp; } set { insightBonusUp += (int)value; } }
     }
 
     public string NextSceneName()
@@ -123,6 +90,36 @@ public class PlayerStatusSO : ScriptableObject
 
         return null;
     }
+
+    /// <summary>
+    /// 装備されたアタッチメントがアップグレード内容と一致しているか確認
+    /// 一致していたら合算して返す
+    /// </summary>
+    /// <param name="upgradName">アップグレードしたいステータスネーム</param>
+    public float CheckAttachmentStatusName(StatusName upgradName)
+    {
+        float total = 0;
+        foreach (AttachmentDataSO data in attachments)
+        {
+            if (data == null) continue;
+            float _value = data.GetUpgradeValue(upgradName);
+            if (_value != 0) total += _value;
+            else continue;
+        }
+
+        return total;
+    }
+
+    // ステータスごとに対応するStatusNameを用意
+    public static StatusName[] bombStatusNames = new StatusName[]
+    {
+        StatusName.BombAttackDamageUp,
+        StatusName.CriticalDamageUp,
+        StatusName.CriticalChanceUp,
+        StatusName.BombStockAmountUp,
+        StatusName.BombCreateSpeedUp,
+        StatusName.ExplosionRadiusUp
+    };
 }
 
 public enum Rarity { N, R, SR, SSR }
