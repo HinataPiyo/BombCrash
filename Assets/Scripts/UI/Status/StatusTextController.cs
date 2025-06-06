@@ -18,16 +18,19 @@ public class StatusTextController : MonoBehaviour
     private Dictionary<int, Func<string>> bomb_StatusValueMapping;
     private Dictionary<int, Func<string>> support_StatusValueMapping;
 
-    void Start()
+    void Awake()
     {
         bomb_StatusElements = bomb_StatusElementParent.GetComponentsInChildren<StatusTextElement>();
         support_StatusElements = support_StatusElementParent.GetComponentsInChildren<StatusTextElement>();
-
         // マッピングの初期化
         InitializeStatusValueMapping();
+    }
 
+    void Start()
+    {
         // ステータス値を設定
         SetStatusValue();
+        EquipUpdateText();
     }
 
     void InitializeStatusValueMapping()
@@ -55,7 +58,7 @@ public class StatusTextController : MonoBehaviour
         {
             if (bomb_StatusValueMapping.TryGetValue(ii, out var getValue))
             {
-                bomb_StatusElements[ii].ValueText.text = getValue();
+                bomb_StatusElements[ii].BasicValueText.text = getValue();
             }
         }
 
@@ -63,8 +66,40 @@ public class StatusTextController : MonoBehaviour
         {
             if (support_StatusValueMapping.TryGetValue(ii, out var getValue))
             {
-                support_StatusElements[ii].ValueText.text = getValue();
+                support_StatusElements[ii].BasicValueText.text = getValue();
             }
         }
+    }
+
+    /// <summary>
+    /// 装備用テキストの更新
+    /// </summary>
+    public void EquipUpdateText()
+    {
+        for (int ii = 0; ii < bomb_StatusElements.Length; ii++)
+        {
+            if (ii < PlayerStatusSO.bombStatusNames.Length)
+            {
+                float total = playerSO.CheckAttachmentStatusName(PlayerStatusSO.bombStatusNames[ii]);
+                if (total == 0)
+                {
+                    bomb_StatusElements[ii].EquipValueText.text = "";
+                    continue;
+                }
+
+                bomb_StatusElements[ii].EquipValueText.text = $"(+{total})";
+            }
+            else
+            {
+                bomb_StatusElements[ii].EquipValueText.text = "";
+            }
+        }
+
+        for (int ii = 0; ii < support_StatusElements.Length; ii++)
+        {
+            support_StatusElements[ii].EquipValueText.text = "";
+        }
+
+        SetStatusValue();
     }
 }

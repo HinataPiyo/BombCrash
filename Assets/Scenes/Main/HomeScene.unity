@@ -14478,6 +14478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatusSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
+  statusTextCtrl: {fileID: 51783253}
   slot_Parent: {fileID: 470472812}
 --- !u!1 &1604540278
 GameObject:

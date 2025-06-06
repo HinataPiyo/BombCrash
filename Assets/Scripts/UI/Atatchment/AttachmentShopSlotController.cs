@@ -43,14 +43,6 @@ public class AttachmentShopSlotController : MonoBehaviour
     }
 
     /// <summary>
-    /// 装備する処理
-    /// </summary>
-    public void EquipOnClick(AttachmentDataSO data)
-    {
-        aesCtrl.EquipAttachment(data);
-    }
-
-    /// <summary>
     /// attachmentを外したときの処理
     /// ボタンテキストの更新
     /// </summary>
@@ -65,5 +57,14 @@ public class AttachmentShopSlotController : MonoBehaviour
                 break;
             }
         }
+        aesCtrl.RemoveAttachment(removeData);
+    }
+
+    /// <summary>
+    /// 装備する処理
+    /// </summary>
+    public void EquipOnClick(AttachmentDataSO data)
+    {
+        aesCtrl.EquipAttachment(data);
     }
 }

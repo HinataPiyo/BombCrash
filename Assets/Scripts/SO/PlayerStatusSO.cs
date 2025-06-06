@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStatus", menuName = "SO/PlayerStatus")]
@@ -19,8 +20,8 @@ public class PlayerStatusSO : ScriptableObject
     [Header("知見ポイントの所持数"), SerializeField] int insightPointHaveAmount;
     [Header("最大到達WAVE数"), SerializeField] int arrivalWave;
 
-    [Header("装備中のアタッチメント"), SerializeField] AttachmentDataSO[] attachments;        // 装備中のアタッチメント
-    public AttachmentDataSO[] EquipAttachments { get { return attachments; } set { attachments = value; } }
+    [Header("装備中のアタッチメント"), SerializeField] List<AttachmentDataSO> attachments;        // 装備中のアタッチメント
+    public List<AttachmentDataSO> EquipAttachments { get { return attachments; } set { attachments = value; } }
     public SceneName SceneName { set { nextScene = value; } }
     public bool IsReleaseOtomo { get { return isReleaseOtomo; } }
 
@@ -100,6 +101,7 @@ public class PlayerStatusSO : ScriptableObject
         float total = 0;
         foreach (AttachmentDataSO data in attachments)
         {
+            if (data == null) continue;
             float _value = data.GetUpgradeValue(upgradName);
             if (_value != 0) total += _value;
             else continue;
@@ -107,6 +109,17 @@ public class PlayerStatusSO : ScriptableObject
 
         return total;
     }
+
+    // ステータスごとに対応するStatusNameを用意
+    public static StatusName[] bombStatusNames = new StatusName[]
+    {
+        StatusName.BombAttackDamageUp,
+        StatusName.CriticalDamageUp,
+        StatusName.CriticalChanceUp,
+        StatusName.BombStockAmountUp,
+        StatusName.BombCreateSpeedUp,
+        StatusName.ExplosionRadiusUp
+    };
 }
 
 public enum Rarity { N, R, SR, SSR }
