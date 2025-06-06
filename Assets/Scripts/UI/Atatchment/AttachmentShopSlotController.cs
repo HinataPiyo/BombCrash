@@ -67,4 +67,23 @@ public class AttachmentShopSlotController : MonoBehaviour
     {
         aesCtrl.EquipAttachment(data);
     }
+
+    /// <summary>
+    /// ステータス名に応じてソートする
+    /// </summary>
+    /// <param name="statusName"></param>
+    public void GenreSort(StatusName statusName)
+    {
+        foreach (AttachmentShopSlot slot in slots)
+        {
+            if (slot.AttachmentDataSO.StatusName != statusName)
+            {
+                slot.gameObject.SetActive(false);       // 指定していないステータス名は非表示
+                continue;
+            }
+
+            // 指定したステータス名は表示
+            slot.gameObject.SetActive(true);
+        }
+    }
 }
