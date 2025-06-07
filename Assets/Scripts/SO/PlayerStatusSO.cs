@@ -123,6 +123,12 @@ public class PlayerStatusSO : ScriptableObject
         StatusName.BombCreateSpeedUp,
     };
 
+    public static StatusName[] supportStatusNames = new StatusName[]
+    {
+        StatusName.DropScrapUp,
+        StatusName.GetInsightPointUp,
+    };
+
      /// <summary>
     /// StatusNameから日本語に変換した文字列を返す
     /// </summary>
