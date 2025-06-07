@@ -33,9 +33,6 @@ public class EnemyStatus : MonoBehaviour
     {
         currentHp = enemySO.UpMaxHp + inc;
         hpText.text = "Hp " + currentHp.ToString("F1");
-
-        //Debug.LogFormat($"<color=green>係数 : {inc}</color>");
-        //Debug.LogFormat($"<color=blue>敵のHP : {currentHp}</color>");
     }
 
     /// <summary>

@@ -4,17 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStatus", menuName = "SO/PlayerStatus")]
 public class PlayerStatusSO : ScriptableObject
 {
-    [SerializeField] BasicUpgradeData b_UpDataSO;
     [SerializeField] SceneName nextScene;
     [SerializeField] bool isReleaseOtomo;
     [SerializeField] int maxWaveReleaseOtomo = 10;
 
     // 基礎値の設定(デフォルトの値-固定値)　基礎研究とは別
-    public const float MoveSpeed = 6f;          // 移動速度
-    public const int defaultHaveBomb = 3;       // 爆弾最大所持数
-    public const float createBombTime = 2f;     // 爆弾の制作時間
-    public const float criticalDamage = 1f;     // クリティカルダメージ
-    public const float criticalChance = 0;      // クリティカル率
+    public static readonly float MoveSpeed = 6f;          // 移動速度
+    public static readonly int defaultHaveBomb = 3;       // 爆弾最大所持数
+    public static readonly float createBombTime = 2f;     // 爆弾の制作時間
+    public static readonly float criticalDamage = 1f;     // クリティカルダメージ
+    public static readonly float criticalChance = 0;      // クリティカル率
 
     [Header("スクラップの所持数"), SerializeField] int scrapHaveAmount;
     [Header("知見ポイントの所持数"), SerializeField] int insightPointHaveAmount;
@@ -33,29 +32,35 @@ public class PlayerStatusSO : ScriptableObject
         isReleaseOtomo = arrivalWave > maxWaveReleaseOtomo;
     }
 
-
-    public int MaxHaveBomb      // 爆弾所持数
+    // 爆弾所持数
+    public int MaxHaveBomb
     {
         get
         {
             return defaultHaveBomb + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
         }
     }
-    public float CreateBombTime     // 爆弾生成時間
+    
+    // 爆弾生成時間
+    public float CreateBombTime
     {
         get
         {
             return createBombTime + CheckAttachmentStatusName(StatusName.BombCreateSpeedUp);
         }
     }
-    public float CriticalDamage     // クリティカルダメージ
+
+    // クリティカルダメージ
+    public float CriticalDamage
     {
         get
         {
             return criticalDamage + CheckAttachmentStatusName(StatusName.CriticalDamageUp);
         }
     }
-    public float CriticalChance     // クリティカル率
+
+    // クリティカル率
+    public float CriticalChance
     {
         get
         {
