@@ -1,21 +1,26 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BombSO", menuName = "SO/BombSO")]
 public class BombSO : ScriptableObject
 {
     [SerializeField] PlayerStatusSO player;
-    public static readonly float Default_Damage = 6.5f;
-    public static readonly float Default_ExplosionRadius = 1f;
+    [Header("基本値")]
+    [SerializeField] float attackDamage = 6.5f;
+    [SerializeField] float explosionRadius = 1f;
+    [Header("係数")]    // デフォ爆弾は1
+    [SerializeField] float attackDamage_Coefficient = 1f;
+    [SerializeField] float explosionRadius_Coefficient = 1f;
 
-    public float AttackDamage 
-    { 
+    public float AttackDamage
+    {
         get
         {
-            float _damege =  Default_Damage + player.CheckAttachmentStatusName(StatusName.BombAttackDamageUp);
-            if(DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
+            float _damege = (attackDamage * attackDamage_Coefficient) + player.CheckAttachmentStatusName(StatusName.BombAttackDamageUp);
+            if (DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
 
             float critical = IsCritical();
-            if(critical > 0) _damege *= critical;
+            if (critical > 0) _damege *= critical;
             return _damege;
         }
     }
@@ -43,7 +48,7 @@ public class BombSO : ScriptableObject
     {
         get
         {
-            return Default_ExplosionRadius + player.CheckAttachmentStatusName(StatusName.ExplosionRadiusUp);
+            return (explosionRadius * explosionRadius_Coefficient) + player.CheckAttachmentStatusName(StatusName.ExplosionRadiusUp);
         }    
     }
 }

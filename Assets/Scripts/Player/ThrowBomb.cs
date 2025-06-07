@@ -6,6 +6,7 @@ public class ThrowBomb : MonoBehaviour
     [SerializeField] Transform bombExplosionPoint;
     [SerializeField] Transform throwPoint;
     [SerializeField] GameObject bombPrefab;
+    UltimateController ultCtrl;
     Animator anim;
     SpriteRenderer sprite;
     GameSceneMainCanvas mainCanvas;
@@ -14,11 +15,16 @@ public class ThrowBomb : MonoBehaviour
     Range rangeY = new Range { min = -1.5f, max = 4f };
     int currentHaveBomb;
 
-    void Start()
+    void Awake()
     {
+        ultCtrl = FindAnyObjectByType<UltimateController>();
         anim = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         mainCanvas = GameSystem.Instance.MainCanvas.GetComponent<GameSceneMainCanvas>();
+    }
+
+    void Start()
+    {
         bombExplosionPoint.position = Vector2.zero;     // 着地地点を0に設定
 
         // 現在の爆弾の数の更新
@@ -37,12 +43,20 @@ public class ThrowBomb : MonoBehaviour
             return;
         }
 
-        Throw();
+        DebugManager.Instance.BombCount = currentHaveBomb;
+        DebugManager.Instance.CreateBombTime = statusSO.CreateBombTime;
+
         Reload();
         ExplosionPointPosition();       // 爆弾の着地地点
 
-        DebugManager.Instance.BombCount = currentHaveBomb;
-        DebugManager.Instance.CreateBombTime = statusSO.CreateBombTime;
+        if (ultCtrl.UseUlt)
+        {
+            // 必殺技発動時、爆発ポイントを取得する
+            ultCtrl.bombExplosionPoint = bombExplosionPoint.position;
+            return;
+        }
+
+        Throw();
     }
 
     /// <summary>
@@ -50,7 +64,7 @@ public class ThrowBomb : MonoBehaviour
     /// </summary>
     void Throw()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && currentHaveBomb > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && currentHaveBomb > 0)
         {
             // 爆弾をプレイヤーの位置に生成
             anim.SetTrigger("Throw");
