@@ -16,7 +16,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField] PlayerStatusSO player;
     [SerializeField] Transform spawnPoint;
     [SerializeField] GameObject player_Prefab;
-    GameObject currentPlayer;
     [SerializeField] GameObject diePlayer;
 
     [Header("オトモ")]
@@ -34,6 +33,7 @@ public class GameSystem : MonoBehaviour
     public bool IsGameOver { get { return isGameOver; } }
     public Transform MainCanvas { get { return mainCanvas; } }
     public CameraShake CameraShake { get { return cameraShake; } }
+    public GameObject Player { get; private set; }
     public GameObject Otomo { get { return currentOtomo; } }
     public Transform Center { get { return centerPos; } }
 
@@ -52,7 +52,7 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         cameraShake = cinemachine.GetComponent<CameraShake>();
-        currentPlayer = Instantiate(player_Prefab, spawnPoint.position, Quaternion.identity);
+        Player = Instantiate(player_Prefab, spawnPoint.position, Quaternion.identity);
 
         // オトモが解放されていたら
         if(player.IsReleaseOtomo == true)
@@ -60,8 +60,8 @@ public class GameSystem : MonoBehaviour
             currentOtomo = Instantiate(otomo_Prefab, otomoSpawnPoint.position, Quaternion.identity);
 
             OtomoMovement otomoMovement = currentOtomo.GetComponent<OtomoMovement>();
-            otomoMovement.SetOtomoMovePoint(currentPlayer.GetComponent<PlayerMovement>().otomoMovePoint);
-            otomoMovement.SetPlayerPos(currentPlayer.transform);
+            otomoMovement.SetOtomoMovePoint(Player.GetComponent<PlayerMovement>().otomoMovePoint);
+            otomoMovement.SetPlayerPos(Player.transform);
         }
     }
 
@@ -109,7 +109,7 @@ public class GameSystem : MonoBehaviour
         // フィールドにいる敵をすべて破棄
         foreach(var obj in waveManager.GetEnemyList()) Destroy(obj);
 
-        yield return new WaitWhile(() => currentPlayer != null);
+        yield return new WaitWhile(() => Player != null);
         gameOverDirector.Play();                // ライトの演出
         yield return new WaitForSeconds(1f);
         Destroy(currentOtomo);                  // オトモを破棄

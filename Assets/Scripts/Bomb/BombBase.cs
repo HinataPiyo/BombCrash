@@ -14,6 +14,8 @@ public class BombBase : MonoBehaviour
     const float throwForce = 6f;
     Vector3 explosionPoint;
     public Vector3 ExplosionPoint { set { explosionPoint = value; } }
+    protected bool isFirstBoom;     // 最初に爆発したかどうか
+    protected bool isUlt;           // 必殺技かどうかを判別
 
     void Start()
     {
@@ -22,6 +24,8 @@ public class BombBase : MonoBehaviour
 
     void Update()
     {
+        // 最初の爆弾が発射されていたら処理を抜ける
+        if (isFirstBoom) return;
         Move();     // 移動処理
     }
 
@@ -57,22 +61,21 @@ public class BombBase : MonoBehaviour
 
         // 爆発処理
         BOOM();
-        
-        Destroy(gameObject);
+        isFirstBoom = true;
     }
 
     /// <summary>
     /// 爆発処理
     /// </summary>
-    void BOOM()
+    protected virtual void BOOM()
     {
         SoundManager.Instance.PlaySE(0);             // サウンド再生
         GameSystem.Instance.CameraShake.Shake(0.1f, 0.2f);      // カメラ振動
-        
+
         // 爆発アニメーションをここで（一旦赤い円を表示している）
         Transform explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity).transform;
         Transform[] exps = explosion.GetComponentsInChildren<Transform>();
-        foreach(var exp in exps)
+        foreach (var exp in exps)
         {
             Vector3 radius = Vector3.one * bombSO.ExplosionRadius;
             exp.localScale = radius * 0.8f;
@@ -85,6 +88,10 @@ public class BombBase : MonoBehaviour
             // 敵にダメージを与える
             hit.GetComponent<EnemyStatus>()?.TakeDamage(bombSO.AttackDamage);
         }
+
+        // 必殺技を使用していたら破棄しない
+        if (!isUlt) Destroy(gameObject);
+        else GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void OnDrawGizmos()

@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStatus", menuName = "SO/PlayerStatus")]
 public class PlayerStatusSO : ScriptableObject
 {
+    [SerializeField] UltimateSO ultimateSO;
     [SerializeField] SceneName nextScene;
     [SerializeField] bool isReleaseOtomo;
     [SerializeField] int maxWaveReleaseOtomo = 10;
@@ -21,6 +22,8 @@ public class PlayerStatusSO : ScriptableObject
 
     [Header("装備中のアタッチメント"), SerializeField] List<AttachmentDataSO> attachments;        // 装備中のアタッチメント
     public List<AttachmentDataSO> EquipAttachments { get { return attachments; } set { attachments = value; } }
+
+    public UltimateSO UltimateSO => ultimateSO;
     public SceneName SceneName { set { nextScene = value; } }
     public bool IsReleaseOtomo { get { return isReleaseOtomo; } }
 
@@ -121,6 +124,12 @@ public class PlayerStatusSO : ScriptableObject
         StatusName.BombStockAmountUp,
         StatusName.ExplosionRadiusUp,
         StatusName.BombCreateSpeedUp,
+    };
+
+    public static StatusName[] supportStatusNames = new StatusName[]
+    {
+        StatusName.DropScrapUp,
+        StatusName.GetInsightPointUp,
     };
 
      /// <summary>

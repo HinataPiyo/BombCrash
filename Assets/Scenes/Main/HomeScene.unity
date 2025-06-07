@@ -6913,7 +6913,7 @@ PlayableDirector:
   m_GameObject: {fileID: 840035281}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: 2c596476c94d9f74995dbd4c1884f849, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -17413,6 +17413,10 @@ PrefabInstance:
     - target: {fileID: 1359460470829589097, guid: 6e63b7d5e43a36c4c904b8067702432c, type: 3}
       propertyPath: m_Name
       value: Attachment EquipList
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359460470829589097, guid: 6e63b7d5e43a36c4c904b8067702432c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
