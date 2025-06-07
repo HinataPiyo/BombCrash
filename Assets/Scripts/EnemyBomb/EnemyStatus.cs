@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
+    [Header("敵のステータス情報")]
     [SerializeField] EnemySO enemySO;
     [SerializeField] float currentHp;
+
+    [Header("UI")]
     [SerializeField] TextMeshPro hpText;
     [SerializeField] TextMeshPro countDownText;
+
+    [Header("コンポーネント")]
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator anim;
 
-    [Header("ダメージを表示する")]
+    [Header("ダメージ表示")]
     [SerializeField] GameObject applyDamageText_Prefab;
     Transform applyDamageCanvas;
 
@@ -18,9 +23,15 @@ public class EnemyStatus : MonoBehaviour
 
     void Start()
     {
+        // UIをapplyDamageCanvasの子として生成
         applyDamageCanvas = GameObject.Find("ApplyDamageCanvas").transform;
+        sprite.sprite = enemySO.EnemyIcon;
     }
 
+    /// <summary>
+    /// 先に生成されていた敵は後ろ、後から生成された敵は前に描画されるように
+    /// </summary>
+    /// <param name="oderinlayer"></param>
     public void SetOrderInLayer(int oderinlayer)
     {
         anim.SetTrigger("Spawn");       // スポーン時のアニメーションを再生
@@ -29,6 +40,10 @@ public class EnemyStatus : MonoBehaviour
         countDownText.sortingOrder = oderinlayer;
     }
 
+    /// <summary>
+    /// ステータス上処理
+    /// </summary>
+    /// <param name="inc"></param>
     public void SetHpUP(float inc)
     {
         currentHp = enemySO.UpMaxHp + inc;

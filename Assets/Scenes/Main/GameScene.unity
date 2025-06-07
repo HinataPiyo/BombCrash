@@ -4928,7 +4928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1062877049dcc47a3e20f0f9c12ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWaveIndex: 0
+  currentWaveIndex: 8
   eSpawnC: {fileID: 1123184840}
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1760297319}

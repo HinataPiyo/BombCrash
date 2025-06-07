@@ -11,8 +11,7 @@ public class ApplyDamageText : MonoBehaviour
     /// <param name="damage"></param>
     public void SetApplyDamageText(Vector2 pos, float damage)
     {
-        damageText.text = $"{damage}";
-        RectTransform rect = GetComponent<RectTransform>();
+        damageText.text = damage.ToString("F1");
         transform.position = pos;
     }
 

@@ -43,6 +43,12 @@ public class StatusTextController : MonoBehaviour
             { 4, () => bombSO.ExplosionRadius.ToString("F2") + "m"},
             { 5, () => playerSO.CreateBombTime.ToString("F2") + "s"}
         };
+
+        support_StatusValueMapping = new Dictionary<int, Func<string>>
+        {
+            { 0, () => "-" },
+            { 1, () => "-" },
+        };
     }
 
     public void SetStatusValue()
@@ -74,6 +80,7 @@ public class StatusTextController : MonoBehaviour
         {
             if (ii < PlayerStatusSO.bombStatusNames.Length)
             {
+                // 該当のステータスを合算させた値を取得
                 float total = playerSO.CheckAttachmentStatusName(PlayerStatusSO.bombStatusNames[ii]);
                 if (total == 0)
                 {

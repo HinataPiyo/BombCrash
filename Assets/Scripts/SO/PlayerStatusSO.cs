@@ -37,7 +37,8 @@ public class PlayerStatusSO : ScriptableObject
     {
         get
         {
-            return defaultHaveBomb + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
+            // 0から数えられるので-1しておく
+            return defaultHaveBomb - 1 + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
         }
     }
     
@@ -118,8 +119,8 @@ public class PlayerStatusSO : ScriptableObject
         StatusName.CriticalDamageUp,
         StatusName.CriticalChanceUp,
         StatusName.BombStockAmountUp,
+        StatusName.ExplosionRadiusUp,
         StatusName.BombCreateSpeedUp,
-        StatusName.ExplosionRadiusUp
     };
 
      /// <summary>
