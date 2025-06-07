@@ -4,17 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStatus", menuName = "SO/PlayerStatus")]
 public class PlayerStatusSO : ScriptableObject
 {
-    [SerializeField] BasicUpgradeData b_UpDataSO;
     [SerializeField] SceneName nextScene;
     [SerializeField] bool isReleaseOtomo;
     [SerializeField] int maxWaveReleaseOtomo = 10;
 
     // 基礎値の設定(デフォルトの値-固定値)　基礎研究とは別
-    public const float MoveSpeed = 6f;          // 移動速度
-    public const int defaultHaveBomb = 3;       // 爆弾最大所持数
-    public const float createBombTime = 2f;     // 爆弾の制作時間
-    public const float criticalDamage = 1f;     // クリティカルダメージ
-    public const float criticalChance = 0;      // クリティカル率
+    public static readonly float MoveSpeed = 6f;          // 移動速度
+    public static readonly int defaultHaveBomb = 3;       // 爆弾最大所持数
+    public static readonly float createBombTime = 2f;     // 爆弾の制作時間
+    public static readonly float criticalDamage = 1f;     // クリティカルダメージ
+    public static readonly float criticalChance = 0;      // クリティカル率
 
     [Header("スクラップの所持数"), SerializeField] int scrapHaveAmount;
     [Header("知見ポイントの所持数"), SerializeField] int insightPointHaveAmount;
@@ -33,37 +32,40 @@ public class PlayerStatusSO : ScriptableObject
         isReleaseOtomo = arrivalWave > maxWaveReleaseOtomo;
     }
 
+    // 爆弾所持数
+    public int MaxHaveBomb
+    {
+        get
+        {
+            // 0から数えられるので-1しておく
+            return defaultHaveBomb - 1 + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
+        }
+    }
+    
+    // 爆弾生成時間
+    public float CreateBombTime
+    {
+        get
+        {
+            return createBombTime + CheckAttachmentStatusName(StatusName.BombCreateSpeedUp);
+        }
+    }
 
-    public int MaxHaveBomb      // 爆弾所持数
+    // クリティカルダメージ
+    public float CriticalDamage
     {
         get
         {
-            int basic = (int)b_UpDataSO.GetPlayerData(StatusName.BombStockAmountUp).increaseValue;
-            return basic + (int)CheckAttachmentStatusName(StatusName.BombStockAmountUp);
+            return criticalDamage + CheckAttachmentStatusName(StatusName.CriticalDamageUp);
         }
     }
-    public float CreateBombTime     // 爆弾生成時間
+
+    // クリティカル率
+    public float CriticalChance
     {
         get
         {
-            float basic = b_UpDataSO.GetPlayerData(StatusName.BombCreateSpeedUp).increaseValue;
-            return basic + CheckAttachmentStatusName(StatusName.BombCreateSpeedUp);
-        }
-    }
-    public float CriticalDamage     // クリティカルダメージ
-    {
-        get
-        {
-            float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalDamageUp).increaseValue;
-            return basic + CheckAttachmentStatusName(StatusName.CriticalDamageUp);
-        }
-    }
-    public float CriticalChance     // クリティカル率
-    {
-        get
-        {
-            float basic = b_UpDataSO.GetPlayerData(StatusName.CriticalChanceUp).increaseValue;
-            return basic + CheckAttachmentStatusName(StatusName.CriticalChanceUp);
+            return criticalChance + CheckAttachmentStatusName(StatusName.CriticalChanceUp);
         }
     }
     // スクラップの所持数
@@ -117,8 +119,8 @@ public class PlayerStatusSO : ScriptableObject
         StatusName.CriticalDamageUp,
         StatusName.CriticalChanceUp,
         StatusName.BombStockAmountUp,
+        StatusName.ExplosionRadiusUp,
         StatusName.BombCreateSpeedUp,
-        StatusName.ExplosionRadiusUp
     };
 
      /// <summary>

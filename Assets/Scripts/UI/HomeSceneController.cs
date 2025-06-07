@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Search;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class HomeSceneController : MonoBehaviour
     [SerializeField] float fadespeed;
     [SerializeField] ChangePanel[] changePanel;
     [SerializeField] PlayableDirector homeDirector;
+    [Header("IPとScrap")]
+    [SerializeField] TextMeshProUGUI ipHaveAmountText;
+    [SerializeField] TextMeshProUGUI scrapHaveAmountText;
     [Header("オトモボタン")]
     [SerializeField] GameObject otomoButtonObject;
     [SerializeField] CanvasGroup otomoButtonGroup; 
@@ -51,11 +55,14 @@ public class HomeSceneController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        // クリックされたらパーティクルを生成
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Instantiate(mouseClick_Prefab, mousePos, Quaternion.identity);
         }
+
+        UpdateResouceUI();      // resourceの所持数をテキストに反映
     }
 
     void ChangePanelProc(int num)
@@ -142,6 +149,12 @@ public class HomeSceneController : MonoBehaviour
 
         fadeEnd = true;
         yield break;
+    }
+
+    void UpdateResouceUI()
+    {
+        ipHaveAmountText.text = $"{player.InsightPointHaveAmount}";
+        scrapHaveAmountText.text = $"{player.ScrapHaveAmount}";
     }
     
     public void StartFadeOut() { StartCoroutine(FadeOut()); }

@@ -7,7 +7,6 @@ public class StatusTextController : MonoBehaviour
     [Header("値が格納されているやつ")]
     [SerializeField] PlayerStatusSO playerSO;
     [SerializeField] BombSO bombSO;
-    [SerializeField] BasicUpgradeData b_UpDataSO;
 
     [Header("ステータステキストの親オブジェクト")]
     [SerializeField] Transform bomb_StatusElementParent;
@@ -15,8 +14,8 @@ public class StatusTextController : MonoBehaviour
     StatusTextElement[] bomb_StatusElements;
     StatusTextElement[] support_StatusElements;
 
-    private Dictionary<int, Func<string>> bomb_StatusValueMapping;
-    private Dictionary<int, Func<string>> support_StatusValueMapping;
+    Dictionary<int, Func<string>> bomb_StatusValueMapping;
+    Dictionary<int, Func<string>> support_StatusValueMapping = new Dictionary<int, Func<string>>();
 
     void Awake()
     {
@@ -47,8 +46,8 @@ public class StatusTextController : MonoBehaviour
 
         support_StatusValueMapping = new Dictionary<int, Func<string>>
         {
-            { 0, () => (b_UpDataSO.GetSupportData(StatusName.DropScrapUp).increaseValue * 100).ToString("F1") + "%" },
-            { 1, () => (b_UpDataSO.GetSupportData(StatusName.GetInsightPointUp).increaseValue * 100).ToString("F1") + "%" },
+            { 0, () => "-" },
+            { 1, () => "-" },
         };
     }
 
@@ -64,6 +63,7 @@ public class StatusTextController : MonoBehaviour
 
         for (int ii = 0; ii < support_StatusElements.Length; ii++)
         {
+            if (ii > support_StatusValueMapping.Count) return;
             if (support_StatusValueMapping.TryGetValue(ii, out var getValue))
             {
                 support_StatusElements[ii].BasicValueText.text = getValue();
@@ -80,6 +80,7 @@ public class StatusTextController : MonoBehaviour
         {
             if (ii < PlayerStatusSO.bombStatusNames.Length)
             {
+                // 該当のステータスを合算させた値を取得
                 float total = playerSO.CheckAttachmentStatusName(PlayerStatusSO.bombStatusNames[ii]);
                 if (total == 0)
                 {
