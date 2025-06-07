@@ -7,8 +7,7 @@ public class UltimateController : MonoBehaviour
 
     float coolTime;
     bool isCoolTime;        // true : CT中, false : CT終了
-    bool canUlt;            // 必殺技が使えるか使えないか
-    public bool UseUlt { get; private set; }
+    public bool CanUlt { get; private set; }            // 必殺技が使えるか使えないか
     public Vector2 bombExplosionPoint;
 
     private void Awake()
@@ -17,9 +16,10 @@ public class UltimateController : MonoBehaviour
 
         uuiCtrl = GetComponent<UltimateUIController>();
         coolTime = playerSO.UltimateSO.CoolTime; // テスト。本来は0
-        canUlt = true;
+        CanUlt = true;
         isCoolTime = false;
-        UseUlt = false;
+
+        uuiCtrl.UpdateUIColor(isCoolTime);
     }
 
     private void Update()
@@ -33,12 +33,7 @@ public class UltimateController : MonoBehaviour
     /// </summary>
     private void HandleUltimateInput()
     {
-        if (!isCoolTime && Input.GetKeyDown(KeyCode.V))
-        {
-            UseUlt = !UseUlt;
-        }
-
-        if (UseUlt && canUlt && Input.GetKeyDown(KeyCode.Space))
+        if (CanUlt && Input.GetKeyDown(KeyCode.V))
         {
             ExecuteUltimate();
         }
@@ -51,9 +46,10 @@ public class UltimateController : MonoBehaviour
     {
         playerSO.UltimateSO.ExecuteUltimate(GameSystem.Instance.Player.transform, bombExplosionPoint);
         isCoolTime = true;
-        canUlt = false;
-        UseUlt = false;
+        CanUlt = false;
         coolTime = 0f;
+
+        uuiCtrl.UpdateUIColor(isCoolTime);
     }
 
     /// <summary>
@@ -61,15 +57,17 @@ public class UltimateController : MonoBehaviour
     /// </summary>
     private void UpdateTimer()
     {
-        if (canUlt) return;
+        if (CanUlt) return;
         coolTime += Time.deltaTime;
         uuiCtrl.UpdateSlider(coolTime);
 
         if (coolTime >= playerSO.UltimateSO.CoolTime)
         {
             isCoolTime = false;
-            canUlt = true;
+            CanUlt = true;
             coolTime = 0f;
+
+            uuiCtrl.UpdateUIColor(isCoolTime);
         }
     }
 }
