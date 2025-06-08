@@ -5,6 +5,7 @@ using UnityEngine;
 public class OtomoSkillRunner : MonoBehaviour
 {
     List<SkillSO> equippedSkill = new List<SkillSO>();
+    [SerializeField] EnemySpawnController esCtrl;
     [SerializeField] Transform skillSlotParent;
     [SerializeField] EquipmentNowSkilSlot[] equipmentNowSkilSlots;
     float isAutoWaitTime = 1f; // 自動発動の待機時間
@@ -45,7 +46,7 @@ public class OtomoSkillRunner : MonoBehaviour
             if (equipmentNowSkilSlots[ii].SkillSO.IsAuto
             && equipmentNowSkilSlots[ii].SkillSO.IsEndCoolTime)
             {
-                StartCoroutine(AutoSkillExecute(ii)); // スキルを発動
+                if(esCtrl.EnemyList.Count > 0) StartCoroutine(AutoSkillExecute(ii)); // スキルを発動
             }
         }
         

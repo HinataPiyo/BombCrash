@@ -1617,6 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2f932cc1da84748881b2926bfbe026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  esCtrl: {fileID: 1123184840}
   skillSlotParent: {fileID: 1271691722}
   equipmentNowSkilSlots: []
 --- !u!4 &367666138
@@ -8816,6 +8817,7 @@ MonoBehaviour:
   name: {fileID: 676072246}
   ultSlider: {fileID: 1251419999}
   icon: {fileID: 2138966726}
+  pressKeyText: {fileID: 725711348}
   sliderFill: {fileID: 1415989377}
 --- !u!1001 &2019520952
 PrefabInstance:
