@@ -1340,6 +1340,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.000015258789
       objectReference: {fileID: 0}
+    - target: {fileID: 1516388317043610696, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3151027649726349907, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
       propertyPath: m_Name
       value: Equipment_SkillSlot_2
@@ -1844,9 +1848,9 @@ RectTransform:
   - {fileID: 1033739580}
   m_Father: {fileID: 1604540279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -290}
   m_SizeDelta: {x: 450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &215259004
@@ -2105,7 +2109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &307403107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4894,9 +4898,9 @@ RectTransform:
   - {fileID: 738534265}
   m_Father: {fileID: 1604540279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -510}
   m_SizeDelta: {x: 450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &759651378
@@ -6052,9 +6056,9 @@ RectTransform:
   - {fileID: 1199963027}
   m_Father: {fileID: 1604540279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -400}
   m_SizeDelta: {x: 450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &924981622
@@ -7106,7 +7110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1099052935
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9725,6 +9729,10 @@ PrefabInstance:
       propertyPath: m_skillSO
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1516388317043610696, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3151027649726349907, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
       propertyPath: m_Name
       value: Equipment_SkillSlot_1
@@ -12135,9 +12143,9 @@ RectTransform:
   - {fileID: 1034726736}
   m_Father: {fileID: 1604540279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -180}
   m_SizeDelta: {x: 450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1564857640
@@ -16146,6 +16154,10 @@ PrefabInstance:
     - target: {fileID: 423995930733621718, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
       propertyPath: m_skillSO
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516388317043610696, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3151027649726349907, guid: 4248cff1f92ddd04497e032348e4c117, type: 3}
       propertyPath: m_Name
