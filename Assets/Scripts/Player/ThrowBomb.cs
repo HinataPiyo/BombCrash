@@ -48,15 +48,15 @@ public class ThrowBomb : MonoBehaviour
 
         Reload();
         ExplosionPointPosition();       // 爆弾の着地地点
+        Throw();
 
+        // 必殺技を使える状態だった場合
         if (ultCtrl.CanUlt)
         {
-            // 必殺技発動時、爆発ポイントを取得する
+            // 必殺技発動時、着弾位置を取得する
             ultCtrl.bombExplosionPoint = bombExplosionPoint.position;
-            return;
         }
 
-        Throw();
     }
 
     /// <summary>
