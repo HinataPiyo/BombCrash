@@ -25,6 +25,7 @@ public class GachaPanelUIController : MonoBehaviour
 
     [SerializeField] Button singlePullButton;
     [SerializeField] Button multiPullButton;
+    int multiPullCount = 10;    // テスト
 
     GachaSystemController gsCtrl;
 
@@ -36,7 +37,7 @@ public class GachaPanelUIController : MonoBehaviour
         {
             // ボタンをリスナー登録
             singlePullButton.onClick.AddListener(gsCtrl.SinglePullOnClick);
-            multiPullButton.onClick.AddListener(gsCtrl.MultiPullOnClick);
+            multiPullButton.onClick.AddListener(() => gsCtrl.MultiPullOnClick(multiPullCount));
         }
 
         for (int ii = 0; ii < proElems.Length; ii++)

@@ -3,6 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// ガチャのシステムを管理するクラス
+/// 基底クラス
 /// </summary>
 [RequireComponent(typeof(GachaPanelUIController))]
 public abstract class GachaSystemController : MonoBehaviour
@@ -48,5 +49,5 @@ public abstract class GachaSystemController : MonoBehaviour
     /// <summary>
     /// 一括ガチャボタンが押された時の処理
     /// </summary>
-    public abstract void MultiPullOnClick();
+    public abstract void MultiPullOnClick(int pullCount);
 }
