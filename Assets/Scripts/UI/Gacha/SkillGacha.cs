@@ -13,7 +13,7 @@ public class SkillGacha : GachaSystemController
     {
         Rarity rarity = Draw();     // レアリティを選出
 
-        Debug.Log(PlayerStatusSO.RarityToName(rarity) + "が選出された");
+        Debug.Log(RandomSelectSkillSO(rarity)?.Name + "が選出された");
     }
 
     /// <summary>
@@ -29,5 +29,28 @@ public class SkillGacha : GachaSystemController
             // 選出したレアリティをリストに格納
             rarities.Add(rarity);
         }
+    }
+
+    public SkillSO RandomSelectSkillSO(Rarity rarity)
+    {
+        List<SkillSO> skills = new List<SkillSO>();
+
+        // 引数のレアリティと一致しているSkillOSをDBから選出
+        foreach (SkillSO skillSO in skillDB.SkillDB)
+        {
+            if (skillSO.Rarity != rarity) continue;
+            skills.Add(skillSO);
+        }
+
+        // 該当スキルがなければnullを返す
+        if (skills.Count == 0)
+        {
+            Debug.LogWarning($"レアリティ{rarity}のSkillSOが見つかりませんでした。");
+            return null;
+        }
+
+        // 選出されたSkillSOのリストからランダムに抽選
+        int rand = Random.Range(0, skills.Count);
+        return skills[rand];
     }
 }
