@@ -5694,7 +5694,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1886515622636209486, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
       propertyPath: m_Name
-      value: GachaPanel_1
+      value: Attachment GachaPanel_1
       objectReference: {fileID: 0}
     - target: {fileID: 2023178717906475684, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6497,6 +6497,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &895342295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1886515622636209486, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
+  m_PrefabInstance: {fileID: 1094075932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &898009092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7914,7 +7919,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1886515622636209486, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
       propertyPath: m_Name
-      value: GachaPanel
+      value: Skill GachaPanel
       objectReference: {fileID: 0}
     - target: {fileID: 2023178717906475684, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8139,7 +8144,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1886515622636209486, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1314736987}
   m_SourcePrefab: {fileID: 100100000, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
 --- !u!1 &1099052934
 GameObject:
@@ -10858,6 +10866,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7808069585490305262, guid: b44c311bb49a6104fa0c1c4380df0a91, type: 3}
   m_PrefabInstance: {fileID: 1094075932}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1314736987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895342295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed3c732c7ba5314fa57fdbf018614ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillDB: {fileID: 11400000, guid: 09b5ea468405f434aa4af1b0800a9b84, type: 2}
 --- !u!1 &1314903245
 GameObject:
   m_ObjectHideFlags: 0
