@@ -52,16 +52,26 @@ public class GachaPanelUIController : MonoBehaviour
     /// <summary>
     ///  外部からの初期化処理
     /// </summary>
-    public void SetInit(int nowGachaLevel)
+    public void SetInit(int nowGachaLevel, int nowPullCount)
     {
+        // 現在のレベル
         nowLevelText.text = $"{nowGachaLevel}";
+
+        int nextLevelPullCount = GachaDefine.GachaLevelProgression.GetRequiredPullsForNextLevel(nowGachaLevel);
+        // 次のレベルまで
+        nextLevelText.text = $"{nowPullCount} / {nextLevelPullCount}";
+        nextLevelSlider.maxValue = nextLevelPullCount;
+        nextLevelSlider.value = nowPullCount;
+
+        // ガチャレベルに応じて確率を変動
         // 辞書を値だけ取得するリストに変換
-        List<float> rates = PlayerStatusSO.GachaProbabilityTable.GetRatesByLevel(nowGachaLevel).Values.ToList();
+        List<float> rates = GachaDefine.GachaProbabilityTable.GetRatesByLevel(nowGachaLevel).Values.ToList();
         for (int ii = 0; ii < proElems.Length; ii++)
         {
             float foor = Mathf.Floor(rates[ii] * 10) / 10;
             // 排出確率反映
             proElems[ii].probabilityText.text = $"{foor}%";
         }
+
     }
 }

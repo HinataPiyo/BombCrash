@@ -10,13 +10,14 @@ public abstract class GachaSystemController : MonoBehaviour
 {
     GachaPanelUIController gpUICtrl;
     int nowGachaLevel;
+    int nowPullCount;
 
     void Awake()
     {
         gpUICtrl = GetComponent<GachaPanelUIController>();
 
-        nowGachaLevel = 3;
-        gpUICtrl.SetInit(nowGachaLevel);
+        nowGachaLevel = 3;      // テスト : 基本0
+        gpUICtrl.SetInit(nowGachaLevel, nowPullCount);
     }
 
     /// <summary>
@@ -25,7 +26,7 @@ public abstract class GachaSystemController : MonoBehaviour
     protected Rarity Draw()
     {
         // ガチャレベルに応じて排出確率を変化させた値を取得
-        Dictionary<Rarity, float> rates = PlayerStatusSO.GachaProbabilityTable.GetRatesByLevel(nowGachaLevel);
+        Dictionary<Rarity, float> rates = GachaDefine.GachaProbabilityTable.GetRatesByLevel(nowGachaLevel);
         float rand = Random.Range(0f, 100f);
         float cumulative = 0f;
 
@@ -39,6 +40,23 @@ public abstract class GachaSystemController : MonoBehaviour
         }
 
         return Rarity.NON;
+    }
+
+    protected void CheckLevelUpGacha(int pullCount)
+    {
+        // 引いた回数を足していく
+        nowPullCount += pullCount;
+        int nextLevelPullCount = GachaDefine.GachaLevelProgression.GetRequiredPullsForNextLevel(nowGachaLevel);
+
+        // 必要回数を超えていたら
+        if (nowPullCount >= nextLevelPullCount)
+        {
+            nowGachaLevel++;        // ガチャレベルを上昇
+            nowPullCount -= nextLevelPullCount;     // 差分を求める
+        }
+
+        // UIの更新
+        gpUICtrl.SetInit(nowGachaLevel, nowPullCount);
     }
 
     /// <summary>

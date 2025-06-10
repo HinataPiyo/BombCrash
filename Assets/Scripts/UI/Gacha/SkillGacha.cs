@@ -12,7 +12,10 @@ public class SkillGacha : GachaSystemController
     public override void SinglePullOnClick()
     {
         Rarity rarity = Draw();     // レアリティを選出
+        // UIを更新する & ガチャレベルが超えられるか確認
+        CheckLevelUpGacha(1);
 
+        // テスト
         Debug.Log(RandomSelectSkillSO(rarity)?.Name + "が選出された");
     }
 
@@ -29,8 +32,14 @@ public class SkillGacha : GachaSystemController
             // 選出したレアリティをリストに格納
             rarities.Add(rarity);
         }
+
+        // UIを更新する & ガチャレベルが超えられるか確認
+        CheckLevelUpGacha(pullCount);
     }
 
+    /// <summary>
+    /// レアリティに応じたSkillSOをランダムに取得する
+    /// </summary>
     public SkillSO RandomSelectSkillSO(Rarity rarity)
     {
         List<SkillSO> skills = new List<SkillSO>();
