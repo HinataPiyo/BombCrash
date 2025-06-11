@@ -42,8 +42,8 @@ public class OtomoSkillStatusSlot : SkillSlotBase
         coolTimeText.text = "CT:" + skillSO.CoolTime.ToString("F0");
 
         m_skillSO.IsAuto = false;       // 初期は必ず手動で初期化
-        autoManualButton.gameObject.SetActive(m_skillSO != null);
         autoManualAnim.SetBool("ChnageAuto", skillSO.IsAuto);
+        autoManualButton.gameObject.SetActive(m_skillSO != null);
     }
 
     public void LockedSlot()

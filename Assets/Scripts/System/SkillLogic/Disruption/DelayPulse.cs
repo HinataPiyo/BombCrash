@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DelayPulse", menuName = "Skills/DelayPulse")]
+[CreateAssetMenu(fileName = "DelayPulse", menuName = "Skill/Skills/DelayPulse")]
 public class DelayPulse : SkillSO
 {
     [SerializeField] float delayTime = 1f;

@@ -132,6 +132,38 @@ public class PlayerStatusSO : ScriptableObject
         StatusName.GetInsightPointUp,
     };
 
+    public static Rarity[] rarities = new Rarity[]
+    {
+        Rarity.N,
+        Rarity.R,
+        Rarity.SR,
+        Rarity.SSR,
+        Rarity.UR,
+    };
+
+    /// <summary>
+    /// レアリティから文字列に変換
+    /// </summary>
+    public static string RarityToName(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.N:
+                return "N";
+            case Rarity.R:
+                return "R";
+            case Rarity.SR:
+                return "SR";
+            case Rarity.SSR:
+                return "SSR";
+            case Rarity.UR:
+                return "UR";
+        }
+
+        return "";
+    }
+
+
      /// <summary>
     /// StatusNameから日本語に変換した文字列を返す
     /// </summary>
@@ -157,7 +189,7 @@ public class PlayerStatusSO : ScriptableObject
     }
 }
 
-public enum Rarity { N, R, SR, SSR }
+public enum Rarity { NON = -1, N, R, SR, SSR, UR }
 
 public enum SceneName
 {
