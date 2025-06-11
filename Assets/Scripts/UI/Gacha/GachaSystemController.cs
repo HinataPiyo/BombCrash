@@ -8,7 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(GachaPanelUIController))]
 public abstract class GachaSystemController : MonoBehaviour
 {
-    GachaPanelUIController gpUICtrl;
+    [SerializeField] PlayerStatusSO playerSO;
+    protected GachaPanelUIController gpUICtrl;
     int nowGachaLevel;
     int nowPullCount;
 
@@ -17,7 +18,7 @@ public abstract class GachaSystemController : MonoBehaviour
         gpUICtrl = GetComponent<GachaPanelUIController>();
 
         nowGachaLevel = 3;      // テスト : 基本0
-        gpUICtrl.SetInit(nowGachaLevel, nowPullCount);
+        gpUICtrl.SetUpdateUI(nowGachaLevel, nowPullCount);
     }
 
     /// <summary>
@@ -42,6 +43,10 @@ public abstract class GachaSystemController : MonoBehaviour
         return Rarity.NON;
     }
 
+    /// <summary>
+    /// ガチャの引数を反映
+    /// 引き回数が最大値を超えているか確認する
+    /// </summary>
     protected void CheckLevelUpGacha(int pullCount)
     {
         // 引いた回数を足していく
@@ -56,7 +61,15 @@ public abstract class GachaSystemController : MonoBehaviour
         }
 
         // UIの更新
-        gpUICtrl.SetInit(nowGachaLevel, nowPullCount);
+        gpUICtrl.SetUpdateUI(nowGachaLevel, nowPullCount);
+    }
+
+    /// <summary>
+    /// コストをリソースに反映させる
+    /// </summary>
+    public void ApplyGachaCost(int cost)
+    {
+        playerSO.InsightPointHaveAmount = -cost;
     }
 
     /// <summary>

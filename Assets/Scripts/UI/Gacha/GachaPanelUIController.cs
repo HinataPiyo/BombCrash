@@ -18,13 +18,17 @@ public class GachaPanelUIController : MonoBehaviour
         public TextMeshProUGUI probabilityText;
     }
 
+    [SerializeField] PlayerStatusSO playerSO;
     [SerializeField] ProbabilityElement[] proElems;
     [SerializeField] TextMeshProUGUI nowLevelText;
     [SerializeField] TextMeshProUGUI nextLevelText;
     [SerializeField] Slider nextLevelSlider;
 
+    [Header("Pull Button")]
     [SerializeField] Button singlePullButton;
     [SerializeField] Button multiPullButton;
+    [SerializeField] TextMeshProUGUI singleCostText;
+    [SerializeField] TextMeshProUGUI multiCostText;
     int multiPullCount = 10;    // テスト
 
     GachaSystemController gsCtrl;
@@ -50,9 +54,19 @@ public class GachaPanelUIController : MonoBehaviour
     }
 
     /// <summary>
-    ///  外部からの初期化処理
+    /// 外部からのセットが必要な処理をここで行う
     /// </summary>
-    public void SetInit(int nowGachaLevel, int nowPullCount)
+    /// <param name="singlePullCost">単発を引くのにかかるコスト（ガチャ種によって異なるかもしれないから）</param>
+    public void SetInit(int singlePullCost)
+    {
+        singleCostText.text = singlePullCost.ToString();
+        multiCostText.text = (singlePullCost * 10).ToString();
+    }
+
+    /// <summary>
+    /// UIの更新
+    /// </summary>
+    public void SetUpdateUI(int nowGachaLevel, int nowPullCount)
     {
         // 現在のレベル
         nowLevelText.text = $"{nowGachaLevel}";
@@ -72,6 +86,16 @@ public class GachaPanelUIController : MonoBehaviour
             // 排出確率反映
             proElems[ii].probabilityText.text = $"{foor}%";
         }
+    }
 
+    /// <summary>
+    /// コストを支払うことができるか確認する
+    /// </summary>
+    public void CanAfford(int singlePullCost)
+    {
+        Debug.Log("確認されました");
+
+        singlePullButton.interactable = playerSO.InsightPointHaveAmount >= singlePullCost;
+        multiPullButton.interactable = playerSO.InsightPointHaveAmount >= singlePullCost * 10;
     }
 }

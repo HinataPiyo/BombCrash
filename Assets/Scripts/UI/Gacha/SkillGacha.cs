@@ -5,6 +5,11 @@ public class SkillGacha : GachaSystemController
 {
     [SerializeField] SkillDatabase skillDB;
 
+    void Start()
+    {
+        gpUICtrl.SetInit(GachaDefine.SkillGacha_SinglePullCost);
+        gpUICtrl.CanAfford(GachaDefine.SkillGacha_SinglePullCost);
+    }
 
     /// <summary>
     /// 単発ガチャボタンが押された時の処理
@@ -14,6 +19,8 @@ public class SkillGacha : GachaSystemController
         Rarity rarity = Draw();     // レアリティを選出
         // UIを更新する & ガチャレベルが超えられるか確認
         CheckLevelUpGacha(1);
+        ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost);
+        gpUICtrl.CanAfford(GachaDefine.SkillGacha_SinglePullCost);
 
         // テスト
         Debug.Log(RandomSelectSkillSO(rarity)?.Name + "が選出された");
@@ -33,6 +40,8 @@ public class SkillGacha : GachaSystemController
             rarities.Add(rarity);
         }
 
+        ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost * pullCount);
+        gpUICtrl.CanAfford(GachaDefine.SkillGacha_SinglePullCost);
         // UIを更新する & ガチャレベルが超えられるか確認
         CheckLevelUpGacha(pullCount);
     }

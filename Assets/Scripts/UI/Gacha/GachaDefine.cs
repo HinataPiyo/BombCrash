@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 public class GachaDefine
 {
+    public static readonly int SkillGacha_SinglePullCost = 150;
+
     public static class GachaProbabilityTable
     {
         /// <summary>
@@ -52,12 +54,15 @@ public class GachaDefine
         }
     }
 
+    /// <summary>
+    /// ガチャレベルに応じた引き回数を定義
+    /// </summary>
     public static class GachaLevelProgression
     {
-        public static int _baseRequiredPulls = 100;
+        static readonly int BaseRequiredPulls = 100;
         public static int GetRequiredPullsForNextLevel(int level)
         {
-            return _baseRequiredPulls + (level * 20);
+            return BaseRequiredPulls + (level * 20);
         }
     }
 }
