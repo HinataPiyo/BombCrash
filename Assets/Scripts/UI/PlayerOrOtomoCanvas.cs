@@ -16,6 +16,8 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
         public bool isPlayHomeDirector;
     }
 
+    bool isFadeIn;
+
     void Start()
     {
         for (int ii = 0; ii < changePanel.Length; ii++)
@@ -31,6 +33,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
     /// <param name="num">ボタンの番号</param>
     void StartChangePanel(int num)
     {
+        if (isFadeIn) return;
         SoundManager.Instance.PlaySE(1);
         StartCoroutine(ChangePanelProc(num));   // 画面切り替え（パネル）
     }
@@ -43,6 +46,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
     /// <param name="playDirector">ホームディレクターを再生するかどうか</param>
     IEnumerator ChangePanelProc(int num)
     {
+        isFadeIn = true;
         // フェードイン処理
         homeSceneCont.StartPanelChangeFade();
         yield return new WaitUntil(() => homeSceneCont.FadeEnd);
@@ -67,6 +71,8 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
                 if (!processedPanels.Contains(changePanel[ii].panel))
                 {
                     changePanel[ii].panel.SetActive(false);
+                    processedPanels.Add(changePanel[ii].panel);
+                    Debug.Log("SSSSSSSSSSSSSSS");
                 }
             }
             
@@ -74,6 +80,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
 
         // フェードアウト処理
         homeSceneCont.StartFadeOut();
+        isFadeIn = false;
         yield break;
     }
 }

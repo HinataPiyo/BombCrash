@@ -65,6 +65,7 @@ public class HomeSceneController : MonoBehaviour
 
     void ChangePanelProc(int num)
     {
+        if (fadeEnd) return;
         SoundManager.Instance.PlaySE(1);
         StartCoroutine(ChangePanelButtonClick(num));
     }
@@ -81,8 +82,9 @@ public class HomeSceneController : MonoBehaviour
 
         for (int ii = 0; ii < changePanel.Length; ii++)
         {
-            if (ii == num)
+            if (ii == num)      // 押下したボタンの番号と一致していれば
             {
+                // オブジェクトをアクティブ状態にする
                 changePanel[ii].panel.SetActive(true);
                 processedPanels.Add(changePanel[ii].panel);
             }

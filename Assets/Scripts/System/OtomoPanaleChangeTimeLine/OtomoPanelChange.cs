@@ -80,7 +80,7 @@ public class OtomoPanelChange : MonoBehaviour
     void UpgradeToStatus()
     {
         // Directorが再生中だった場合、処理を行わない
-        if(director.state == PlayState.Playing) return;
+        if (director.state == PlayState.Playing) return;
         director.playableAsset = upgradeToStatus;
         director.RebindPlayableGraphOutputs();
         director.Play();
