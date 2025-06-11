@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryController : MonoBehaviour
+public class SkillInventoryManager : MonoBehaviour
 {
-    public static InventoryController Instance;
-    OtomoSkillManager otomo_SkillManager;
+    public static SkillInventoryManager Instance;
+    [SerializeField] SkillDatabase skillDB;
     [SerializeField] GameObject skillSlot_Prefab;
     [SerializeField] Transform skillSlot_Parent;
     [SerializeField] Button equipmentChange_BackButton;
@@ -19,7 +19,6 @@ public class InventoryController : MonoBehaviour
     }
     void Start()
     {
-        otomo_SkillManager = OtomoSkillManager.Instance;
         equipmentChange_BackButton.onClick.AddListener(BackButtonOnClick);
         // スキルのインベントリを生成する
         CreateSkillInventory();
@@ -31,13 +30,13 @@ public class InventoryController : MonoBehaviour
     void CreateSkillInventory()
     {
         // スキルのインベントリを生成する
-        for (int ii = 0; ii < otomo_SkillManager.SkillSoTabel.Length; ii++)
+        for (int ii = 0; ii < skillDB.SkillDB.Length; ii++)
         {
             // スキルのインベントリを生成する
             GameObject skillSlot = Instantiate(skillSlot_Prefab, skillSlot_Parent);
             // スキルのインベントリにスキルをセットする
             OtomoSkillInventorySlot skillSlotComponent = skillSlot.GetComponent<OtomoSkillInventorySlot>();
-            skillSlotComponent.SetSkill(otomo_SkillManager.SkillSoTabel[ii]);
+            skillSlotComponent.SetSkill(skillDB.SkillDB[ii]);
             skillSlots_Array.Add(skillSlotComponent);
         }
     }
@@ -58,15 +57,32 @@ public class InventoryController : MonoBehaviour
     /// スキルのインベントリを更新する
     /// </summary>
     /// <param name="skill"></param>
-    public void ProficiencyUpSlotUpdate(SkillSO skill)
+    public void InventorySlotUpdateUI(SkillSO skill)
     {
         foreach (var slot in skillSlots_Array)
         {
             // スキルのインベントリを更新する
             if (slot.SkillSO == skill)
             {
-                slot.SetSkill(skill);       // スロットを更新する
+                slot.UpdateUI();        // スロットを更新する
             }
         }
+    }
+
+    /// <summary>
+    /// スキルをストックする処理
+    /// </summary>
+    public void SetSkillStock(SkillSO skillSO)
+    {
+        if (skillSO == null) return;
+
+        foreach (SkillSO skill in skillDB.SkillDB)
+        {
+            if (skill != skillSO) continue;
+
+            skill.CountUpStock();       // ストックを上昇
+        }
+
+        InventorySlotUpdateUI(skillSO);
     }
 }

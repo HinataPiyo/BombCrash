@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class SkillSlotController : MonoBehaviour
+public class SkillStatusSlotController : MonoBehaviour
 {
     [SerializeField] Transform equipmentSkillSlot_Parent;
     [SerializeField] OtomoSkillStatusSlot[] equipmentSkillSlot;

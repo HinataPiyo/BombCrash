@@ -1,23 +1,25 @@
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public abstract class SkillSO : ScriptableObject
 {
-    [Header("手動(false)or自動(true)"), SerializeField] bool isAuto;       // 手動（false）か自動（true）か
-    [Header("カテゴリ"), SerializeField] Category category;
-    [Header("画像"), SerializeField] Sprite sprite;
-    [Header("名前"), SerializeField] new string name;
-    [Header("効果"), SerializeField] string effect;
-    [Header("レアリティ"), SerializeField] Rarity rarity;
-    [Header("レベル"), SerializeField] int level = 0;
-    [Header("クールタイム(CT)"), SerializeField] float coolTime;
-    bool isEndCoolTime = true; // クールタイムが終了しているかどうか
-    [Header("現在の熟練度"), SerializeField] int currentProficiency;
-    [Header("次の最大熟練度"), SerializeField] int maxProficiency;
-    [Header("熟練度の上昇率"), SerializeField] float proficiencyCostUpRate = 1.5f;
-    [Header("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.7f;
+    [Header("基本情報")]
+    [Tooltip("手動(false)or自動(true)"), SerializeField] bool isAuto;       // 手動（false）か自動（true）か
+    [Tooltip("カテゴリ"), SerializeField] Category category;
+    [Tooltip("画像"), SerializeField] Sprite sprite;
+    [Tooltip("名前"), SerializeField] new string name;
+    [Tooltip("効果"), SerializeField] string effect;
+    [Tooltip("レアリティ"), SerializeField] Rarity rarity;
+    [Tooltip("レベル"), SerializeField] int level = 0;
+    [Tooltip("クールタイム(CT)"), SerializeField] float coolTime;
+    bool isEndCoolTime = true;      // クールタイムが終了しているかどうか
+    
+    [Header("リソース情報")]
+    [Tooltip("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.7f;
+    [Tooltip("Skillのストック数"), SerializeField] int skillStock;
+    [Tooltip("覚醒回数"), SerializeField] int awakeningCount;
 
-
-    static readonly int[] ProficiencyBase = { 50, 75, 100, 150 };   // 熟練度のコスト
+    static readonly int[] BaseNeedSkillStock = { 25, 40, 65, 80, 100 };    // スキルの所持数(同種のスキル)
     static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト
     public Category Category => category;
     public Sprite Icon => sprite;
@@ -26,18 +28,10 @@ public abstract class SkillSO : ScriptableObject
     public Rarity Rarity => rarity;
     public int Level => level;
     public float CoolTime => coolTime;
+    public int SkillStock => skillStock;
+    public int AwakingCount => awakeningCount;
     public bool IsEndCoolTime { get { return isEndCoolTime; } set { isEndCoolTime = value; } }
     public bool IsAuto { get { return isAuto; } set { isAuto = value; } }
-    public float CurrentProficiency => currentProficiency;
-    public float MaxProficiency => maxProficiency;
-
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    public void Initialize()
-    {
-        maxProficiency = ProficiencyFetchCost();        // 熟練度の最大値を取得
-    }
 
     /// <summary>
     /// 知見ポイントをレアリティごとに決まった値を返す
@@ -55,55 +49,11 @@ public abstract class SkillSO : ScriptableObject
     }
 
 
-    /// <summary>
-    /// 熟練度をレアリティごとに決まった値を返す
-    /// </summary>
-    public int ProficiencyFetchCost()
-    {
-        if (level == 0)
-        {
-            return IPBaseCost[(int)rarity];
-        }
-        // レアリティごとに決まった値を返す
-        // 0:N, 1:R, 2:SR, 3:SSR
-        int cost = Mathf.FloorToInt(ProficiencyBase[(int)rarity] * (proficiencyCostUpRate * level));
-        return cost;
-    }
+    public int GetNeedStockCount() { return BaseNeedSkillStock[awakeningCount]; }
+    public bool CanAwaking() { return skillStock >= GetNeedStockCount(); }
 
-    /// <summary>
-    /// 熟練度を上げる(スキルのレベルアップ)
-    /// </summary>
-    public void ProficiencyLevelUp()
-    {
-
-        level++;
-        currentProficiency = 0;
-        maxProficiency = ProficiencyFetchCost();
-
-        // スキルのレベルが上がった時の処理
-    }
-
-    /// <summary>
-    /// 熟練度のコストをチェックする
-    /// </summary>
-    public bool CheckProficiencyCost()
-    {
-        return currentProficiency >= maxProficiency;
-    }
-
-    /// <summary>
-    /// スキルのクールタイムをチェックする
-    /// </summary>
-    public void AddProficiency()
-    {
-        currentProficiency++;      // 熟練度を上げる
-        // 熟練度が最大値を超えた場合
-        if (currentProficiency > maxProficiency)
-        {
-            // 熟練度を最大値にする
-            currentProficiency = maxProficiency;
-        }
-    }
+    public void CountUpStock() => skillStock++;
+    public void CountUpAwaking() => awakeningCount++;
     
     public abstract void Execute();     // スキルの実行処理
 }
