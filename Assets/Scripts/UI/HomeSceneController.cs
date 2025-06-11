@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Search;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -15,14 +14,16 @@ public class HomeSceneController : MonoBehaviour
     [SerializeField] float fadespeed;
     [SerializeField] ChangePanel[] changePanel;
     [SerializeField] PlayableDirector homeDirector;
+    [Header("IPとScrap")]
+    [SerializeField] TextMeshProUGUI ipHaveAmountText;
+    [SerializeField] TextMeshProUGUI scrapHaveAmountText;
     [Header("オトモボタン")]
     [SerializeField] GameObject otomoButtonObject;
     [SerializeField] CanvasGroup otomoButtonGroup; 
     [Header("マウスクリックエフェクト")]
     [SerializeField] GameObject mouseClick_Prefab;
     const int playNumber = 0;
-    bool fadeEnd;
-    public bool FadeEnd { get { return fadeEnd; } }
+    public bool FadeInEnd { get; private set; }
     public void PlayHomeDirector() { homeDirector.Play(); }
 
     [System.Serializable]
@@ -51,15 +52,19 @@ public class HomeSceneController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        // クリックされたらパーティクルを生成
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Instantiate(mouseClick_Prefab, mousePos, Quaternion.identity);
         }
+
+        UpdateResouceUI();      // resourceの所持数をテキストに反映
     }
 
     void ChangePanelProc(int num)
     {
+        if (FadeInEnd) return;
         SoundManager.Instance.PlaySE(1);
         StartCoroutine(ChangePanelButtonClick(num));
     }
@@ -70,14 +75,15 @@ public class HomeSceneController : MonoBehaviour
     IEnumerator ChangePanelButtonClick(int num)
     {
         StartCoroutine(PanelChangeFade());
-        yield return new WaitUntil(() => fadeEnd);
+        yield return new WaitUntil(() => FadeInEnd);
 
         HashSet<GameObject> processedPanels = new HashSet<GameObject>(); // 処理済みのパネルを記録
 
         for (int ii = 0; ii < changePanel.Length; ii++)
         {
-            if (ii == num)
+            if (ii == num)      // 押下したボタンの番号と一致していれば
             {
+                // オブジェクトをアクティブ状態にする
                 changePanel[ii].panel.SetActive(true);
                 processedPanels.Add(changePanel[ii].panel);
             }
@@ -93,8 +99,6 @@ public class HomeSceneController : MonoBehaviour
                 StartCoroutine(GoGameScene());
                 yield break;
             }
-
-            Debug.Log("Panel" + changePanel[ii].panel);
         }
 
         StartCoroutine(FadeOut());
@@ -118,7 +122,7 @@ public class HomeSceneController : MonoBehaviour
     /// <returns></returns>
     IEnumerator FadeOut()
     {
-        fadeEnd = false;
+        FadeInEnd = false;
         fadePanel.blocksRaycasts = true;
         while(fadePanel.alpha > 0)
         {
@@ -140,8 +144,14 @@ public class HomeSceneController : MonoBehaviour
             yield return null;
         }
 
-        fadeEnd = true;
+        FadeInEnd = true;
         yield break;
+    }
+
+    void UpdateResouceUI()
+    {
+        ipHaveAmountText.text = $"{player.InsightPointHaveAmount}";
+        scrapHaveAmountText.text = $"{player.ScrapHaveAmount}";
     }
     
     public void StartFadeOut() { StartCoroutine(FadeOut()); }

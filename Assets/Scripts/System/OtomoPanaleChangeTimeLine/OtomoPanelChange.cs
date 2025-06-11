@@ -54,7 +54,7 @@ public class OtomoPanelChange : MonoBehaviour
     {
         // フェードイン処理
         homeSceneCont.StartPanelChangeFade();
-        yield return new WaitUntil(() => homeSceneCont.FadeEnd);
+        yield return new WaitUntil(() => homeSceneCont.FadeInEnd);
         foreach(var panel in isActivePanel)
         {
             panel.SetActive(false);
@@ -80,7 +80,7 @@ public class OtomoPanelChange : MonoBehaviour
     void UpgradeToStatus()
     {
         // Directorが再生中だった場合、処理を行わない
-        if(director.state == PlayState.Playing) return;
+        if (director.state == PlayState.Playing) return;
         director.playableAsset = upgradeToStatus;
         director.RebindPlayableGraphOutputs();
         director.Play();

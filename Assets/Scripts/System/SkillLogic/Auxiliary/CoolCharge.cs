@@ -1,6 +1,6 @@
     using UnityEngine;
 
-[CreateAssetMenu(fileName = "CoolCharge", menuName = "Skills/CoolCharge")]
+[CreateAssetMenu(fileName = "CoolCharge", menuName = "Skill/Skills/CoolCharge")]
 public class CoolCharge : SkillSO
 {
     public override void Execute()

@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class StatusTextElement : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI valueText;
+    [SerializeField] TextMeshProUGUI basicValueText;
+    [SerializeField] TextMeshProUGUI equipvalueText;
     
-    public TextMeshProUGUI ValueText { get { return valueText; } }
+    public TextMeshProUGUI BasicValueText { get { return basicValueText; } }
+    public TextMeshProUGUI EquipValueText { get { return equipvalueText; } }
 }

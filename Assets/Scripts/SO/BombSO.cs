@@ -1,31 +1,27 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BombSO", menuName = "SO/BombSO")]
 public class BombSO : ScriptableObject
 {
     [SerializeField] PlayerStatusSO player;
-    [SerializeField] BasicUpgradeData b_UpDataSO;
-    public const float Default_Damage = 10f;
-    public const float Default_ExplosionRadius = 1f;
+    [Header("基本値")]
+    [SerializeField] float attackDamage = 6.5f;
+    [SerializeField] float explosionRadius = 1f;
+    [Header("係数")]    // デフォ爆弾は1
+    [SerializeField] float attackDamage_Coefficient = 1f;
+    [SerializeField] float explosionRadius_Coefficient = 1f;
 
-    public float AttackDamage 
-    { 
+    public float AttackDamage
+    {
         get
         {
-            if(b_UpDataSO != null)
-            {
-                float baseDamage = Default_Damage + b_UpDataSO.GetPlayerData(StatusName.BombAttackDamageUp).increaseValue;
-                float _damege =  baseDamage + baseDamage * player.Bomb_RC.AttackDamageUp;
-                if(DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
+            float _damege = (attackDamage * attackDamage_Coefficient) + player.CheckAttachmentStatusName(StatusName.BombAttackDamageUp);
+            if (DebugManager.Instance != null) DebugManager.Instance.DamageText = _damege;
 
-                float critical = IsCritical();
-                if(critical > 0) _damege *= critical;
-                return _damege;
-            }
-            else
-            {
-                return Default_Damage;
-            }
+            float critical = IsCritical();
+            if (critical > 0) _damege *= critical;
+            return _damege;
         }
     }
 
@@ -52,15 +48,7 @@ public class BombSO : ScriptableObject
     {
         get
         {
-            if(b_UpDataSO != null)
-            {
-                float baseDamage = Default_ExplosionRadius * (1 + b_UpDataSO.GetPlayerData(StatusName.ExplosionRadiusUp).increaseValue);
-                return baseDamage + baseDamage * player.Bomb_RC.ExplosionRadiusUp;
-            }
-            else
-            {
-                return Default_ExplosionRadius;
-            }
+            return (explosionRadius * explosionRadius_Coefficient) + player.CheckAttachmentStatusName(StatusName.ExplosionRadiusUp);
         }    
     }
 }

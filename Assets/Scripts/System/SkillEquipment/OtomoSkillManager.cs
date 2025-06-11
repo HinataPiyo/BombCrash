@@ -6,10 +6,8 @@ public class OtomoSkillManager : MonoBehaviour
 {
     public static OtomoSkillManager Instance;
 
-    [Header("全てのスキル"), SerializeField] SkillSO[] SkillSO_Table;
     [Header("装備中のスキル"), SerializeField] List<SkillSO> equippedSkill = new List<SkillSO>();
     public List<SkillSO> EquippedSkill { get { return equippedSkill; } }
-    public SkillSO[] SkillSoTabel => SkillSO_Table;
 
     public bool isEquipmentChangeNow;
 
@@ -22,16 +20,7 @@ public class OtomoSkillManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
-    void Start()
-    {
-        // スキルの初期化
-        foreach (var skill in SkillSO_Table)
-        {
-            skill.Initialize();
-        }
-    }
-
+    
     /// <summary>
     /// 出撃するタイミングで装備を反映させる
     /// </summary>
@@ -40,7 +29,7 @@ public class OtomoSkillManager : MonoBehaviour
     {
         // 現在の装備スキルをクリア
         equippedSkill.Clear();
-        SkillSlotController slotsCont = FindAnyObjectByType<SkillSlotController>();
+        SkillStatusSlotController slotsCont = FindAnyObjectByType<SkillStatusSlotController>();
         // 新しいスキルを追加
         foreach (var skill in slotsCont.EquipmentSkillSlot)
         {

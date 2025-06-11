@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class GameSceneMainCanvas : MonoBehaviour
 {
-    [SerializeField] Camera mainCamera;
     [SerializeField] PlayerStatusSO player;
     [Header("メインキャンバス")]
     [SerializeField] CanvasGroup canvasGroup;

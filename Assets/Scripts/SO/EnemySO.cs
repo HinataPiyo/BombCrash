@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySO", menuName = "SO/EnemySO")]
 public class EnemySO : ScriptableObject
 {
-    [SerializeField] BasicUpgradeData b_UpDataSO;
     [SerializeField] GameObject enemy_Prefab;
     [SerializeField] GameObject explosion_Prefab;
     [SerializeField] GameObject scrap_Prefab;
@@ -27,15 +26,7 @@ public class EnemySO : ScriptableObject
     public float CountDown => countDown;
     public float UpMaxHp { get { return upMaxHp; } set { upMaxHp = defaultMaxHp * value; } }
     public void ResetMaxHp() { upMaxHp = defaultMaxHp; }
-    public int DropScrapAmount 
-    {
-        get
-        {
-            float increaseValue = b_UpDataSO.GetSupportData(StatusName.DropScrapUp).increaseValue;
-            float x = dropScrapAmount + dropScrapAmount * increaseValue;
-            return (int)x;
-        }
-    }
+    public int DropScrapAmount { get { return dropScrapAmount; } }
 }
 
 public enum EnemyType

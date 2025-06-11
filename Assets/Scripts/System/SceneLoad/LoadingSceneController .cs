@@ -27,11 +27,7 @@ public class LoadingSceneController : MonoBehaviour
     void LoadSceneSetting()
     {
         int r_background = Random.Range(0, loadSceneTips.Background.Length);
-
-        if(loadSceneTips.Background[0] != null)
-        {
-            background.sprite = loadSceneTips.Background[r_background];
-        }
+        background.sprite = loadSceneTips.Background[r_background];
 
         if(loadSceneTips.Tips[0] != null)
         {

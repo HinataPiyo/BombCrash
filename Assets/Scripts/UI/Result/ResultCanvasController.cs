@@ -21,9 +21,6 @@ public class ResultCanvasController : MonoBehaviour
     [SerializeField] TextMeshProUGUI insightBonusText;
     [SerializeField] TextMeshProUGUI insightTotalText;
 
-    [Header("倒した敵の数")]
-    [SerializeField] Transform killEnemiesParent;
-
     [Header("帰還ボタン")]
     [SerializeField] Button returnButton;
 
@@ -51,7 +48,7 @@ public class ResultCanvasController : MonoBehaviour
     {
         result.waveCount = waveManager.WaveCount;
         result.scrap = playerSO.ScrapHaveAmount - beforScrap;
-        result.scrapBonus = (int)Mathf.Round(result.scrap * playerSO.Support_RC.ScrapBonusUp);
+        result.scrapBonus = (int)Mathf.Round(result.scrap * playerSO.CheckAttachmentStatusName(StatusName.DropScrapUp));
         result.scrapTotal = result.scrap + result.scrapBonus;
 
         int insight = insightPointCalculation.GetDefaultInsight();              // 知見ポイントの計算

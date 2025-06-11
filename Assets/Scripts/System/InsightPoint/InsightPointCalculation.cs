@@ -32,7 +32,7 @@ public class InsightPointCalculation : MonoBehaviour
     /// <returns></returns>
     public int GetInsightBonus()
     {
-        bonusInsightPoint = Mathf.CeilToInt(insightPoint * playerSO.Support_RC.InsightBonusUp);
+        bonusInsightPoint = Mathf.CeilToInt(insightPoint  * playerSO.CheckAttachmentStatusName(StatusName.GetInsightPointUp));
         playerSO.InsightPointHaveAmount = bonusInsightPoint;
 
         return bonusInsightPoint;

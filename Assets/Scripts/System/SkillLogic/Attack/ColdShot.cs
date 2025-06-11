@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ColdShot", menuName = "Skills/ColdShot")]
+[CreateAssetMenu(fileName = "ColdShot", menuName = "Skill/Skills/ColdShot")]
 public class ColdShot : SkillSO
 {
     [Header("スキルが発動する前に行う動作"), SerializeField] GameObject trigger_Preafab;    // 爆弾を投げるなど

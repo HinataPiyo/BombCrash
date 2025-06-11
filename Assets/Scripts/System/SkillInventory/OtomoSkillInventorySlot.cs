@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class OtomoSkillInventorySlot : SkillSlotBase
 {
-    [SerializeField] Slider proficiencySlider;
+    [SerializeField] Slider skillStockSlider;
     Animator anim;
 
     void Start()
@@ -11,16 +11,35 @@ public class OtomoSkillInventorySlot : SkillSlotBase
         anim = GetComponent<Animator>();
         slotButton.onClick.AddListener(ButtonOnClick);
     }
-    
+
+    /// <summary>
+    /// スロット生成時の初期化処理
+    /// </summary>
+    /// <param name="skillSO"></param>
     public override void SetSkill(SkillSO skillSO)
     {
         base.SetSkill(skillSO);
 
-        // 熟練度の設定
-        proficiencySlider.maxValue = skillSO.MaxProficiency;
-        proficiencySlider.value = skillSO.CurrentProficiency;
+        // スキルストックスライダーを更新
+        skillStockSlider.maxValue = skillSO.GetNeedStockCount();
+        skillStockSlider.value = skillSO.SkillStock;
     }
 
+    /// <summary>
+    /// UIを更新する
+    /// </summary>
+    public void UpdateUI()
+    {
+        base.SetSkill(m_skillSO);
+
+        // スキルストックスライダーを更新
+        skillStockSlider.maxValue = m_skillSO.GetNeedStockCount();
+        skillStockSlider.value = m_skillSO.SkillStock;
+    }
+
+    /// <summary>
+    /// スロットが押された時の処理
+    /// </summary>
     void ButtonOnClick()
     {
         anim.SetTrigger("Click");
@@ -29,7 +48,7 @@ public class OtomoSkillInventorySlot : SkillSlotBase
         if(OtomoSkillManager.Instance.isEquipmentChangeNow == true)
         {
             // スキルを変更
-            SkillSlotController skillSlotController = FindAnyObjectByType<SkillSlotController>();
+            SkillStatusSlotController skillSlotController = FindAnyObjectByType<SkillStatusSlotController>();
             skillSlotController.SkillChange_SetSkill(m_skillSO);
         }
         else
