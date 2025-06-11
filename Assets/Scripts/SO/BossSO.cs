@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BossSO", menuName = "SO/BossSO")]
 public class BossSO : ScriptableObject
 {
-    [SerializeField,Header("ボスのBasicUpgradeData")] BasicUpgradeData b_UpDataSO;
     [SerializeField,Header("ボスのプレハブ")] GameObject boss_Prefab;
     [SerializeField,Header("爆破のプレハブ")] GameObject explosion_Prefab;
     [SerializeField,Header("スクラッププレハブ")] GameObject scrap_Prefab;
@@ -27,19 +26,6 @@ public class BossSO : ScriptableObject
     public float CountDown => countDown;
     public float UpMaxHp { get { return upMaxHp; } set { upMaxHp = defaultMaxHp * value; } }
     public void ResetMaxHp() { upMaxHp = defaultMaxHp; }
-
-    /// <summary>
-    /// ボスがやられたらスクラップが落ちる
-    /// </summary>
-    public int DropScrapAmount
-    {
-        get
-        {
-            float increaseValue = b_UpDataSO.GetSupportData(StatusName.DropScrapUp).increaseValue;
-            float x = dropScrapAmount + dropScrapAmount * increaseValue;
-            return (int)x;
-        }
-    }
 }
 public enum BossType
 {
