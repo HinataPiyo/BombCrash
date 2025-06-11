@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -100,8 +98,6 @@ public class HomeSceneController : MonoBehaviour
                 StartCoroutine(GoGameScene());
                 yield break;
             }
-
-            Debug.Log("Panel" + changePanel[ii].panel);
         }
 
         StartCoroutine(FadeOut());

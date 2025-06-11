@@ -47,6 +47,4 @@ public class GachaUIController : MonoBehaviour
             anim.SetInteger("ChangeIndex", changeIndex + 1);        // アニメーション再生
         }
     }
-
-    
 }
