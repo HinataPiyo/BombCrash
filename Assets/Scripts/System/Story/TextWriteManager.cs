@@ -11,6 +11,7 @@ public class TextWriteManager : MonoBehaviour
 {
     public static TextWriteManager instance;
     public StoryController storyCtrl;
+    [SerializeField] CameraShake cameraShake;
     [SerializeField] CanvasGroup fadeCanvas;
     [SerializeField] PlayerStatusSO player;
     [Header("表示するストーリーSOを入れる"), SerializeField]
@@ -98,6 +99,9 @@ public class TextWriteManager : MonoBehaviour
         Page currentPage = chaptStory.Pages[CurrentStory];
         name_text.text = ChapterStorySO.GetCharacterName[currentPage.charaName];       // しゃべっている人の名前に設定
         stageBackground.sprite = currentPage.stageBackground;
+
+        // カメラシェイク
+        cameraShake.Shake(currentPage.time, currentPage.amplitudeGain, currentPage.frequencyGain);
 
         for (int ii = 0; ii < currentPage.icon.Length; ii++)
         {

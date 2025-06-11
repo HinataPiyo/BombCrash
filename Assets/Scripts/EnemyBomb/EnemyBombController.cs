@@ -51,7 +51,7 @@ public class EnemyBombController : MonoBehaviour
         countDownText.text = "0";
         Instantiate(enemySO.Countzero_Prefab, transform.position, Quaternion.identity);
         SoundManager.Instance.PlaySE(1);
-        GameSystem.Instance.CameraShake.Shake(0.5f, 1f);
+        GameSystem.Instance.CameraShake.Shake(0.5f, 1f, 1.5f);
         GameSystem.Instance.GameOver();
         Debug.Log("敵ボムが爆発 【GameOver】");
     }

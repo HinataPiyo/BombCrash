@@ -29,11 +29,16 @@ public class Page
     [Header("キャラクター名前/画像")]
     public CharacterGenre charaName;
     [Header("ハイライトするImage")]
-    [Tooltip("true : 右, false : 左")] public bool isHighlight;
-    public Sprite[] icon;
+    [Tooltip("true : 右, false : 左")] public bool isHighlight = false;
+    public Sprite[] icon = new Sprite[2];
 
     [TextArea(3, 5), Header("文章")]
     public string story;
+
+    [Header("カメラシェイク")]
+    public float time = 0;
+    [Tooltip("振幅")] public float amplitudeGain = 0;
+    [Tooltip("周波数")] public float frequencyGain = 0;
 }
 
 

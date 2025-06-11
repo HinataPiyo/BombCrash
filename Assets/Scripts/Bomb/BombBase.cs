@@ -70,7 +70,7 @@ public class BombBase : MonoBehaviour
     protected virtual void BOOM()
     {
         SoundManager.Instance.PlaySE(0);             // サウンド再生
-        GameSystem.Instance.CameraShake.Shake(0.1f, 0.2f);      // カメラ振動
+        GameSystem.Instance.CameraShake.Shake(0.1f, 0.2f, 0.4f);      // カメラ振動
 
         // 爆発アニメーションをここで（一旦赤い円を表示している）
         Transform explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity).transform;
