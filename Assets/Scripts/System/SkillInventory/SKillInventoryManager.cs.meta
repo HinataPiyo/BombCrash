@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 8033023557ab8924e835ee9514bbe586
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - skillDB: {fileID: 11400000, guid: 5a180b9190975d7429089378dcd56340, type: 2}
+  - skillSlot_Prefab: {instanceID: 0}
+  - skillSlot_Parent: {instanceID: 0}
+  - equipmentChange_BackButton: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

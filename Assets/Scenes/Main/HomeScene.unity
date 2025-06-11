@@ -626,6 +626,7 @@ GameObject:
   - component: {fileID: 51783251}
   - component: {fileID: 51783253}
   - component: {fileID: 51783255}
+  - component: {fileID: 51783256}
   m_Layer: 5
   m_Name: PlayerOrOtomoCanvas
   m_TagString: Untagged
@@ -771,6 +772,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSkillSlot_Parent: {fileID: 1470538834}
   equipmentSkillSlot: []
+--- !u!114 &51783256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51783246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8033023557ab8924e835ee9514bbe586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillDB: {fileID: 11400000, guid: 5a180b9190975d7429089378dcd56340, type: 2}
+  skillSlot_Prefab: {fileID: 2447487156504952094, guid: 70037de1e0d512540b47ca9bd1d466e7, type: 3}
+  skillSlot_Parent: {fileID: 901842668}
+  equipmentChange_BackButton: {fileID: 945427898}
 --- !u!1 &86392338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,10 +1632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 768}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -11438,7 +11455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
-  skillDB: {fileID: 11400000, guid: 09b5ea468405f434aa4af1b0800a9b84, type: 2}
+  skillDB: {fileID: 11400000, guid: 5a180b9190975d7429089378dcd56340, type: 2}
 --- !u!1 &1314903245
 GameObject:
   m_ObjectHideFlags: 0
@@ -12919,9 +12936,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2722133638319564025, guid: a45a2dd23b4c29041b09b3aa4ca337a2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1434566574}
-    - targetCorrespondingSourceObject: {fileID: 2722133638319564025, guid: a45a2dd23b4c29041b09b3aa4ca337a2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1434566577}
   m_SourcePrefab: {fileID: 100100000, guid: a45a2dd23b4c29041b09b3aa4ca337a2, type: 3}
 --- !u!224 &1434566569 stripped
 RectTransform:
@@ -12967,22 +12981,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1434566577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434566570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8033023557ab8924e835ee9514bbe586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDB: {fileID: 11400000, guid: 09b5ea468405f434aa4af1b0800a9b84, type: 2}
-  skillSlot_Prefab: {fileID: 2447487156504952094, guid: 70037de1e0d512540b47ca9bd1d466e7, type: 3}
-  skillSlot_Parent: {fileID: 901842668}
-  equipmentChange_BackButton: {fileID: 945427898}
 --- !u!1001 &1451998306
 PrefabInstance:
   m_ObjectHideFlags: 0
