@@ -8,7 +8,7 @@ public class SkillGacha : GachaSystemController
     void Start()
     {
         gpUICtrl.SetInit(GachaDefine.SkillGacha_SinglePullCost);
-        gpUICtrl.CanAfford(GachaDefine.SkillGacha_SinglePullCost);
+        gpUICtrl.CheckGachaButton();
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public class SkillGacha : GachaSystemController
         // UIを更新する & ガチャレベルが超えられるか確認
         CheckLevelUpGacha(1);
         ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost);
-        gpUICtrl.CanAfford(GachaDefine.SkillGacha_SinglePullCost);
+        gpUICtrl.CheckGachaButton();
 
         // テスト
         Debug.Log(RandomSelectSkillSO(rarity)?.Name + "が選出された");
@@ -41,7 +41,7 @@ public class SkillGacha : GachaSystemController
         }
 
         ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost * pullCount);
-        gpUICtrl.CanAfford(GachaDefine.SkillGacha_SinglePullCost);
+        gpUICtrl.CheckGachaButton();
         // UIを更新する & ガチャレベルが超えられるか確認
         CheckLevelUpGacha(pullCount);
     }

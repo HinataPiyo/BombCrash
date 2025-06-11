@@ -29,19 +29,22 @@ public class GachaPanelUIController : MonoBehaviour
     [SerializeField] Button multiPullButton;
     [SerializeField] TextMeshProUGUI singleCostText;
     [SerializeField] TextMeshProUGUI multiCostText;
+
+    [Header("Multi Pull Count")]
+    [SerializeField] MultiPullCountPanel multiPullCountPanel;
     int multiPullCount = 10;    // テスト
 
     GachaSystemController gsCtrl;
+    public int SinglePullCount { get; private set; }
 
     void Awake()
     {
         gsCtrl = GetComponent<GachaSystemController>();
+        multiPullButton.onClick.AddListener(() => multiPullCountPanel.OnMultiPullCountPanel(multiPullCount));
 
         if (gsCtrl != null)
         {
-            // ボタンをリスナー登録
             singlePullButton.onClick.AddListener(gsCtrl.SinglePullOnClick);
-            multiPullButton.onClick.AddListener(() => gsCtrl.MultiPullOnClick(multiPullCount));
         }
 
         for (int ii = 0; ii < proElems.Length; ii++)
@@ -57,10 +60,11 @@ public class GachaPanelUIController : MonoBehaviour
     /// 外部からのセットが必要な処理をここで行う
     /// </summary>
     /// <param name="singlePullCost">単発を引くのにかかるコスト（ガチャ種によって異なるかもしれないから）</param>
-    public void SetInit(int singlePullCost)
+    public void SetInit(int _singlePullCost)
     {
-        singleCostText.text = singlePullCost.ToString();
-        multiCostText.text = (singlePullCost * 10).ToString();
+        SinglePullCount = _singlePullCost;
+        singleCostText.text = _singlePullCost.ToString();
+        multiCostText.text = (_singlePullCost * 10).ToString();
     }
 
     /// <summary>
@@ -89,13 +93,20 @@ public class GachaPanelUIController : MonoBehaviour
     }
 
     /// <summary>
-    /// コストを支払うことができるか確認する
+    /// コストを支払うことができればボタンを押せるようにし
+    /// 出来なければ押せないようにする
     /// </summary>
-    public void CanAfford(int singlePullCost)
+    public void CheckGachaButton()
     {
-        Debug.Log("確認されました");
+        singlePullButton.interactable = CanAffordMultiCount(SinglePullCount);
+        multiPullButton.interactable = CanAffordMultiCount(SinglePullCount * 10);
+    }
 
-        singlePullButton.interactable = playerSO.InsightPointHaveAmount >= singlePullCost;
-        multiPullButton.interactable = playerSO.InsightPointHaveAmount >= singlePullCost * 10;
+    /// <summary>
+    /// コストが支払えるかどうか
+    /// </summary>
+    public bool CanAffordMultiCount(int count)
+    {
+        return playerSO.InsightPointHaveAmount >= count;
     }
 }
