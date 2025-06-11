@@ -3,17 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BossSO", menuName = "SO/BossSO")]
 public class BossSO : ScriptableObject
 {
-    [SerializeField] BasicUpgradeData b_UpDataSO;
-    [SerializeField] GameObject boss_Prefab;
-    [SerializeField] GameObject explosion_Prefab;
-    [SerializeField] GameObject scrap_Prefab;
-    [SerializeField] GameObject countzero_Prefab;
-    [SerializeField] string bossName;
-    [SerializeField] Sprite bossIcon;
-    [SerializeField] float defaultMaxHp;
-    [SerializeField] float upMaxHp;
-    [SerializeField] float countDown;
-    [SerializeField] int dropScrapAmount;
+    [SerializeField,Header("ボスのBasicUpgradeData")] BasicUpgradeData b_UpDataSO;
+    [SerializeField,Header("ボスのプレハブ")] GameObject boss_Prefab;
+    [SerializeField,Header("爆破のプレハブ")] GameObject explosion_Prefab;
+    [SerializeField,Header("スクラッププレハブ")] GameObject scrap_Prefab;
+    [SerializeField,Header("カウントのプレハブ")] GameObject countzero_Prefab;
+    [SerializeField,Header("ボスの名前")] string bossName;
+    [SerializeField,Header("ボスのアイコン")] Sprite bossIcon;
+    [SerializeField,Header("ボスのMaxHP")] float defaultMaxHp;
+    [SerializeField,Header("ボスのUpMaxHP")] float upMaxHp;
+    [SerializeField,Header("カウントダウン")] float countDown;
+    [SerializeField,Header("ドロップスクラップ")] int dropScrapAmount;
     int startWave;      // 自身の出現waveを保持
 
     public int StartWave { get { return startWave; } set { startWave = value; } }
@@ -27,6 +27,10 @@ public class BossSO : ScriptableObject
     public float CountDown => countDown;
     public float UpMaxHp { get { return upMaxHp; } set { upMaxHp = defaultMaxHp * value; } }
     public void ResetMaxHp() { upMaxHp = defaultMaxHp; }
+
+    /// <summary>
+    /// ボスがやられたらスクラップが落ちる
+    /// </summary>
     public int DropScrapAmount
     {
         get
