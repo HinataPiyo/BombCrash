@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Story", menuName = "SO/ChapterStorySO")]
@@ -6,7 +7,16 @@ public class ChapterStorySO : ScriptableObject
     // ストーリーをまとめる配列
     [SerializeField] Page[] stories;
 
-    public Page[] Pages { get{ return stories; } }
+    public Page[] Pages { get { return stories; } }
+    
+    public static Dictionary<CharacterGenre, string> GetCharacterName = new ()
+    {
+        {CharacterGenre.MainCharacter, "主人公"},
+        {CharacterGenre.LittleMainCharacter, "主人公(幼少期)"},
+        {CharacterGenre.Father, "父"},
+        {CharacterGenre.Mother, "母"},
+        {CharacterGenre.Enemy, "カウントボム"},
+    };
 }
 
 /// <summary>
@@ -18,35 +28,20 @@ public class Page
     public Sprite stageBackground;
     [Header("キャラクター名前/画像")]
     public CharacterGenre charaName;
+    [Header("ハイライトするImage")]
+    [Tooltip("true : 右, false : 左")] public bool isHighlight;
     public Sprite[] icon;
 
     [TextArea(3, 5), Header("文章")]
     public string story;
-
-
-    /// <summary>
-    /// キャラクター名を返す
-    /// </summary>
-    public string CharactorName()
-    {
-        switch(charaName)
-        {
-            case CharacterGenre.MainCharacter:
-                return "主人公";
-            case CharacterGenre.Father:
-                return "父";
-            case CharacterGenre.Enemy:
-                return "カウントダウンボム";
-        }
-
-        return "";
-    }
 }
 
 
 public enum CharacterGenre
 {
     MainCharacter,
+    LittleMainCharacter,
     Father,
+    Mother,
     Enemy,
 }

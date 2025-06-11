@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class TextWriteManager : MonoBehaviour
 {
     public static TextWriteManager instance;
-
+    public StoryController storyCtrl;
     [SerializeField] CanvasGroup fadeCanvas;
     [SerializeField] PlayerStatusSO player;
     [Header("表示するストーリーSOを入れる"), SerializeField]
@@ -67,24 +67,20 @@ public class TextWriteManager : MonoBehaviour
 
     IEnumerator StoryUpdate()
     {
-        while(true)
+        // 最初のストーリーから始まるように初期化
+        CurrentStory = 0;
+
+        // 設定されたストーリーの最大ページ数分ループ
+        for(int ii = 0; ii < chaptStory.Pages.Length; ii++)
         {
-            // 最初のストーリーから始まるように初期化
-            CurrentStory = 0;
-
-            // 設定されたストーリーの最大ページ数分ループ
-            for(int ii = 0; ii < chaptStory.Pages.Length; ii++)
-            {
-                StartCoroutine(ArticleWrite());     // テキストを一文字ずつ表示する
-                yield return new WaitUntil(() => clickKey);        // 文章がすべて表示され、クリックされるまで待機
-                clickKey = false;
-                CurrentStory++;     // 次のページに行けるようにインクリメント
-            }
-
-            // 全てのテキストが表示し終わったら
-            StartCoroutine(FadeOut());
-            yield break;
+            StartCoroutine(ArticleWrite());     // テキストを一文字ずつ表示する
+            yield return new WaitUntil(() => clickKey);        // 文章がすべて表示され、クリックされるまで待機
+            clickKey = false;
+            CurrentStory++;     // 次のページに行けるようにインクリメント
         }
+
+        // 全てのテキストが表示し終わったら
+        StartCoroutine(FadeOut());
     }
 
     /// <summary>
@@ -100,15 +96,18 @@ public class TextWriteManager : MonoBehaviour
     {
         write_text.text = "";
         Page currentPage = chaptStory.Pages[CurrentStory];
-        name_text.text = currentPage.CharactorName();       // しゃべっている人の名前に設定
+        name_text.text = ChapterStorySO.GetCharacterName[currentPage.charaName];       // しゃべっている人の名前に設定
         stageBackground.sprite = currentPage.stageBackground;
 
-        for(int ii = 0; ii < currentPage.icon.Length; ii++)
+        for (int ii = 0; ii < currentPage.icon.Length; ii++)
         {
             leftIcon.enabled = currentPage.icon[0] != null;
             rightIcon.enabled = currentPage.icon[1] != null;
             leftIcon.sprite = currentPage.icon[0];
             rightIcon.sprite = currentPage.icon[1];
+
+            rightIcon.color = currentPage.isHighlight ? Color.white : new Color32(130, 130, 130, 255);
+            leftIcon.color = currentPage.isHighlight ? new Color32(130, 130, 130, 255) : Color.white;
         }
 
         yield return new WaitUntil(() => endFade);
@@ -129,7 +128,7 @@ public class TextWriteManager : MonoBehaviour
         fadeCanvas.alpha = 1;
         fadeCanvas.blocksRaycasts = true;
         StartCoroutine(StoryUpdate());      // ストーリーを再生
-        while(fadeCanvas.alpha > 0)
+        while (fadeCanvas.alpha > 0)
         {
             fadeCanvas.alpha -= fadeSpeed * Time.deltaTime;
             yield return null;
