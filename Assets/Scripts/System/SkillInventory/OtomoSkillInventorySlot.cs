@@ -15,10 +15,6 @@ public class OtomoSkillInventorySlot : SkillSlotBase
     public override void SetSkill(SkillSO skillSO)
     {
         base.SetSkill(skillSO);
-
-        // 熟練度の設定
-        proficiencySlider.maxValue = skillSO.MaxProficiency;
-        proficiencySlider.value = skillSO.CurrentProficiency;
     }
 
     void ButtonOnClick()

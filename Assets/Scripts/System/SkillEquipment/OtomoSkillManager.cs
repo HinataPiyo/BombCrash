@@ -22,16 +22,7 @@ public class OtomoSkillManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
-    void Start()
-    {
-        // スキルの初期化
-        foreach (var skill in SkillSO_Table)
-        {
-            skill.Initialize();
-        }
-    }
-
+    
     /// <summary>
     /// 出撃するタイミングで装備を反映させる
     /// </summary>

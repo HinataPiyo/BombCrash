@@ -54,7 +54,6 @@ namespace OtomoSkill
             SkillSO skill = OtomoSkillDetailPanel.Instance.SkillSO;
             if (skill == null) return; // スキルが選択されていない場合は何もしない
             Debug.Log("スキルのレベルアップ処理を実行");
-            skill.ProficiencyLevelUp();        // スキルのレベルアップ
             playerSO.InsightPointHaveAmount = -skill.InsightPointFetchCost();   // 知見ポイントを消費
             OtomoSkillDetailPanel.Instance.SetText(skill);     // スキルの情報を更新
             InventoryController.Instance.ProficiencyUpSlotUpdate(skill); // スキルのインベントリを更新

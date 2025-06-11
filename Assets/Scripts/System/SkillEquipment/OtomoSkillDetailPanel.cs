@@ -61,9 +61,6 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         coolTimeText.text = $"{skillSO.CoolTime}";
         currentEffectText.text = $"{skillSO.Effect}";
         nextEffectText.text = "";
-        proficiencyText.text = $"{skillSO.CurrentProficiency} / {skillSO.MaxProficiency}";
-        proficiencySlider.maxValue = skillSO.MaxProficiency;
-        proficiencySlider.value = skillSO.CurrentProficiency;
         insightPointText.text = $"{skillSO.InsightPointFetchCost()}";
     }
 
@@ -73,8 +70,7 @@ public class OtomoSkillDetailPanel : MonoBehaviour
     public bool CheckIPCostAndProficiency()
     {
         if (m_skillSO == null) return false;
-        return playerSO.InsightPointHaveAmount >= m_skillSO.InsightPointFetchCost() &&
-               m_skillSO.CheckProficiencyCost();
+        return playerSO.InsightPointHaveAmount >= m_skillSO.InsightPointFetchCost();
     }
     
 }
