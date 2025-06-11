@@ -114,7 +114,7 @@ public class GameSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Destroy(currentOtomo);                  // オトモを破棄
         Instantiate(diePlayer);                 // ゲームオーバー時のプレイヤーの画像を生成
-        cameraShake.Shake(0.3f, 0.5f, 0.75f);          // カメラ振動
+        cameraShake.Shake(0.3f, 1f, 1.5f);          // カメラ振動
         SoundManager.Instance.PlayerDeiBGM();   // BGMを再生
 
         isAllDirection = true;
