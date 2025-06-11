@@ -49,7 +49,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
         isFadeIn = true;
         // フェードイン処理
         homeSceneCont.StartPanelChangeFade();
-        yield return new WaitUntil(() => homeSceneCont.FadeEnd);
+        yield return new WaitUntil(() => homeSceneCont.FadeInEnd);
 
         // パネルの切り替え
         HashSet<GameObject> processedPanels = new HashSet<GameObject>();
@@ -72,7 +72,6 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
                 {
                     changePanel[ii].panel.SetActive(false);
                     processedPanels.Add(changePanel[ii].panel);
-                    Debug.Log("SSSSSSSSSSSSSSS");
                 }
             }
             

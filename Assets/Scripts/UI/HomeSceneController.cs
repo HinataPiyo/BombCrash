@@ -23,8 +23,7 @@ public class HomeSceneController : MonoBehaviour
     [Header("マウスクリックエフェクト")]
     [SerializeField] GameObject mouseClick_Prefab;
     const int playNumber = 0;
-    bool fadeEnd;
-    public bool FadeEnd { get { return fadeEnd; } }
+    public bool FadeInEnd { get; private set; }
     public void PlayHomeDirector() { homeDirector.Play(); }
 
     [System.Serializable]
@@ -65,7 +64,7 @@ public class HomeSceneController : MonoBehaviour
 
     void ChangePanelProc(int num)
     {
-        if (fadeEnd) return;
+        if (FadeInEnd) return;
         SoundManager.Instance.PlaySE(1);
         StartCoroutine(ChangePanelButtonClick(num));
     }
@@ -76,7 +75,7 @@ public class HomeSceneController : MonoBehaviour
     IEnumerator ChangePanelButtonClick(int num)
     {
         StartCoroutine(PanelChangeFade());
-        yield return new WaitUntil(() => fadeEnd);
+        yield return new WaitUntil(() => FadeInEnd);
 
         HashSet<GameObject> processedPanels = new HashSet<GameObject>(); // 処理済みのパネルを記録
 
@@ -123,7 +122,7 @@ public class HomeSceneController : MonoBehaviour
     /// <returns></returns>
     IEnumerator FadeOut()
     {
-        fadeEnd = false;
+        FadeInEnd = false;
         fadePanel.blocksRaycasts = true;
         while(fadePanel.alpha > 0)
         {
@@ -145,7 +144,7 @@ public class HomeSceneController : MonoBehaviour
             yield return null;
         }
 
-        fadeEnd = true;
+        FadeInEnd = true;
         yield break;
     }
 

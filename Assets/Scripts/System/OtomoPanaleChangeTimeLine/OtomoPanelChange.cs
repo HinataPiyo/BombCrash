@@ -54,7 +54,7 @@ public class OtomoPanelChange : MonoBehaviour
     {
         // フェードイン処理
         homeSceneCont.StartPanelChangeFade();
-        yield return new WaitUntil(() => homeSceneCont.FadeEnd);
+        yield return new WaitUntil(() => homeSceneCont.FadeInEnd);
         foreach(var panel in isActivePanel)
         {
             panel.SetActive(false);
