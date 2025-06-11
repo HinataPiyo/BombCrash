@@ -10878,6 +10878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed3c732c7ba5314fa57fdbf018614ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSO: {fileID: 11400000, guid: cb0baa5d32b045c45833c0649b734fcb, type: 2}
   skillDB: {fileID: 11400000, guid: 09b5ea468405f434aa4af1b0800a9b84, type: 2}
 --- !u!1 &1314903245
 GameObject:
