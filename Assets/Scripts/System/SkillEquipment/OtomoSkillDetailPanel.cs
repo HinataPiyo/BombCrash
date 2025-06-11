@@ -6,16 +6,19 @@ public class OtomoSkillDetailPanel : MonoBehaviour
 {
     public static OtomoSkillDetailPanel Instance;
     [SerializeField] PlayerStatusSO playerSO;
+    [Header("ステータス")]
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI rarityText;
-    [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI coolTimeText;
+    [Header("効果説明")]
     [SerializeField] TextMeshProUGUI currentEffectText;
-    [SerializeField] TextMeshProUGUI nextEffectText;
-    [SerializeField] TextMeshProUGUI proficiencyText;
-    [SerializeField] Slider proficiencySlider;
+    [Header("覚醒")]
+    [SerializeField] TextMeshProUGUI awakingCountText;
+    [SerializeField] TextMeshProUGUI nextAwakingVulueText;
+    [SerializeField] Slider awakingSlider;
     [SerializeField] TextMeshProUGUI insightPointText;
+    [Header("コンポーネント")]
     [SerializeField] Animator iconAnim;
 
     SkillSO m_skillSO;
@@ -38,11 +41,10 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         icon.enabled = false;
         nameText.text = "-";
         rarityText.text = "-";
-        levelText.text = "-";
         coolTimeText.text = "-";
         currentEffectText.text = "";
-        nextEffectText.text = "";
-        proficiencyText.text = "-/-";
+        awakingCountText.text = "";
+        nextAwakingVulueText.text = "-/-";
         insightPointText.text = "-";
     }
 
@@ -55,13 +57,21 @@ public class OtomoSkillDetailPanel : MonoBehaviour
             icon.enabled = true;
             iconAnim.SetTrigger("Click");
         }
-        nameText.text = $"{skillSO.Name}";
-        rarityText.text = $"{skillSO.Rarity}";
-        levelText.text = $"{skillSO.Level + 1}";
-        coolTimeText.text = $"{skillSO.CoolTime}";
-        currentEffectText.text = $"{skillSO.Effect}";
-        nextEffectText.text = "";
-        insightPointText.text = $"{skillSO.InsightPointFetchCost()}";
+
+        // ステータス
+        nameText.text = skillSO.Name;
+        rarityText.text = skillSO.Rarity.ToString();
+        coolTimeText.text = skillSO.CoolTime.ToString("F0");
+        currentEffectText.text = skillSO.Effect;
+
+        // 覚醒
+        awakingCountText.text = skillSO.AwakingCount.ToString();
+        nextAwakingVulueText.text = $"{skillSO.SkillStock}/{skillSO.GetNeedStockCount()}";
+        awakingSlider.maxValue = skillSO.GetNeedStockCount();
+        awakingSlider.value = skillSO.SkillStock;
+
+        // 知見ポイント
+        insightPointText.text = skillSO.InsightPointFetchCost().ToString();
     }
 
     /// <summary>
@@ -70,7 +80,7 @@ public class OtomoSkillDetailPanel : MonoBehaviour
     public bool CheckIPCostAndProficiency()
     {
         if (m_skillSO == null) return false;
-        return playerSO.InsightPointHaveAmount >= m_skillSO.InsightPointFetchCost();
+        return playerSO.InsightPointHaveAmount >= m_skillSO.InsightPointFetchCost() && m_skillSO.CanAwaking();
     }
     
 }

@@ -19,11 +19,11 @@ public class SkillGacha : GachaSystemController
         Rarity rarity = Draw();     // レアリティを選出
         // UIを更新する & ガチャレベルが超えられるか確認
         CheckLevelUpGacha(1);
-        ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost);
-        gpUICtrl.CheckGachaButton();
+        ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost);      // リソースにコストを適応
+        gpUICtrl.CheckGachaButton();                                // ボタンが押せるかの確認
 
-        // テスト
-        Debug.Log(RandomSelectSkillSO(rarity)?.Name + "が選出された");
+        SkillSO skillSO = RandomSelectSkillSO(rarity);              // ランダムにレアリティに合ったSkillSOを取得
+        SkillInventoryManager.Instance.SetSkillStock(skillSO);      // インベントリからDBにアクセスしてストックする
     }
 
     /// <summary>
@@ -35,15 +35,16 @@ public class SkillGacha : GachaSystemController
         for (int ii = 0; ii < pullCount; ii++)
         {
             Rarity rarity = Draw();
-            Debug.Log(PlayerStatusSO.RarityToName(rarity) + "が選出された");
+            SkillSO skillSO = RandomSelectSkillSO(rarity);
+
+            SkillInventoryManager.Instance.SetSkillStock(skillSO);      // インベントリからDBにアクセスしてストックする
             // 選出したレアリティをリストに格納
             rarities.Add(rarity);
         }
 
-        ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost * pullCount);
-        gpUICtrl.CheckGachaButton();
-        // UIを更新する & ガチャレベルが超えられるか確認
-        CheckLevelUpGacha(pullCount);
+        ApplyGachaCost(GachaDefine.SkillGacha_SinglePullCost * pullCount);      // リソースにコストを適応
+        gpUICtrl.CheckGachaButton();        // ボタンが押せるかの確認
+        CheckLevelUpGacha(pullCount);       // UIを更新する & ガチャレベルが超えられるか確認
     }
 
     /// <summary>

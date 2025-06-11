@@ -1,3 +1,4 @@
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public abstract class SkillSO : ScriptableObject
@@ -13,10 +14,12 @@ public abstract class SkillSO : ScriptableObject
     [Tooltip("クールタイム(CT)"), SerializeField] float coolTime;
     bool isEndCoolTime = true;      // クールタイムが終了しているかどうか
     
-    [Header("係数")]
-    [Header("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.7f;
+    [Header("リソース情報")]
+    [Tooltip("IPコストの上昇率"), SerializeField] float ipCostUpRate = 1.7f;
+    [Tooltip("Skillのストック数"), SerializeField] int skillStock;
+    [Tooltip("覚醒回数"), SerializeField] int awakeningCount;
 
-    static readonly int[] BaseSkillStock = { 50, 75, 100, 150 };    // スキルの所持数(同種のスキル)
+    static readonly int[] BaseNeedSkillStock = { 25, 40, 65, 80, 100 };    // スキルの所持数(同種のスキル)
     static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト
     public Category Category => category;
     public Sprite Icon => sprite;
@@ -25,6 +28,8 @@ public abstract class SkillSO : ScriptableObject
     public Rarity Rarity => rarity;
     public int Level => level;
     public float CoolTime => coolTime;
+    public int SkillStock => skillStock;
+    public int AwakingCount => awakeningCount;
     public bool IsEndCoolTime { get { return isEndCoolTime; } set { isEndCoolTime = value; } }
     public bool IsAuto { get { return isAuto; } set { isAuto = value; } }
 
@@ -42,6 +47,13 @@ public abstract class SkillSO : ScriptableObject
         int cost = Mathf.FloorToInt(IPBaseCost[(int)rarity] * (ipCostUpRate * level));
         return cost;
     }
+
+
+    public int GetNeedStockCount() { return BaseNeedSkillStock[awakeningCount]; }
+    public bool CanAwaking() { return skillStock >= GetNeedStockCount(); }
+
+    public void CountUpStock() => skillStock++;
+    public void CountUpAwaking() => awakeningCount++;
     
     public abstract void Execute();     // スキルの実行処理
 }

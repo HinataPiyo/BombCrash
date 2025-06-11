@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 5053707336260952703}
   - component: {fileID: 8133507154993436741}
   m_Layer: 5
-  m_Name: Proficiency Slider
+  m_Name: Stock Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
   rarityText: {fileID: 6517789762885477606}
   slotButton: {fileID: 6057446113322346288}
   icon: {fileID: 4771644566508327106}
-  proficiencySlider: {fileID: 8133507154993436741}
+  skillStockSlider: {fileID: 8133507154993436741}
 --- !u!114 &6057446113322346288
 MonoBehaviour:
   m_ObjectHideFlags: 0
