@@ -78,10 +78,10 @@ public class StatusTextController : MonoBehaviour
     {
         for (int ii = 0; ii < bomb_StatusElements.Length; ii++)
         {
-            if (ii < PlayerStatusSO.bombStatusNames.Length)
+            if (ii < SystemDefine.bombStatusNames.Length)
             {
                 // 該当のステータスを合算させた値を取得
-                float total = playerSO.CheckAttachmentStatusName(PlayerStatusSO.bombStatusNames[ii]);
+                float total = playerSO.CheckAttachmentStatusName(SystemDefine.bombStatusNames[ii]);
                 if (total == 0)
                 {
                     bomb_StatusElements[ii].EquipValueText.text = "";

@@ -19,6 +19,6 @@ public class DropdownGenreSelectButton : MonoBehaviour
     {
         button.onClick.AddListener(() => ctrl.SetSelectGenre(statusName));
         statusName = _statusName;
-        genreText.text = PlayerStatusSO.StatusNameToName(_statusName);
+        genreText.text = SystemDefine.StatusNameToName(_statusName);
     }
 }

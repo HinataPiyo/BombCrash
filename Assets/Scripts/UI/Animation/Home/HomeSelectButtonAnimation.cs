@@ -1,6 +1,9 @@
 using UnityEngine;
 using DG.Tweening;
 
+/// <summary>
+/// ホーム画面のセレクトボタンの移動モーションを再生
+/// </summary>
 public class HomeSelectButtonAnimation : MonoBehaviour
 {
     Vector3 startPos = new Vector3(0.5f, 0, 0);
