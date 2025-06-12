@@ -28,11 +28,3 @@ public class EnemySO : ScriptableObject
     public void ResetMaxHp() { upMaxHp = defaultMaxHp; }
     public int DropScrapAmount { get { return dropScrapAmount; } }
 }
-
-public enum EnemyType
-{
-    Normal_Ver1_0,
-    Normal_Ver1_5,
-    Normal_Ver2_0,
-    // 今後追加予定
-}

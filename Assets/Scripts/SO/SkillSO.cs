@@ -58,11 +58,4 @@ public abstract class SkillSO : ScriptableObject
     public abstract void Execute();     // スキルの実行処理
 }
 
-// カテゴリ
-public enum Category
-{
-    Attack,
-    Auxiliary,
-    Disruption,
-}
 

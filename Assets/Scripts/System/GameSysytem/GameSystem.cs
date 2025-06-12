@@ -101,8 +101,6 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     IEnumerator GameOverFlow()
     {
-        Debug.Log("GameOver");
-
         // UIを非表示にする
         StartCoroutine(mainCanvas.GetComponent<GameSceneMainCanvas>().CanvasGroupAlpha());
 

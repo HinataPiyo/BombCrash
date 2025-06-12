@@ -99,7 +99,7 @@ public class TextWriteManager : MonoBehaviour
     {
         write_text.text = "";
         Page currentPage = chaptStory.Pages[CurrentStory];
-        name_text.text = ChapterStorySO.GetCharacterName[currentPage.charaName];       // しゃべっている人の名前に設定
+        name_text.text = StoryDefine.GetCharacterName[currentPage.charaName];       // しゃべっている人の名前に設定
         stageBackground.sprite = currentPage.stageBackground;
 
         // 音声再生

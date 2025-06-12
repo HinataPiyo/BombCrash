@@ -37,7 +37,7 @@ public class AttachmentShopSlot : MonoBehaviour
 
         icon.sprite = data.Icon;
         attachmentName.text = data.Name;
-        effectName.text = PlayerStatusSO.StatusNameToName(data.UseSutatusName);
+        effectName.text = SystemDefine.StatusNameToName(data.UseSutatusName);
         upstatusText.text = $"+{data.UpgreadeValue}";
         resourceValue.text = $"{data.ResourceValue}";
 

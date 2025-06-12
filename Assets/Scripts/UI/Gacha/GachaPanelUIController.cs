@@ -50,7 +50,7 @@ public class GachaPanelUIController : MonoBehaviour
         for (int ii = 0; ii < proElems.Length; ii++)
         {
             // レアリティを文字列にして取得し設定
-            proElems[ii].rarityText.text = PlayerStatusSO.RarityToName(PlayerStatusSO.rarities[ii]);
+            proElems[ii].rarityText.text = SystemDefine.RarityToName(SystemDefine.rarities[ii]);
             // 色を設定
             proElems[ii].rarityText.color = proElems[ii].rarityColor;
         }

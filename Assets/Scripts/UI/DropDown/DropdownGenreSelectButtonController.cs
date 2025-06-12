@@ -25,12 +25,12 @@ public class DropdownGenreSelectButtonController : MonoBehaviour
     void Awake()
     {
         dropButton.onClick.AddListener(DropOnClick);
-        for (int ii = 0; ii < PlayerStatusSO.bombStatusNames.Length; ii++)
+        for (int ii = 0; ii < SystemDefine.bombStatusNames.Length; ii++)
         {
             GameObject obj = Instantiate(genreSelectButton_Prefab, slot_Parent);
             DropdownGenreSelectButton slot = obj.GetComponent<DropdownGenreSelectButton>();
 
-            slot.SetInit(PlayerStatusSO.bombStatusNames[ii], this);
+            slot.SetInit(SystemDefine.bombStatusNames[ii], this);
             slots.Add(slot);
         }
     }
@@ -46,7 +46,7 @@ public class DropdownGenreSelectButtonController : MonoBehaviour
     /// <param name="statusName"></param>
     public void SetSelectGenre(StatusName statusName)
     {
-        selectGenreText.text = PlayerStatusSO.StatusNameToName(statusName);
+        selectGenreText.text = SystemDefine.StatusNameToName(statusName);
         assCtrl.GenreSort(statusName);
 
         if (!isPanelOpen) return;
