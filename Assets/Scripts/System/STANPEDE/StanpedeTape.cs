@@ -5,7 +5,23 @@ public class StanpedeTape : MonoBehaviour
     [SerializeField] Transform[] rightTape;
     [SerializeField] Transform[] leftTape;
     [SerializeField] float moveSpeed = 0.5f;
+    [SerializeField] Animator anim;
     static readonly float endline = 12f;
+
+    void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Play()
+    {
+        Debug.Log("Playしました");
+        gameObject.SetActive(true);
+        anim.SetTrigger("Play");
+    }
+
+    public void End() => anim.SetTrigger("End");
+    public void AnimationIsActive() => gameObject.SetActive(true);
 
     void Update()
     {

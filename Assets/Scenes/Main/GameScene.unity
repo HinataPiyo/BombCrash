@@ -4773,8 +4773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1062877049dcc47a3e20f0f9c12ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWaveIndex: 8
+  currentWaveIndex: 9
   eSpawnC: {fileID: 1123184840}
+  stanpedeTape: {fileID: 1147546971}
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1760297319}
   waveRule: {fileID: 11400000, guid: 22c0692c62b39c24b8d99c475740b519, type: 2}
@@ -5057,6 +5058,7 @@ MonoBehaviour:
   - {fileID: 1324838518}
   - {fileID: 1970298684}
   moveSpeed: 0.5
+  anim: {fileID: 1147546972}
 --- !u!95 &1147546972
 Animator:
   serializedVersion: 7
@@ -7529,7 +7531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8903103017898029297, guid: 104e7a631ee1d2d4eafffdf961710fad, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -110
+      value: -140
       objectReference: {fileID: 0}
     - target: {fileID: 8903103017898029297, guid: 104e7a631ee1d2d4eafffdf961710fad, type: 3}
       propertyPath: m_SizeDelta.y

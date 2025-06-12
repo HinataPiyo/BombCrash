@@ -21,13 +21,15 @@ public static class WaveGenerator
         float spawn;
         float waveDur;
         float readyTime;
+        bool isStanpede;
         // スタンピードを起こす
-        if(0 == (waveNumber - 1) % rule.stampedeWaveInterval)
+        if (0 == (waveNumber - 1) % rule.stampedeWaveInterval)
         {
             waveDur = rule.stampedeWaveDuration;        // wave進行時間を設定
             readyTime = rule.stampedeReadyTime;         // 次のwaveまでの待機時間を設定
             float val = Mathf.Max(0.1f, rule.baseSpawnInterval - rule.intervalDecreasePerWave * waveNumber);
             spawn = val < rule.stampedeSpawnInterval ? val : rule.stampedeSpawnInterval;
+            isStanpede = true;
             Debug.Log("スタンピード発生！！");
         }
         else        // 通常wave
@@ -35,10 +37,12 @@ public static class WaveGenerator
             waveDur = rule.baseWaveDuration;        // wave進行時間を設定
             readyTime = rule.baseReadyTime;         // 次のwaveまでの待機時間を設定
             spawn = Mathf.Max(0.3f, rule.baseSpawnInterval - rule.intervalDecreasePerWave * waveNumber);        // 出現間隔も減衰（最低0.3秒まで）
+            isStanpede = false;
         }
         wave.waveDuration = waveDur;
         wave.readyTime = readyTime;
         wave.spawnInterval = spawn;
+        wave.isStanpede = isStanpede;
 
         Debug.Log("【敵生成時間】: " + spawn);
         // 出現する敵のリストを作成
