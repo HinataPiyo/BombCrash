@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStatusSO : ScriptableObject
 {
     [SerializeField] UltimateSO ultimateSO;
-    [SerializeField] SceneName nextScene;
+    public SceneName nextScene { get; private set; }
     [SerializeField] bool isReleaseOtomo;
     [SerializeField] int maxWaveReleaseOtomo = 10;
 

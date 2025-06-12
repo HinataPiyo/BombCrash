@@ -40,7 +40,7 @@ public class LoadingSceneController : MonoBehaviour
         // このフレームで UI の更新を確実に反映
         yield return null;
 
-        AsyncOperation async = SceneManager.LoadSceneAsync(player.NextSceneName());
+        AsyncOperation async = SceneManager.LoadSceneAsync(SystemDefine.NextSceneName(player.nextScene));
         async.allowSceneActivation = false;
         yield return new WaitForSeconds(3f);
 
