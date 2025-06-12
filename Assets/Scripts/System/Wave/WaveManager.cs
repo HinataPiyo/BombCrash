@@ -14,6 +14,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] int currentWaveIndex;
     [Header("スクリプト")]
     [SerializeField] EnemySpawnController eSpawnC;
+    [SerializeField] StanpedeTape stanpedeTape;
 
     [Header("UI")]
     [SerializeField] TextMeshProUGUI waveCountText;  // 現在のWave数を表示するテキスト
@@ -75,6 +76,9 @@ public class WaveManager : MonoBehaviour
             // Waveデータをルールに基づいて生成
             currentWaveData = WaveGenerator.GenerateWave(currentWaveIndex + 1, waveRule);
 
+            // スタンピード時にtapeを表示する
+            if (currentWaveData.isStanpede) stanpedeTape.Play();
+
             float waveDuration = currentWaveData.waveDuration;
 
             // スライダーUI設定
@@ -104,6 +108,7 @@ public class WaveManager : MonoBehaviour
             }
 
             yield return new WaitUntil(() => eSpawnC.FieldOnEnemiesCheck());    // 最後の敵が倒されるまで待機
+            if (currentWaveData.isStanpede) stanpedeTape.End();                 // 終了モーションを再生
 
             // Wave終了
             IsWaveEnd = true;

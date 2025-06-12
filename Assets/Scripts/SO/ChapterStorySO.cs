@@ -35,6 +35,9 @@ public class Page
     [TextArea(3, 5), Header("文章")]
     public string story;
 
+    [Header("SE")]
+    public AudioClip seClip;
+
     [Header("カメラシェイク")]
     public float time = 0;
     [Tooltip("振幅")] public float amplitudeGain = 0;

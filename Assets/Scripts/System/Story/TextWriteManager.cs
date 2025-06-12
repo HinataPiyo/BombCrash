@@ -27,6 +27,8 @@ public class TextWriteManager : MonoBehaviour
     [SerializeField] float writeTime = 0.05f;
     [SerializeField] GameObject downArrow;
 
+    [Header("サウンド")]
+    [SerializeField] AudioSource seSource;
     int CurrentStory;       // 現在のストーリーの番号
     float fadeSpeed = 1;
 
@@ -99,6 +101,9 @@ public class TextWriteManager : MonoBehaviour
         Page currentPage = chaptStory.Pages[CurrentStory];
         name_text.text = ChapterStorySO.GetCharacterName[currentPage.charaName];       // しゃべっている人の名前に設定
         stageBackground.sprite = currentPage.stageBackground;
+
+        // 音声再生
+        if(currentPage.seClip != null) seSource.PlayOneShot(currentPage.seClip);
 
         // カメラシェイク
         cameraShake.Shake(currentPage.time, currentPage.amplitudeGain, currentPage.frequencyGain);
