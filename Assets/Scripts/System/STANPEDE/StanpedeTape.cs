@@ -6,7 +6,7 @@ public class StanpedeTape : MonoBehaviour
     [SerializeField] Transform[] leftTape;
     [SerializeField] float moveSpeed = 0.5f;
     [SerializeField] Animator anim;
-    static readonly float endline = 12f;
+    static readonly float Endline = 12f;
 
     void Awake()
     {
@@ -15,7 +15,6 @@ public class StanpedeTape : MonoBehaviour
 
     public void Play()
     {
-        Debug.Log("Playしました");
         gameObject.SetActive(true);
         anim.SetTrigger("Play");
     }
@@ -25,24 +24,21 @@ public class StanpedeTape : MonoBehaviour
 
     void Update()
     {
-        for (int r = 0; r < rightTape.Length; r++)
-        {
-            if (rightTape[r].localPosition.y < -endline)
-            {
-                rightTape[r].localPosition = new Vector3(0, endline, 0);
-            }
+        MoveTapes(rightTape, -moveSpeed, -Endline, Endline);
+        MoveTapes(leftTape, moveSpeed, Endline, -Endline);
+    }
 
-            rightTape[r].localPosition += new Vector3(0, -moveSpeed * Time.deltaTime, 0);
-        }
-        
-        for (int l = 0; l < leftTape.Length; l++)
+    void MoveTapes(Transform[] tapes, float speed, float border, float reset)
+    {
+        if (tapes == null) return;
+        for (int i = 0; i < tapes.Length; i++)
         {
-            if (leftTape[l].localPosition.y > endline)
+            if ((speed > 0 && tapes[i].localPosition.y > border) ||
+                (speed < 0 && tapes[i].localPosition.y < border))
             {
-                leftTape[l].localPosition = new Vector3(0, -endline, 0);
+                tapes[i].localPosition = new Vector3(0, reset, 0);
             }
-
-            leftTape[l].localPosition += new Vector3(0, moveSpeed * Time.deltaTime, 0);
+            tapes[i].localPosition += new Vector3(0, speed * Time.deltaTime, 0);
         }
     }
 }
