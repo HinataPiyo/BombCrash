@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DelayPulse", menuName = "Skill/Skills/DelayPulse")]
 public class DelayPulse : SkillSO
 {
-    [SerializeField] float delayTime = 1f;
+    static readonly float[] delayTime = new float[] { 1f, 1.5f, 2f, 2.5f, 3f };
     [Header("スキルが発動する前に行う動作"), SerializeField] GameObject trigger_Preafab;    // 爆弾を投げるなど
     [Header("発火したときのエフェクト"), SerializeField] GameObject fire_Prefab;
     [Header("敵に当たったエフェクト"), SerializeField] GameObject hitEnemy_Prefab;
@@ -39,8 +39,26 @@ public class DelayPulse : SkillSO
         foreach (var enemy in WaveManager.Instance.GetEnemyList())
         {
             GameObject effect_obj = Instantiate(hitEnemy_Prefab, enemy.transform);
-            enemy.GetComponent<EnemyBombController>().DelayTime = delayTime;
-            effect_obj.GetComponent<DelayDestroy>().WaitTime = delayTime;
+            enemy.GetComponent<EnemyBombController>().DelayTime = delayTime[AwakeningCount];
+            effect_obj.GetComponent<DelayDestroy>().WaitTime = delayTime[AwakeningCount];
         }
+    }
+
+    /// <summary>
+    /// スキルの説明を返す
+    /// </summary>
+    public override string GetEffectDiscription(int awakeningCount)
+    {
+        string delay = $"{delayTime[awakeningCount]}秒";
+        return $"敵のカウントダウンを{SystemDefine.GetConvertColorText(ConvertColor.Red, delay)}の間止める。(CT: {GetDecCoolTime(awakeningCount)})";
+    }
+
+    /// <summary>
+    /// 段階的にクールタイムの減少値を確定
+    /// </summary>
+    public override float GetDecCoolTime(int awakening)
+    {
+        float[] decCT = { 0, 0, 0.5f, 1, 2.5f };
+        return coolTime - decCT[awakening];
     }
 }

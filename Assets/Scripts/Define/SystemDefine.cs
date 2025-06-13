@@ -1,5 +1,3 @@
-using UnityEditor.SearchService;
-
 public class SystemDefine
 {
     // ステータスごとに対応するStatusNameを用意
@@ -89,8 +87,22 @@ public class SystemDefine
 
         return null;
     }
+
+    public static string GetConvertColorText(ConvertColor color, string text)
+    {
+        switch (color)
+        {
+            case ConvertColor.Red:
+                return $"<color=#CD2E3C>{text}</color>";
+            case ConvertColor.Blue:
+                return $"<color=#2E46CD>{text}</color>";
+            default:
+                return $"<color=FFFFFF>{text}</color>";
+        }
+    }
 }
 
+public enum ConvertColor { Red, Blue }
 public enum Rarity { NON = -1, N, R, SR, SSR, UR }
 
 public enum SceneName

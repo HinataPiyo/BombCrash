@@ -96,7 +96,7 @@ public class PlayerStatusSO : ScriptableObject
         foreach (AttachmentDataSO data in attachments)
         {
             if (data == null) continue;
-            float _value = data.GetUpgradeValue(upgradName);
+            float _value = data.GetUpgradeValue(upgradName);        // 強化率を返す
             if (_value != 0) total += _value;
             else continue;
         }

@@ -13,8 +13,9 @@ public class OtomoSkillDetailPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI coolTimeText;
     [Header("効果説明")]
     [SerializeField] TextMeshProUGUI currentEffectText;
+    [SerializeField] TextMeshProUGUI nextEffectText;
     [Header("覚醒")]
-    [SerializeField] TextMeshProUGUI awakingCountText;
+    [SerializeField] TextMeshProUGUI awakeningCountText;
     [SerializeField] TextMeshProUGUI nextAwakingVulueText;
     [SerializeField] Slider awakingSlider;
     [SerializeField] TextMeshProUGUI insightPointText;
@@ -43,7 +44,8 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         rarityText.text = "-";
         coolTimeText.text = "-";
         currentEffectText.text = "";
-        awakingCountText.text = "";
+        nextEffectText.text = "";
+        awakeningCountText.text = "-";
         nextAwakingVulueText.text = "-/-";
         insightPointText.text = "-";
     }
@@ -62,10 +64,11 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         nameText.text = skillSO.Name;
         rarityText.text = skillSO.Rarity.ToString();
         coolTimeText.text = skillSO.CoolTime.ToString("F0");
-        currentEffectText.text = skillSO.Effect;
+        currentEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount);
+        nextEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount + 1);
 
         // 覚醒
-        awakingCountText.text = skillSO.AwakingCount.ToString();
+        awakeningCountText.text = skillSO.AwakeningCount.ToString();
         nextAwakingVulueText.text = $"{skillSO.SkillStock}/{skillSO.GetNeedStockCount()}";
         awakingSlider.maxValue = skillSO.GetNeedStockCount();
         awakingSlider.value = skillSO.SkillStock;
