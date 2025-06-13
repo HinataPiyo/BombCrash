@@ -31,13 +31,8 @@ public class WaveManager : MonoBehaviour
     [Header("カットインの設定")]
     public CutInFlowController cutInFlowCont;
 
-
-    // ----------------------------------------------------------
-    // 追加コード
     [Header("ボス")]
-    [SerializeField] BossSpawnController bossSpawnController;
-    int bossWaveCount = 25;   // ボスの出現wave数
-    // ----------------------------------------------------------
+    [SerializeField] BossSpawnController bsCtrl;
     
     public int WaveCount => currentWaveIndex;
     public Transform GetCrossTo0Enemy() => eSpawnC.CrossTo0Enemy();
@@ -76,8 +71,12 @@ public class WaveManager : MonoBehaviour
             // Waveデータをルールに基づいて生成
             currentWaveData = WaveGenerator.GenerateWave(currentWaveIndex + 1, waveRule);
 
+            // ボスをスポーン
+            if (0 == currentWaveIndex % BossSpawnController.BossWaveCount) bsCtrl.SpawnBoss();
+
+
             // スタンピード時にtapeを表示する
-            if (currentWaveData.isStanpede) stanpedeTape.Play();
+            if (currentWaveData.isStanpede && !bsCtrl.IsBossSpawned) stanpedeTape.Play();
 
             float waveDuration = currentWaveData.waveDuration;
 
@@ -95,20 +94,23 @@ public class WaveManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
 
-            // 敵出現処理スタート
-            eSpawnC.StartSpawnEnemy(currentWaveData);
-            // Waveタイマーの進行
-            while (time > 0)
+            if (!bsCtrl.IsBossSpawned)
             {
-                if (GameSystem.Instance.IsGameOver == true) yield break;
-                DebugManager.Instance.WaveTime = time;  // デバッグ用
-                waveTimerSlider.value = time;
-                time -= Time.deltaTime;
-                yield return null;
+                // 敵出現処理スタート
+                eSpawnC.StartSpawnEnemy(currentWaveData);
+                // Waveタイマーの進行
+                while (time > 0)
+                {
+                    if (GameSystem.Instance.IsGameOver == true) yield break;
+                    DebugManager.Instance.WaveTime = time;  // デバッグ用
+                    waveTimerSlider.value = time;
+                    time -= Time.deltaTime;
+                    yield return null;
+                }
             }
 
             yield return new WaitUntil(() => eSpawnC.FieldOnEnemiesCheck());    // 最後の敵が倒されるまで待機
-            if (currentWaveData.isStanpede) stanpedeTape.End();                 // 終了モーションを再生
+            if (currentWaveData.isStanpede && !bsCtrl.IsBossSpawned) stanpedeTape.End();                 // 終了モーションを再生
 
             // Wave終了
             IsWaveEnd = true;

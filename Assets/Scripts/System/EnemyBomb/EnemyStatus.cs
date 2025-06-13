@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class EnemyStatus : MonoBehaviour
+public class EnemyStatus : MonoBehaviour, IEnemy
 {
     [Header("敵のステータス情報")]
     [SerializeField] EnemySO enemySO;
@@ -72,7 +72,7 @@ public class EnemyStatus : MonoBehaviour
     /// ダメージテキストを生成
     /// </summary>
     /// <param name="damage"></param>
-    void CreateDamageText(float damage)
+    public void CreateDamageText(float damage)
     {
         GameObject obj = Instantiate(applyDamageText_Prefab, applyDamageCanvas);
         obj.GetComponent<ApplyDamageText>()?.SetApplyDamageText(transform.position, damage);

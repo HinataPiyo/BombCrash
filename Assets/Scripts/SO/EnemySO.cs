@@ -3,16 +3,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySO", menuName = "SO/EnemySO")]
 public class EnemySO : ScriptableObject
 {
-    [SerializeField] GameObject enemy_Prefab;
-    [SerializeField] GameObject explosion_Prefab;
-    [SerializeField] GameObject scrap_Prefab;
-    [SerializeField] GameObject countzero_Prefab;
-    [SerializeField] string enemyName;
-    [SerializeField] Sprite enemyIcon;
-    [SerializeField] float defaultMaxHp;
-    [SerializeField] float upMaxHp;
-    [SerializeField] float countDown;
-    [SerializeField] int dropScrapAmount;
+    [SerializeField, Tooltip("ボスのプレハブ")] GameObject enemy_Prefab;
+    [SerializeField, Tooltip("爆破のプレハブ")] GameObject explosion_Prefab;
+    [SerializeField, Tooltip("スクラッププレハブ")] GameObject scrap_Prefab;
+    [SerializeField, Tooltip("カウントのプレハブ")] GameObject countzero_Prefab;
+    [SerializeField, Tooltip("ボスの名前")] string enemyName;
+    [SerializeField, Tooltip("ボスのアイコン")] Sprite enemyIcon;
+    [SerializeField, Tooltip("ボスのMaxHP")] float defaultMaxHp;
+    [SerializeField, Tooltip("ボスのUpMaxHP")] float upMaxHp;
+    [SerializeField, Tooltip("カウントダウン")] float countDown;
+    [SerializeField, Tooltip("ドロップスクラップ")] int dropScrapAmount;
     int startWave;      // 自身の出現waveを保持
 
     public int StartWave { get { return startWave; } set { startWave = value; } }
