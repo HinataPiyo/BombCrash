@@ -27,7 +27,7 @@ public class OtomoSkillDetailPanel : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
@@ -53,7 +53,7 @@ public class OtomoSkillDetailPanel : MonoBehaviour
     public void SetText(SkillSO skillSO)
     {
         m_skillSO = skillSO;
-        if(skillSO.Icon != null)
+        if (skillSO.Icon != null)
         {
             icon.sprite = skillSO.Icon;
             icon.enabled = true;
@@ -64,17 +64,34 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         nameText.text = skillSO.Name;
         rarityText.text = skillSO.Rarity.ToString();
         coolTimeText.text = skillSO.CoolTime.ToString("F0");
-        currentEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount);
-        nextEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount + 1);
 
         // 覚醒
-        awakeningCountText.text = skillSO.AwakeningCount.ToString();
-        nextAwakingVulueText.text = $"{skillSO.SkillStock}/{skillSO.GetNeedStockCount()}";
-        awakingSlider.maxValue = skillSO.GetNeedStockCount();
-        awakingSlider.value = skillSO.SkillStock;
+        if (!skillSO.MaxAwaking())      // 覚醒回数がMaxに達していないとき
+        {
 
-        // 知見ポイント
-        insightPointText.text = skillSO.InsightPointFetchCost().ToString();
+            currentEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount);
+            nextEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount + 1);
+
+            awakeningCountText.text = skillSO.AwakeningCount.ToString();
+            nextAwakingVulueText.text = $"{skillSO.SkillStock}/{skillSO.GetNeedStockCount()}";
+            insightPointText.text = skillSO.InsightPointFetchCost().ToString();
+
+            awakingSlider.maxValue = skillSO.GetNeedStockCount();
+            awakingSlider.value = skillSO.SkillStock;
+        }
+        else
+        {
+
+            currentEffectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount);
+            nextEffectText.text = "";
+
+            awakeningCountText.text = "MAX";
+            nextAwakingVulueText.text = $"{skillSO.SkillStock}/MAX";
+            insightPointText.text = "-";
+            
+            awakingSlider.maxValue = 1;
+            awakingSlider.value = 1;
+        }
     }
 
     /// <summary>
@@ -85,5 +102,4 @@ public class OtomoSkillDetailPanel : MonoBehaviour
         if (m_skillSO == null) return false;
         return playerSO.InsightPointHaveAmount >= m_skillSO.InsightPointFetchCost() && m_skillSO.CanAwaking();
     }
-    
 }

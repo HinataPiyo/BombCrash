@@ -21,8 +21,8 @@ public class OtomoSkillInventorySlot : SkillSlotBase
         base.SetSkill(skillSO);
 
         // スキルストックスライダーを更新
-        skillStockSlider.maxValue = skillSO.GetNeedStockCount();
-        skillStockSlider.value = skillSO.SkillStock;
+        skillStockSlider.maxValue = skillSO.MaxAwaking() ? 1 : skillSO.GetNeedStockCount();
+        skillStockSlider.value = skillSO.MaxAwaking() ? 1 : skillSO.SkillStock;
     }
 
     /// <summary>
@@ -33,8 +33,8 @@ public class OtomoSkillInventorySlot : SkillSlotBase
         base.SetSkill(m_skillSO);
 
         // スキルストックスライダーを更新
-        skillStockSlider.maxValue = m_skillSO.GetNeedStockCount();
-        skillStockSlider.value = m_skillSO.SkillStock;
+        skillStockSlider.maxValue = m_skillSO.MaxAwaking() ? 1 : m_skillSO.GetNeedStockCount();
+        skillStockSlider.value = m_skillSO.MaxAwaking() ? 1 : m_skillSO.SkillStock;
     }
 
     /// <summary>

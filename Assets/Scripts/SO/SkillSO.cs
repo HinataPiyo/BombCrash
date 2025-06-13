@@ -1,3 +1,4 @@
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public abstract class SkillSO : ScriptableObject
@@ -16,8 +17,9 @@ public abstract class SkillSO : ScriptableObject
     [Tooltip("Skillのストック数"), SerializeField] int skillStock;
     [Tooltip("覚醒回数"), SerializeField] int awakeningCount;
 
+    public static readonly int MaxAwakeningCount = 4;  // 5段階まで強化可能
     static readonly int[] BaseNeedSkillStock = { 25, 40, 65, 80, 100 };    // スキルの所持数(同種のスキル)
-    static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト
+    static readonly int[] IPBaseCost = { 100, 250, 500, 750, 1000 };        // 知見ポイントのコスト
     public Category Category => category;
     public Sprite Icon => sprite;
     public string Name => name;
@@ -44,8 +46,24 @@ public abstract class SkillSO : ScriptableObject
     }
 
 
-    public int GetNeedStockCount() { return BaseNeedSkillStock[awakeningCount]; }
-    public bool CanAwaking() { return skillStock >= GetNeedStockCount(); }
+    public int GetNeedStockCount()
+    {
+        // 五段階強化分のリソースしか設定していないので
+        if (awakeningCount >= BaseNeedSkillStock.Length)
+        {
+            awakeningCount = MaxAwakeningCount + 1;
+            return 0;
+        }
+
+        return BaseNeedSkillStock[awakeningCount];
+    }
+
+    /// <summary>
+    /// スキルのストック数と最大覚醒回数を確認する
+    /// </summary>
+    public bool CanAwaking() { return skillStock >= GetNeedStockCount() && awakeningCount <= MaxAwakeningCount; }
+
+    public bool MaxAwaking() { return awakeningCount > MaxAwakeningCount; }
 
     public void CountUpStock() => skillStock++;
     public void CountUpAwakening() => awakeningCount++;

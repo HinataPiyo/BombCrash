@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ColdShot", menuName = "Skill/Skills/ColdShot")]
 public class ColdShot : SkillSO
 {
-    static readonly int[] throwCount = new int[] { 1, 2, 3, 3, 3 };
+    static readonly int[] throwCount = new int[] { 1, 2, 3, 3, 3, 3 };
     static readonly float nextThrowInterval = 0.5f;
     [Header("スキルが発動する前に行う動作"), SerializeField] GameObject trigger_Preafab;    // 爆弾を投げるなど
 
@@ -47,9 +47,9 @@ public class ColdShot : SkillSO
     /// <summary>
     /// 段階的にクールタイムの減少値を確定
     /// </summary>
-    public override float GetDecCoolTime(int awakening)
+    public override float GetDecCoolTime(int awakeningCount)
     {
-        float[] decCT = { 0, 0, 0.5f, 1, 2.5f };
-        return coolTime - decCT[awakening];
+        float[] decCT = { 0, 0, 0.5f, 1, 1.5f, 2f };
+        return coolTime - decCT[awakeningCount];
     }
 }
