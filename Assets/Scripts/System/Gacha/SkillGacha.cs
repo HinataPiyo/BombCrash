@@ -16,6 +16,7 @@ public class SkillGacha : GachaSystemController
     /// </summary>
     public override void SinglePullOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         Rarity rarity = Draw();     // レアリティを選出
         // UIを更新する & ガチャレベルが超えられるか確認
         CheckLevelUpGacha(1);
@@ -31,6 +32,7 @@ public class SkillGacha : GachaSystemController
     /// </summary>
     public override void MultiPullOnClick(int pullCount)
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         List<Rarity> rarities = new List<Rarity>();
         for (int ii = 0; ii < pullCount; ii++)
         {

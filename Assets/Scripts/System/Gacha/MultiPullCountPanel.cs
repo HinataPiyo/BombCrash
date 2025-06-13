@@ -10,6 +10,7 @@ public class MultiPullCountPanel : MonoBehaviour
     [SerializeField] GameObject multiPullCountObj;
     [SerializeField] TMP_InputField multiCountInputField;
     [SerializeField] Button pullCountDecideButton;
+    [SerializeField] Button multiBackButton;
 
     [Header("Range")]
     [SerializeField] Button plusButton;
@@ -21,6 +22,7 @@ public class MultiPullCountPanel : MonoBehaviour
     {
         gsCtrl = GetComponent<GachaSystemController>();
         pullCountDecideButton.onClick.AddListener(DisideButtonOnClick);
+        multiBackButton.onClick.AddListener(MultiBackOnClick);
 
         plusButton.onClick.AddListener(PlusButtonOnClick);
         minusButton.onClick.AddListener(MinusButtonOnClick);
@@ -31,10 +33,19 @@ public class MultiPullCountPanel : MonoBehaviour
     }
 
     /// <summary>
+    /// 一括パネルを非表示にする
+    /// </summary>
+    public void MultiBackOnClick()
+    {
+        multiPullCountObj.SetActive(false);
+    }
+
+    /// <summary>
     /// 一括ボタンが押された時のPanelの開閉
     /// </summary>
     public void OnMultiPullCountPanel(int pullCount)
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         multiCountInputField.text = pullCount.ToString();
 
         multiPullCountObj.SetActive(true);
@@ -79,6 +90,7 @@ public class MultiPullCountPanel : MonoBehaviour
     /// </summary>
     void SetCountInputField(int count)
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         multiCountInputField.text = count.ToString();
     }
 
@@ -87,6 +99,7 @@ public class MultiPullCountPanel : MonoBehaviour
     /// </summary>
     void PlusButtonOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         int count = GetCountInputFieldToInt();
         if (count >= playerSO.InsightPointHaveAmount / gUICtrl.SinglePullCount) return;
         count++;
@@ -98,6 +111,7 @@ public class MultiPullCountPanel : MonoBehaviour
     /// </summary>
     void MinusButtonOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         int count = GetCountInputFieldToInt();
         if (count <= 10) return;
         count--;
@@ -110,6 +124,7 @@ public class MultiPullCountPanel : MonoBehaviour
     /// </summary>
     void MaxButtonOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         int count = playerSO.InsightPointHaveAmount / gUICtrl.SinglePullCount;
         SetCountInputField(count);
     }
@@ -120,6 +135,7 @@ public class MultiPullCountPanel : MonoBehaviour
     /// </summary>
     void MinButtonOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         int count = 10;
         SetCountInputField(count);
     }
