@@ -40,8 +40,10 @@ public class WaveManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null) Instance = this;
+        if (Instance == null) Instance = this;
         else Destroy(gameObject);
+        
+        if(bsCtrl == null) Debug.LogError("BossSpawnController が設定されていません。");
     }
 
     void Start()
