@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class SkillStatusSlotController : MonoBehaviour
+public class OtomoSkillStatusSlotController : MonoBehaviour
 {
     [SerializeField] Transform equipmentSkillSlot_Parent;
     [SerializeField] OtomoSkillStatusSlot[] equipmentSkillSlot;
@@ -32,8 +32,9 @@ public class SkillStatusSlotController : MonoBehaviour
     /// </summary>
     void SkillChangeEquipment(int slotNo)
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         // ディレクターが再生中だった場合処理を終了
-        if(OtomoPanelChange.Instance.Director.state == PlayState.Playing) return;
+        if (OtomoPanelChange.Instance.Director.state == PlayState.Playing) return;
 
         // スロットがロック状態か確認する、ロック状態だったら処理を終了
         if(equipmentSkillSlot[slotNo].SlotState == SkillEquipmentState.Locked) return;

@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class ThrowBomb : MonoBehaviour
@@ -14,6 +15,9 @@ public class ThrowBomb : MonoBehaviour
     float reloadProgressTime;
     Range rangeY = new Range { min = -1.5f, max = 4f };
     int currentHaveBomb;
+
+    // スキルによる上昇値
+    float creteSpeedUp = 1f;
 
     void Awake()
     {
@@ -37,9 +41,9 @@ public class ThrowBomb : MonoBehaviour
 
     void Update()
     {
-        if(GameSystem.Instance.IsGameOver == true)
+        if (GameSystem.Instance.IsGameOver == true)
         {
-            if(bombExplosionPoint != null) Destroy(bombExplosionPoint.gameObject);
+            if (bombExplosionPoint != null) Destroy(bombExplosionPoint.gameObject);
             return;
         }
 
@@ -81,9 +85,9 @@ public class ThrowBomb : MonoBehaviour
     /// </summary>
     void Reload()
     {
-        if(currentHaveBomb > statusSO.MaxHaveBomb) return;
-        reloadProgressTime -= Time.deltaTime;
-        if(reloadProgressTime <= 0)
+        if (currentHaveBomb > statusSO.MaxHaveBomb) return;
+        reloadProgressTime -= Time.deltaTime * creteSpeedUp;
+        if (reloadProgressTime <= 0)
         {
             currentHaveBomb++;      // 爆弾制作
             mainCanvas.BombHaveUpdate(currentHaveBomb);
@@ -96,18 +100,27 @@ public class ThrowBomb : MonoBehaviour
     /// </summary>
     void ExplosionPointPosition()
     {
-        if(Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             Vector3 pos = bombExplosionPoint.position;
             pos.y = Mathf.Clamp(pos.y + explosionPointSpeed * Time.deltaTime, rangeY.min, rangeY.max);
             bombExplosionPoint.position = pos;
         }
-        else if(Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             Vector3 pos = bombExplosionPoint.position;
             pos.y = Mathf.Clamp(pos.y - explosionPointSpeed * Time.deltaTime, rangeY.min, rangeY.max);
             bombExplosionPoint.position = pos;
         }
+    }
+
+    /// <summary>
+    /// 爆弾の作成速度を上昇させる
+    /// </summary>
+    public void CreateBombTimeUp(bool isApply, float speed)
+    {
+        if (isApply) creteSpeedUp += speed;
+        else creteSpeedUp = 1f;     // デフォルトに戻す
     }
 
 }

@@ -7,7 +7,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
 {
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI effectText;
-    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] TextMeshProUGUI awakingCountText;
     [SerializeField] TextMeshProUGUI coolTimeText;
     [Header("スキルの自動か手動か")]
     [SerializeField] Button autoManualButton;
@@ -37,8 +37,8 @@ public class OtomoSkillStatusSlot : SkillSlotBase
 
         base.SetSkill(skillSO);
         nameText.text = skillSO.Name;
-        effectText.text = skillSO.Effect;
-        levelText.text = "Lv " + (skillSO.Level + 1).ToString("F0");
+        effectText.text = skillSO.GetEffectDiscription(skillSO.AwakeningCount);
+        awakingCountText.text = "覚醒 " + skillSO.AwakeningCount.ToString("F0");
         coolTimeText.text = "CT:" + skillSO.CoolTime.ToString("F0");
 
         m_skillSO.IsAuto = false;       // 初期は必ず手動で初期化
@@ -55,7 +55,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
             rarityText.text = "-";
             nameText.text = "-";
             effectText.text = "-";
-            levelText.text = "-";
+            awakingCountText.text = "-";
             coolTimeText.text = "CT:-";
         }
     }
@@ -69,7 +69,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
             rarityText.text = "-";
             nameText.text = "-";
             effectText.text = "-";
-            levelText.text = "-";
+            awakingCountText.text = "-";
             coolTimeText.text = "-";
         }
     }
@@ -81,6 +81,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
     /// </summary>
     void ChangeAutoOrManual()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         // 手動、自動を反転させる
         m_skillSO.IsAuto = !m_skillSO.IsAuto;
         autoManualAnim.SetBool("ChangeAuto", m_skillSO.IsAuto);

@@ -40,34 +40,11 @@ public class AttachmentPanelChange : MonoBehaviour
         }
     }
 
-    void StartBackHome()
-    {
-        SoundManager.Instance.PlaySE(1);
-        StartCoroutine(BackHome());
-    }
-
-    IEnumerator BackHome()
-    {
-        // フェードイン処理
-        homeSceneCont.StartPanelChangeFade();
-        yield return new WaitUntil(() => homeSceneCont.FadeInEnd);
-        foreach(var panel in isActivePanel)
-        {
-            panel.SetActive(false);
-        }
-
-        isActiveHomePanel.SetActive(true);
-        homeSceneCont.PlayHomeDirector();
-
-        // フェードアウト処理
-        homeSceneCont.StartFadeOut();
-        yield break;
-    }
-
     void StatusToAttachment()
     {
         // Directorが再生中だった場合、処理を行わない
         if(director.state == PlayState.Playing) return;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         director.playableAsset = statusToAttachment;
         director.RebindPlayableGraphOutputs();
         director.Play();
@@ -77,6 +54,7 @@ public class AttachmentPanelChange : MonoBehaviour
     {
         // Directorが再生中だった場合、処理を行わない
         if(director.state == PlayState.Playing) return;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         director.playableAsset = attachmentToStatus;
         director.RebindPlayableGraphOutputs();
         director.Play();

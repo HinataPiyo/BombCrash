@@ -34,7 +34,7 @@ public class PlayerOrOtomoCanvas : MonoBehaviour
     void StartChangePanel(int num)
     {
         if (isFadeIn) return;
-        SoundManager.Instance.PlaySE(1);
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         StartCoroutine(ChangePanelProc(num));   // 画面切り替え（パネル）
     }
 

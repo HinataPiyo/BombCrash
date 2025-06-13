@@ -71,6 +71,7 @@ public class ResultCanvasController : MonoBehaviour
 
     void ReturnButtonOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         playerSO.SceneName = SceneName.HomeScene;
         SceneManager.LoadScene("LoadScene");
     }

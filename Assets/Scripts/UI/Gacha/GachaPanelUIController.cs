@@ -98,6 +98,7 @@ public class GachaPanelUIController : MonoBehaviour
     /// </summary>
     public void CheckGachaButton()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         singlePullButton.interactable = CanAffordMultiCount(SinglePullCount);
         multiPullButton.interactable = CanAffordMultiCount(SinglePullCount * 10);
     }

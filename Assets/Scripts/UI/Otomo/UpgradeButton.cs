@@ -51,10 +51,12 @@ namespace OtomoSkill
         /// </summary>
         void ExecuteUpgrade()
         {
+            SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
+            
             SkillSO skill = OtomoSkillDetailPanel.Instance.SkillSO;
             if (skill == null) return; // スキルが選択されていない場合は何もしない
 
-            skill.CountUpAwaking();     // 覚醒回数をカウントアップ
+            skill.CountUpAwakening();     // 覚醒回数をカウントアップ
             playerSO.InsightPointHaveAmount = -skill.InsightPointFetchCost();   // 知見ポイントを消費
             OtomoSkillDetailPanel.Instance.SetText(skill);                      // スキルのUIを更新
             SkillInventoryManager.Instance.InventorySlotUpdateUI(skill);      // スキルのインベントリを更新

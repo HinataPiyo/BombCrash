@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+
+    
+
     public static SoundManager Instance { get; private set; }
     [SerializeField] AudioSource seSouse;
     [SerializeField] AudioSource bgmSouse;
     [SerializeField] AudioClip playerDieBgm;
-    [SerializeField] AudioClip[] seClips;
+    [SerializeField] SoundDefine.SEStatus[] seClips;
 
     void Awake()
     {
@@ -25,9 +28,9 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public void PlaySE(int soundNum)
+    public void PlaySE(SoundDefine.SE type)
     {
-        seSouse.PlayOneShot(seClips[soundNum]);
+        seSouse.PlayOneShot(SoundDefine.GetSE(seClips, type));
     }
 
     public void StopBgm()

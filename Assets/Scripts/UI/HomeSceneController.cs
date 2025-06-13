@@ -65,7 +65,7 @@ public class HomeSceneController : MonoBehaviour
     void ChangePanelProc(int num)
     {
         if (FadeInEnd) return;
-        SoundManager.Instance.PlaySE(1);
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         StartCoroutine(ChangePanelButtonClick(num));
     }
     /// <summary>

@@ -92,6 +92,7 @@ public class AttachmentShopSlot : MonoBehaviour
     /// </summary>
     public void DevelopOrEquipOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         // 装備中だった場合以降の処理は行わない
         CheckCanStat();
         if (AttachmentDataSO.IsEquiped) return;

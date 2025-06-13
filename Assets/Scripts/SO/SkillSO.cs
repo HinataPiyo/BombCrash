@@ -1,4 +1,4 @@
-using UnityEditor.EditorTools;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public abstract class SkillSO : ScriptableObject
@@ -8,10 +8,8 @@ public abstract class SkillSO : ScriptableObject
     [Tooltip("カテゴリ"), SerializeField] Category category;
     [Tooltip("画像"), SerializeField] Sprite sprite;
     [Tooltip("名前"), SerializeField] new string name;
-    [Tooltip("効果"), SerializeField] string effect;
     [Tooltip("レアリティ"), SerializeField] Rarity rarity;
-    [Tooltip("レベル"), SerializeField] int level = 0;
-    [Tooltip("クールタイム(CT)"), SerializeField] float coolTime;
+    [Tooltip("クールタイム(CT)"), SerializeField] protected float coolTime;
     bool isEndCoolTime = true;      // クールタイムが終了しているかどうか
     
     [Header("リソース情報")]
@@ -19,17 +17,16 @@ public abstract class SkillSO : ScriptableObject
     [Tooltip("Skillのストック数"), SerializeField] int skillStock;
     [Tooltip("覚醒回数"), SerializeField] int awakeningCount;
 
+    public static readonly int MaxAwakeningCount = 4;  // 5段階まで強化可能
     static readonly int[] BaseNeedSkillStock = { 25, 40, 65, 80, 100 };    // スキルの所持数(同種のスキル)
-    static readonly int[] IPBaseCost = { 50, 75, 100, 125 };        // 知見ポイントのコスト
+    static readonly int[] IPBaseCost = { 100, 250, 500, 750, 1000 };        // 知見ポイントのコスト
     public Category Category => category;
     public Sprite Icon => sprite;
     public string Name => name;
-    public string Effect => effect;
     public Rarity Rarity => rarity;
-    public int Level => level;
-    public float CoolTime => coolTime;
+    public float CoolTime => GetDecCoolTime(awakeningCount);
     public int SkillStock => skillStock;
-    public int AwakingCount => awakeningCount;
+    public int AwakeningCount => awakeningCount;
     public bool IsEndCoolTime { get { return isEndCoolTime; } set { isEndCoolTime = value; } }
     public bool IsAuto { get { return isAuto; } set { isAuto = value; } }
 
@@ -38,23 +35,41 @@ public abstract class SkillSO : ScriptableObject
     /// </summary>
     public int InsightPointFetchCost()
     {
-        if (level == 0)
+        if (awakeningCount == 0)
         {
             return IPBaseCost[(int)rarity];
         }
         // レアリティごとに決まった値を返す
         // 0:N, 1:R, 2:SR, 3:SSR
-        int cost = Mathf.FloorToInt(IPBaseCost[(int)rarity] * (ipCostUpRate * level));
+        int cost = Mathf.FloorToInt(IPBaseCost[(int)rarity] * (ipCostUpRate * awakeningCount));
         return cost;
     }
 
 
-    public int GetNeedStockCount() { return BaseNeedSkillStock[awakeningCount]; }
-    public bool CanAwaking() { return skillStock >= GetNeedStockCount(); }
+    public int GetNeedStockCount()
+    {
+        // 五段階強化分のリソースしか設定していないので
+        if (awakeningCount >= BaseNeedSkillStock.Length)
+        {
+            awakeningCount = MaxAwakeningCount + 1;
+            return 0;
+        }
+
+        return BaseNeedSkillStock[awakeningCount];
+    }
+
+    /// <summary>
+    /// スキルのストック数と最大覚醒回数を確認する
+    /// </summary>
+    public bool CanAwaking() { return skillStock >= GetNeedStockCount() && awakeningCount <= MaxAwakeningCount; }
+
+    public bool MaxAwaking() { return awakeningCount > MaxAwakeningCount; }
 
     public void CountUpStock() => skillStock++;
-    public void CountUpAwaking() => awakeningCount++;
-    
+    public void CountUpAwakening() => awakeningCount++;
+
+    public abstract float GetDecCoolTime(int awakening);                // クールタイムの減少値
+    public abstract string GetEffectDiscription(int awakening);         // スキルの説明を返す
     public abstract void Execute();     // スキルの実行処理
 }
 
