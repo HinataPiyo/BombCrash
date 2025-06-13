@@ -33,6 +33,7 @@ public class GachaUIController : MonoBehaviour
     /// <param name="changeIndex">矢の順番</param>
     void ArrowOnClick(int changeIndex)
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         arrowStat[changeIndex].isReverse = !arrowStat[changeIndex].isReverse;       // 現在の反転状態を切り替える
 
         // もし矢が反転状態だったら

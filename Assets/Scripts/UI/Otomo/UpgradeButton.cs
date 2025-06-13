@@ -51,6 +51,8 @@ namespace OtomoSkill
         /// </summary>
         void ExecuteUpgrade()
         {
+            SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
+            
             SkillSO skill = OtomoSkillDetailPanel.Instance.SkillSO;
             if (skill == null) return; // スキルが選択されていない場合は何もしない
 

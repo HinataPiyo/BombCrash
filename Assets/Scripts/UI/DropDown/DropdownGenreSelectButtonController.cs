@@ -59,6 +59,7 @@ public class DropdownGenreSelectButtonController : MonoBehaviour
     /// </summary>
     void DropOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         if (isPanelOpen)
         {
             anim.SetTrigger("Close");

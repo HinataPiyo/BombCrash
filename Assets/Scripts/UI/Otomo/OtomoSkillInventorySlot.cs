@@ -42,13 +42,14 @@ public class OtomoSkillInventorySlot : SkillSlotBase
     /// </summary>
     void ButtonOnClick()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.Slot_Click);
         anim.SetTrigger("Click");
 
         // スキル変更中だった場合
         if(OtomoSkillManager.Instance.isEquipmentChangeNow == true)
         {
             // スキルを変更
-            SkillStatusSlotController skillSlotController = FindAnyObjectByType<SkillStatusSlotController>();
+            OtomoSkillStatusSlotController skillSlotController = FindAnyObjectByType<OtomoSkillStatusSlotController>();
             skillSlotController.SkillChange_SetSkill(m_skillSO);
         }
         else

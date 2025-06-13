@@ -29,7 +29,7 @@ public class OtomoSkillManager : MonoBehaviour
     {
         // 現在の装備スキルをクリア
         equippedSkill.Clear();
-        SkillStatusSlotController slotsCont = FindAnyObjectByType<SkillStatusSlotController>();
+        OtomoSkillStatusSlotController slotsCont = FindAnyObjectByType<OtomoSkillStatusSlotController>();
         // 新しいスキルを追加
         foreach (var skill in slotsCont.EquipmentSkillSlot)
         {

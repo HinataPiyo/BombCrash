@@ -46,7 +46,7 @@ public class OtomoPanelChange : MonoBehaviour
 
     void StartBackHome()
     {
-        SoundManager.Instance.PlaySE(1);
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         StartCoroutine(BackHome());
     }
 
@@ -72,6 +72,7 @@ public class OtomoPanelChange : MonoBehaviour
     {
         // Directorが再生中だった場合、処理を行わない
         if(director.state == PlayState.Playing) return;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         director.playableAsset = statusToUpgrade;
         director.RebindPlayableGraphOutputs();
         director.Play();
@@ -81,6 +82,7 @@ public class OtomoPanelChange : MonoBehaviour
     {
         // Directorが再生中だった場合、処理を行わない
         if (director.state == PlayState.Playing) return;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         director.playableAsset = upgradeToStatus;
         director.RebindPlayableGraphOutputs();
         director.Play();
@@ -90,6 +92,7 @@ public class OtomoPanelChange : MonoBehaviour
     {
         // Directorが再生中だった場合、処理を行わない
         if(director.state == PlayState.Playing) return;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         director.playableAsset = skillEquipmentChanges;
         director.RebindPlayableGraphOutputs();
         director.Play();
@@ -99,6 +102,7 @@ public class OtomoPanelChange : MonoBehaviour
     {
         // Directorが再生中だった場合、処理を行わない
         if(director.state == PlayState.Playing) return;
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         director.playableAsset = skillEquipment_EndBack;
         director.RebindPlayableGraphOutputs();
         director.Play();

@@ -81,6 +81,7 @@ public class OtomoSkillStatusSlot : SkillSlotBase
     /// </summary>
     void ChangeAutoOrManual()
     {
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BTN_Click);
         // 手動、自動を反転させる
         m_skillSO.IsAuto = !m_skillSO.IsAuto;
         autoManualAnim.SetBool("ChangeAuto", m_skillSO.IsAuto);

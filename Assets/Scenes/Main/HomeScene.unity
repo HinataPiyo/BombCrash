@@ -3567,7 +3567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3575,7 +3575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3615,11 +3615,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 625
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -225
       objectReference: {fileID: 0}
     - target: {fileID: 8577198362204045395, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3636,6 +3636,10 @@ PrefabInstance:
     - target: {fileID: 8577198362204045396, guid: 17b36792711724047ba78b516c28f812, type: 3}
       propertyPath: m_Name
       value: Skill
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577198362204045396, guid: 17b36792711724047ba78b516c28f812, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5010,11 +5014,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seSouse: {fileID: 1587557644}
   bgmSouse: {fileID: 697069537}
-  playerDieBgm: {fileID: 0}
+  playerDieBgm: {fileID: 8300000, guid: 7ba8f1ff88d0665489a5b1f489c3af4e, type: 3}
   seClips:
-  - {fileID: 8300000, guid: adae527f20d661843a2a52cdc6fa7cd1, type: 3}
-  - {fileID: 8300000, guid: e6671ef09076ec240b26b1cfe94bac37, type: 3}
-  - {fileID: 8300000, guid: ef1a4346c5eb025439a0d6edabedc432, type: 3}
+  - type: 1
+    clip: {fileID: 8300000, guid: cfa66eb1f6b24c14fa0ada86a85f462d, type: 3}
+  - type: 2
+    clip: {fileID: 8300000, guid: 718b70500063a8a4cbdd8c51b65f2215, type: 3}
+  - type: 3
+    clip: {fileID: 8300000, guid: e6671ef09076ec240b26b1cfe94bac37, type: 3}
+  - type: 4
+    clip: {fileID: 8300000, guid: adae527f20d661843a2a52cdc6fa7cd1, type: 3}
 --- !u!1 &703545838
 GameObject:
   m_ObjectHideFlags: 0

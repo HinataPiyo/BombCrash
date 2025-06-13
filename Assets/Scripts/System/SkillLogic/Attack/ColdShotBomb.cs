@@ -66,7 +66,7 @@ public class ColdShotBomb : MonoBehaviour
     /// </summary>
     void BOOM()
     {
-        SoundManager.Instance.PlaySE(0);             // サウンド再生
+        SoundManager.Instance.PlaySE(SoundDefine.SE.BOOM);             // サウンド再生
         GameSystem.Instance.CameraShake.Shake(0.1f, 1f, 1.5f);      // カメラ振動
         
         // 爆発アニメーションをここで（一旦赤い円を表示している）
