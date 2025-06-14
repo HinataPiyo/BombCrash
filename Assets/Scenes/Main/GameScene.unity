@@ -4737,6 +4737,7 @@ GameObject:
   - component: {fileID: 1123184838}
   - component: {fileID: 1123184839}
   - component: {fileID: 1123184840}
+  - component: {fileID: 1123184841}
   m_Layer: 0
   m_Name: EnemySpawnField
   m_TagString: Untagged
@@ -4773,14 +4774,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1062877049dcc47a3e20f0f9c12ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWaveIndex: 9
+  currentWaveIndex: 8
   eSpawnC: {fileID: 1123184840}
   stanpedeTape: {fileID: 1147546971}
   waveCountText: {fileID: 1103826741}
   waveTimerSlider: {fileID: 1760297319}
   waveRule: {fileID: 11400000, guid: 22c0692c62b39c24b8d99c475740b519, type: 2}
   cutInFlowCont: {fileID: 0}
-  bossSpawnController: {fileID: 0}
+  bsCtrl: {fileID: 1123184841}
 --- !u!114 &1123184840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4793,6 +4794,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c41edff7405ef429c0ac1a8ff26a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1123184841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123184837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ce29fadc65d5945b25005394f654fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
 --- !u!1 &1128859222
 GameObject:
   m_ObjectHideFlags: 0
@@ -7922,8 +7936,10 @@ MonoBehaviour:
   bgmSouse: {fileID: 1812266350}
   playerDieBgm: {fileID: 8300000, guid: 7ba8f1ff88d0665489a5b1f489c3af4e, type: 3}
   seClips:
-  - {fileID: 8300000, guid: cfa66eb1f6b24c14fa0ada86a85f462d, type: 3}
-  - {fileID: 8300000, guid: 718b70500063a8a4cbdd8c51b65f2215, type: 3}
+  - type: 1
+    clip: {fileID: 8300000, guid: cfa66eb1f6b24c14fa0ada86a85f462d, type: 3}
+  - type: 2
+    clip: {fileID: 8300000, guid: 718b70500063a8a4cbdd8c51b65f2215, type: 3}
 --- !u!82 &1812266349
 AudioSource:
   m_ObjectHideFlags: 0

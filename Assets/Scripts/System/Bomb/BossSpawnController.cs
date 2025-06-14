@@ -9,7 +9,8 @@ public class BossSpawnController : MonoBehaviour
 
     public void SpawnBoss()
     {
-        if (IsBossSpawned) return;      // すでにボスが出現している場合は何もしない
+        if (IsBossSpawned) return;      // 
+        if (spawnPoint == null|| bossPrefab == null) return;
 
         // ボスを出現させる処理
         GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
