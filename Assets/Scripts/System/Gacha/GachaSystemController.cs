@@ -17,7 +17,7 @@ public abstract class GachaSystemController : MonoBehaviour
     {
         gpUICtrl = GetComponent<GachaPanelUIController>();
 
-        nowGachaLevel = 3;      // テスト : 基本0
+        nowGachaLevel = 0;      // テスト : 基本0
         gpUICtrl.SetUpdateUI(nowGachaLevel, nowPullCount);
     }
 
