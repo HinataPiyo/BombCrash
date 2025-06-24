@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 20.87, y: -0.82}
+  m_SizeDelta: {x: 236.82, y: 48.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3858876618971425263
 CanvasRenderer:
@@ -67,15 +67,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u62E1\u5F35\u7814\u7A76"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
-  m_sharedMaterial: {fileID: -5013957895090389883, guid: befbb49be0800974390cfcfc54e9f992, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f4edf37cbda504da2ad10e1ee520ec, type: 2}
+  m_sharedMaterial: {fileID: -4735984687296256073, guid: c8f4edf37cbda504da2ad10e1ee520ec, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285182969
-  m_fontColor: {r: 0.9764706, g: 0.7019608, b: 0.41568628, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32.8
+  m_fontSizeBase: 44
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 44
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5550497934099734451}
   - component: {fileID: 3578172364184509954}
   - component: {fileID: 6882920362246612894}
+  - component: {fileID: 1708024326214841699}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -172,7 +173,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 25, y: -30}
-  m_SizeDelta: {x: 335, y: 70}
+  m_SizeDelta: {x: 370, y: 110}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3578172364184509954
 CanvasRenderer:
@@ -202,8 +203,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 47a44d42dba8c4bc6bee487450f2136b, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f93d4df6cf7fed14ea23630bfee7a9dc, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -212,3 +213,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1708024326214841699
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766554954354714478}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
