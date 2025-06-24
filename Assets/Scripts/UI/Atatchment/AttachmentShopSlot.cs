@@ -25,6 +25,7 @@ public class AttachmentShopSlot : MonoBehaviour
     void Awake()
     {
         devOrEquipButton.onClick.AddListener(DevelopOrEquipOnClick);
+        openCloseButton.onClick.AddListener(OpenAndCloseButtonOnClick);
         anim = GetComponent<Animator>();
         devOrEquipButtonText = devOrEquipButton.GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -117,22 +118,18 @@ public class AttachmentShopSlot : MonoBehaviour
     /// <summary>
     /// カーソルがSlotに入った時の処理
     /// </summary>
-    public void OnCursorEnter()
+    public void OpenAndCloseButtonOnClick()
     {
-        if (IsPanelOpen) return;
+        if (IsPanelOpen)
+        {
+            anim.SetTrigger("Close");
+            IsPanelOpen = false;
+            return;
+        }
+
         assCtrl.OtherPanelOnClick();        // 自身のパネルを開く前に他のパネルを閉じる
         CheckCanStat();      // Openするときに毎回　リソースの所持数を超えているか確認
         anim.SetTrigger("Open");
         IsPanelOpen = true;
-    }
-
-
-    /// <summary>
-    /// カーソルがSlotから出たときの処理
-    /// </summary>
-    public void OnCursorExit()
-    {
-        anim.SetTrigger("Close");
-        IsPanelOpen = false;
     }
 }
