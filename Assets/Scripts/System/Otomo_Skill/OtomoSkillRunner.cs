@@ -7,14 +7,14 @@ public class OtomoSkillRunner : MonoBehaviour
     List<SkillSO> equippedSkill = new List<SkillSO>();
     [SerializeField] EnemySpawnController esCtrl;
     [SerializeField] Transform skillSlotParent;
-    [SerializeField] EquipmentNowSkilSlot[] equipmentNowSkilSlots;
+    [SerializeField] EquipmentNowSkillSlot[] equipmentNowSkilSlots;
     float isAutoWaitTime = 1f; // 自動発動の待機時間
 
     void Start()
     {
         if(OtomoSkillManager.Instance != null)
         { equippedSkill = OtomoSkillManager.Instance.EquippedSkill; }
-        equipmentNowSkilSlots = skillSlotParent.GetComponentsInChildren<EquipmentNowSkilSlot>();
+        equipmentNowSkilSlots = skillSlotParent.GetComponentsInChildren<EquipmentNowSkillSlot>();
 
         // スキルのスロットを更新する
         for (int ii = 0; ii < equipmentNowSkilSlots.Length; ii++)
@@ -70,6 +70,7 @@ public class OtomoSkillRunner : MonoBehaviour
     /// <param name="index">スキルのインデックス</param>
     void SkillExecute(int index)
     {
+        if (equippedSkill.Count == 0) return;
         if (equippedSkill[index] == null) return;
 
         // クールタイムが終了していない場合は何もしない

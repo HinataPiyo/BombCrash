@@ -41,9 +41,9 @@ public class OtomoSkillStatusSlot : SkillSlotBase
         awakingCountText.text = "覚醒 " + skillSO.AwakeningCount.ToString("F0");
         coolTimeText.text = "CT:" + skillSO.CoolTime.ToString("F0");
 
-        m_skillSO.IsAuto = false;       // 初期は必ず手動で初期化
-        autoManualAnim.SetBool("ChnageAuto", skillSO.IsAuto);
+        Debug.Log(m_skillSO.IsAuto);
         autoManualButton.gameObject.SetActive(m_skillSO != null);
+        autoManualAnim.SetBool("ChangeAuto", m_skillSO.IsAuto);
     }
 
     public void LockedSlot()

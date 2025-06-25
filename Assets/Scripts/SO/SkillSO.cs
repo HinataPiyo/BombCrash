@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class SkillSO : ScriptableObject
 {
     [Header("基本情報")]
-    [Tooltip("手動(false)or自動(true)"), SerializeField] bool isAuto;       // 手動（false）か自動（true）か
+    [Tooltip("手動(false)or自動(true)"), SerializeField] bool isAuto = true;       // 手動（false）か自動（true）か
     [Tooltip("カテゴリ"), SerializeField] Category category;
     [Tooltip("画像"), SerializeField] Sprite sprite;
     [Tooltip("名前"), SerializeField] new string name;
