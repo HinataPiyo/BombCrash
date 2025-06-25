@@ -53,6 +53,7 @@ public class GachaPanelUIController : MonoBehaviour
             proElems[ii].rarityText.text = SystemDefine.RarityToName(SystemDefine.rarities[ii]);
             // 色を設定
             proElems[ii].rarityText.color = proElems[ii].rarityColor;
+            proElems[ii].probabilityText.color = proElems[ii].rarityColor;
         }
     }
 

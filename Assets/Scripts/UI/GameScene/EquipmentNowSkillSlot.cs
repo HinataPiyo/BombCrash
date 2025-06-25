@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipmentNowSkilSlot : MonoBehaviour
+public class EquipmentNowSkillSlot : MonoBehaviour
 {
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI coolTimeText;

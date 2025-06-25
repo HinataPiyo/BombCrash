@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HomeCharacerAnimation : MonoBehaviour
+public class HomeCharacterAnimation : MonoBehaviour
 {
     [SerializeField] GameObject homeObj;
     [SerializeField] GameObject characterObj;

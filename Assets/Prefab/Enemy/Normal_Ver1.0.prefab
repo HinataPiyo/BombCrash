@@ -250,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 1069780567276425552, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: -6933640386107567374, guid: d5c08c295c340d34c85b746700f65a4c, type: 2}
+      objectReference: {fileID: -4735984687296256073, guid: c8f4edf37cbda504da2ad10e1ee520ec, type: 2}
     - target: {fileID: 1896639146878161715, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
       propertyPath: m_Name
       value: HpText
@@ -336,13 +336,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: d5c08c295c340d34c85b746700f65a4c, type: 2}
-    - target: {fileID: 3258274551636474128, guid: dc989907ab8aa9b49bca6895e50a9fa4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -6933640386107567374, guid: d5c08c295c340d34c85b746700f65a4c, type: 2}
+      propertyPath: m_fontColor32.rgba
+      value: 4279238844
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -372,10 +368,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8053123004912056807}
     m_Modifications:
-    - target: {fileID: 1183899872849849794, guid: 163a41b25b9987d48a050b079d724ef4, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 4136455183930518563, guid: e14eb4d9eba074660b35c9d2ccd6d8d9, type: 2}
     - target: {fileID: 1454478298141353400, guid: 163a41b25b9987d48a050b079d724ef4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
