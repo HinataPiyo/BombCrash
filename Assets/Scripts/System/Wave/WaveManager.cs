@@ -33,6 +33,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("ボス")]
     [SerializeField] BossSpawnController bsCtrl;
+    GameObject nowBoss;
     
     public int WaveCount => currentWaveIndex;
     public Transform GetCrossTo0Enemy() => eSpawnC.CrossTo0Enemy();
@@ -74,7 +75,10 @@ public class WaveManager : MonoBehaviour
             currentWaveData = WaveGenerator.GenerateWave(currentWaveIndex + 1, waveRule);
 
             // ボスをスポーン
-            if (0 == currentWaveIndex % BossSpawnController.BossWaveCount) bsCtrl.SpawnBoss();
+            if (0 == currentWaveIndex % BossSpawnController.BossWaveCount)
+            {
+                nowBoss = bsCtrl.SpawnBoss();
+            }
 
 
             // スタンピード時にtapeを表示する
@@ -110,7 +114,11 @@ public class WaveManager : MonoBehaviour
                     yield return null;
                 }
             }
-
+            else
+            {
+                yield return new WaitWhile(() => nowBoss != null);
+                bsCtrl.DieBoss();       // ボスが死んだときの処理を実行
+            }
             yield return new WaitUntil(() => eSpawnC.FieldOnEnemiesCheck());    // 最後の敵が倒されるまで待機
             if (currentWaveData.isStanpede && !bsCtrl.IsBossSpawned) stanpedeTape.End();                 // 終了モーションを再生
 
