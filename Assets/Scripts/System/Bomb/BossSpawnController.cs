@@ -7,17 +7,29 @@ public class BossSpawnController : MonoBehaviour
     public bool IsBossSpawned { get; private set; }     // ボスが出現しているかどうか
     public GameObject bossPrefab;          // ボスのプレハブ
 
-    public void SpawnBoss()
+    /// <summary>
+    /// ボスを生成する処理
+    /// </summary>
+    public GameObject SpawnBoss()
     {
         Debug.Log("kita");
-        if (IsBossSpawned) return;      // 
+        if (IsBossSpawned) return null;
         Debug.Log("rreturn");
-        if (spawnPoint == null || bossPrefab == null) return;
+        if (spawnPoint == null || bossPrefab == null) return null;
         Debug.Log("kokoyo");
 
         // ボスを出現させる処理
         GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
         IsBossSpawned = true;
         Debug.Log("kokoomade");
+        return boss;
+    }
+
+    /// <summary>
+    /// ボスを倒したときの処理
+    /// </summary>
+    public void DieBoss()
+    {
+        IsBossSpawned = false;
     }
 }
