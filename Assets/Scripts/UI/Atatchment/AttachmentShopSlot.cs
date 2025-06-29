@@ -87,6 +87,15 @@ public class AttachmentShopSlot : MonoBehaviour
         IsPanelOpen = false;
     }
 
+    /// <summary>
+    /// アニメーションをIdle状態にしリセットする
+    /// </summary>
+    public void ResetAnim()
+    {
+        anim.SetTrigger("Idle");
+        IsPanelOpen = false;
+    }
+
 
     /// <summary>
     /// 開発か装備というボタンをクリックしたときの処理
