@@ -82,6 +82,7 @@ public class AttachmentShopSlotController : MonoBehaviour
                 continue;
             }
 
+            slot.ResetAnim();
             // 指定したステータス名は表示
             slot.gameObject.SetActive(true);
         }
